@@ -10,7 +10,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/** Represents a 32-bit integer. */
+/** Encapsulates a 32-bit integer. */
 typedef struct Int32 {
     /** The underlying value of this Int32 */
     const int32_t value;

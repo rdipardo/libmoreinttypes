@@ -3,6 +3,7 @@
  */
 #include <moreinttypes/utils.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
@@ -148,9 +149,7 @@ int32_t parse_int(const char* str, unsigned base)
         {
             errno = 0;
             fprintf(stderr,
-                    "\n%s[%d]: VALUE ERROR: '%s' is greater than %d.\n",
-                    __FILE__,
-                    __LINE__,
+                    "\nVALUE ERROR: '%s' is greater than %d.\n",
                     str,
                     INT32_MAX);
         }
@@ -243,10 +242,8 @@ int64_t parse_int_64(const char* str, unsigned base)
         {
             errno = 0;
             fprintf(stderr,
-                    "\n%s[%d]: VALUE ERROR: '%s' is greater than " INT64_PTR_FMT
+                    "\nVALUE ERROR: '%s' is greater than " INT64_PTR_FMT
                     ".\n",
-                    __FILE__,
-                    __LINE__,
                     str,
                     INT64_MAX);
         }

@@ -6,7 +6,7 @@
 #ifndef STRING_UTILS_H
 #define STRING_UTILS_H 1
 
-#include <stdlib.h>
+#include <stddef.h>
 
 /**
  * @ingroup text

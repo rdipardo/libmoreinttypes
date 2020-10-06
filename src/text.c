@@ -1,16 +1,17 @@
 /**
  *  @file text.c
  */
-#include <moreinttypes/utils.h>
-#include <stdio.h>
-#include <string.h>
-
 #if defined(__GNUC__) && !defined(__MINGW32__)
+#    include <moreinttypes/utils.h>
 /* use POSIX implementation of `alloca.h` when available */
 #    include <alloca.h>
 #else
 #    include <malloc.h>
+#    include <moreinttypes/utils.h>
 #endif
+
+#include <stdio.h>
+#include <string.h>
 
 void append_string(char* dest, const char* src, size_t lim)
 {
@@ -24,7 +25,7 @@ void append_string(char* dest, const char* src, size_t lim)
     {
         buf = (char*)alloca(new_length);
         memset(buf, 0, new_length);
-        strncpy(buf, dest, offset);
+        snprintf(buf, offset, "%s", dest);
 
         offset -= 1;
         end  = offset;

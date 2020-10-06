@@ -10,7 +10,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/** Represents a 64-bit integer. */
+/** Encapsulates a 64-bit integer. */
 typedef struct Int64 {
     /** The underlying value of this Int64 */
     const int64_t value;

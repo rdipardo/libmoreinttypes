@@ -17,8 +17,8 @@ int main()
     test_math_lib();
 
     printf("\n====================== FINISHED ======================\n");
-     //printf("\nPress RETURN to continue . . . ");
-     //getchar();
+    //printf("\nPress RETURN to continue . . . ");
+    //getchar();
     return 0;
 }
 
@@ -92,12 +92,7 @@ void test_math_lib()
 
     printf("-1! = %.0Lf\n", MATCH_ARCH(factorial_of)(-1));
     printf("0! = %.0Lf\n", MATCH_ARCH(factorial_of)(0));
-
-#if defined(_MSC_VER) || defined(__MINGW32__)
     printf("170! = %.0Lf\n", MATCH_ARCH(factorial_of)(170));
-#else
-    printf("1754! = %.0Lf\n", MATCH_ARCH(factorial_of)(1754));
-#endif
 }
 
 void test_string_lib()

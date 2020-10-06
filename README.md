@@ -20,7 +20,7 @@ Features
   </tr>
 </table>
 
-- compiles on Windows and Linux platforms (some far)
+- compiles on Windows and Linux platforms (so far)
 - compatible with code targeting ANSI C
 
  **Note**
@@ -28,8 +28,7 @@ Features
 
 Examples
 --------
-**Using "member" functions**
-
+**Using function macros (they wrap the "member functions")**
 ```c
 #include <stdio.h>
 #include <moreinttypes/core.h>
@@ -84,19 +83,21 @@ printf("6! = %.0Lf\n", f);
 
 Building
 --------
-- All environments require [cmake](https://cmake.org)
-- [pkg-config](https://packages.debian.org/sid/pkg-config) is recommended, if available for your system
+- **All environments require [cmake](https://cmake.org)**
+- (_optional_) [pkg-config](https://packages.debian.org/sid/pkg-config), if available for your system
+- (_optional_) [doxygen](https://www.doxygen.nl/index.html), if you'd like a local copy of [the documentation][]
 
-**Windows** developers can use the Visual C++ compiler in either the 2015, 2017 or 2019 edition.
-If you prefer a minimal installation, [Microsoft Build Tools][] will be good enough.
+**Windows** developers can use the [Visual C++ compiler][] in either the 2015, 2017 or 2019 edition.
 
 Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will work also.
 
-**Linux** users can use any version of [gcc][] or [clang][].
+**Linux** devs can use [gcc][] (version 4.9 and up) or [clang][] (version 3.8 and up).
 
 > This project hasn't been tested on **MacOS**, but feel free to open a pull request with build instructions if you get it working!
 
-The build steps are the same for all environments:
+The build steps are the same for all environments, with one exception:
+
+- if you're using the **Visual C++ compiler**, start the [Developer Command Prompt][]; all other users can simply log in to their usual shell
 - clone the main branch and enter the root directory at the command line: `cd libmoreinttypes`
 - make and enter the build directory: `mkdir cmake-build && cd cmake-build`
 - run: `cmake .. `, or (to use a certain [makefile generator][]) `cmake .. -G"<name_of_generator>"`
@@ -143,7 +144,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-[Microsoft Build Tools]: https://www.microsoft.com/en-us/download/details.aspx?id=48159
+[Visual C++ compiler]: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2019
+[Developer Command Prompt]: https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs
 [MSYS2]: https://cmake.org/cmake/help/latest/generator/MSYS%20Makefiles.html#generator:MSYS%20Makefiles
 [MinGW]: https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html
 [nmake]: https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=vs-2019
@@ -151,4 +153,5 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [clang]: https://clang.llvm.org
 [makefile generator]: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
+[the documentation]: https://rdipardo.github.io/libmoreinttypes
 [polymorphic function macros]: https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html

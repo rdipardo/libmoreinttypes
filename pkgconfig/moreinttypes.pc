@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libmoreinttypes
+Description: Minimal C extension library providing enhanced integer types.
+Version: 1.0.0
+
+Libs: -L${libdir}  -lmoreinttypes
+Cflags: -I${includedir}

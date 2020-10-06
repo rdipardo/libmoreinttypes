@@ -1,0 +1,76 @@
+/**
+ *  @file text.c
+ */
+#include <moreinttypes/utils.h>
+#include <stdio.h>
+#include <string.h>
+
+#if defined(__GNUC__) && !defined(__MINGW32__)
+/* use POSIX implementation of `alloca.h` when available */
+#    include <alloca.h>
+#else
+#    include <malloc.h>
+#endif
+
+void append_string(char* dest, const char* src, size_t lim)
+{
+    char* buf     = NULL;
+    int succ      = 0;
+    size_t growth = strlen(src) + 1;
+    size_t end, offset = strlen(dest) + 1;
+    size_t new_length = offset + growth;
+
+    if (new_length < MAX_LEN && new_length < lim)
+    {
+        buf = (char*)alloca(new_length);
+        memset(buf, 0, new_length);
+        strncpy(buf, dest, offset);
+
+        offset -= 1;
+        end  = offset;
+        succ = snprintf(buf + offset, growth, "%s", src);
+
+        if (succ > 0 && (size_t)succ < MAX_LEN)
+        {
+            snprintf(dest + offset, growth, "%s", src);
+
+            if (!*(dest + end))
+            {
+                *(dest + end) = '\0';
+            }
+        }
+    }
+}
+
+void chomp(char(*pstr))
+{
+    size_t i, len = strlen(pstr) + 1;
+
+    if (pstr)
+    {
+        for (i = 0; i < len; i++)
+        {
+            if (i > 0 && i < len - 1
+                && (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
+            {
+                *(pstr + i) = '\0';
+                break;
+            }
+        }
+    }
+}
+
+void ltrim(char(*pstr))
+{
+    /** @todo Implement ::ltrim */
+}
+
+void rtrim(char(*pstr))
+{
+    /** @todo Implement ::rtrim */
+}
+
+void trim(char(*pstr))
+{
+    /** @todo Implement ::trim */
+}

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project (moreinttypes VERSION 1.0.0)
+project (moreinttypes VERSION 1.1.0)
 
 file(GLOB LIB_SRC "${PROJECT_SOURCE_DIR}/src/*.c*")
 file(GLOB PUBLIC_HEADERS "${PROJECT_SOURCE_DIR}/include/moreinttypes/*.h")
@@ -11,6 +11,7 @@ add_library(moreinttypes SHARED ${LIB_SRC})
 include_directories(moreinttypes "${PROJECT_SOURCE_DIR}/include")
 
 set_target_properties (moreinttypes PROPERTIES
+    VERSION ${PROJECT_VERSION}
     COMPILE_DEFINITIONS BUILDING_MOREINTTYPES=1
     LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build"
     # define these for .dll targets

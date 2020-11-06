@@ -26,11 +26,6 @@ For **all** contributions, make sure to:
 - **do not change any version numbers**
 - if the project compiles with no errors or warnings, [create your pull request][]
 
-
-### Hacktoberfest Participants
-
-PRs for credit in the Hacktoberfest competition will be tagged with `hacktoberfest-accepted` as soon as they are received.
-
 ---
 ###### Notes
 
@@ -45,5 +40,5 @@ PRs for credit in the Hacktoberfest competition will be tagged with `hacktoberfe
 [CMakeLists.txt]: https://www.jetbrains.com/help/clion/cmakelists-txt-file.html
 [open issues]: https://github.com/rdipardo/libmoreinttypes/issues?q=is%3Aissue+is%3Aopen
 [build instructions]: https://github.com/rdipardo/libmoreinttypes#building
-[main configuration file]: https://github.com/rdipardo/libmoreinttypes/blob/main/CMakeLists.txt
-[completed examples]: https://github.com/rdipardo/libmoreinttypes/tree/main/examples
+[main configuration file]: https://github.com/rdipardo/libmoreinttypes/blob/master/CMakeLists.txt
+[completed examples]: https://github.com/rdipardo/libmoreinttypes/tree/master/examples

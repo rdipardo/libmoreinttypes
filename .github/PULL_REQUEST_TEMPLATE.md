@@ -6,4 +6,4 @@
 **Note**
 Look up the issue number by visiting <https://github.com/rdipardo/libmoreinttypes/issues>
 
-[Code of Conduct]: https://github.com/rdipardo/libmoreinttypes/blob/main/CODE_OF_CONDUCT.md
+[Code of Conduct]: https://github.com/rdipardo/libmoreinttypes/blob/master/CODE_OF_CONDUCT.md

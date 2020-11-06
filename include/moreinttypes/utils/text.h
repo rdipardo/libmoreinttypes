@@ -31,7 +31,7 @@ extern "C" {
  *  @{
  */
 /** Appends text to a string.
- * @param dest Target buffer &mdash; @em make sure it's been initialized!
+ * @param dest Target buffer &mdash; <em>make sure it's been initialized!</em>
  * @param src Text to append.
  * @param lim Total size of target buffer.
  */

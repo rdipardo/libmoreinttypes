@@ -88,9 +88,9 @@ MOREINTTYPES_EXPORTS int64_t parse_int_64(const char* str, unsigned int base);
  *  @param n      An integer.
  *  @return A formatted string representation of `n` in base-2 notation.
  */
-MOREINTTYPES_EXPORTS char* binary_string(char* buffer, int32_t n);
+MOREINTTYPES_EXPORTS const char* binary_string(char* buffer, int32_t n);
 /** @copydoc ::binary_string */
-MOREINTTYPES_EXPORTS char* binary_string_64(char* buffer, int64_t n);
+MOREINTTYPES_EXPORTS const char* binary_string_64(char* buffer, int64_t n);
 /** @} */
 #ifdef __cplusplus
 }

@@ -19,7 +19,7 @@ typedef struct Int64 {
     /** Returns the factorial of this Int64's value. */
     long double (*n_bang)(struct Int64* const restrict);
     /** Returns the base-2 representation of this Int64's value as a string. */
-    char* (*to_bin)(struct Int64* const restrict);
+    const char* (*to_bin)(struct Int64* const restrict);
 } Int64;
 
 MOREINTTYPES_EXPORTS Int64 ConstructInt64(const int64_t value);

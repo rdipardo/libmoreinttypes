@@ -19,7 +19,7 @@ typedef struct Int32 {
     /** Returns the factorial of this Int32's value. */
     long double (*n_bang)(struct Int32* const restrict);
     /** Returns the base-2 representation of this Int32's value as a string. */
-    char* (*to_bin)(struct Int32* const restrict);
+    const char* (*to_bin)(struct Int32* const restrict);
 } Int32;
 
 MOREINTTYPES_EXPORTS Int32 ConstructInteger(const int32_t value);

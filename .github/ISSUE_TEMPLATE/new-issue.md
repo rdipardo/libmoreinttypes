@@ -2,7 +2,7 @@
 name: New Issue
 about: Report a bug or suggest an improvement
 title: ''
-labels: hacktoberfest first-contribution
+labels: first-contribution
 assignees: ''
 
 ---

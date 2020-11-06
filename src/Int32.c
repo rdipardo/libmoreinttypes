@@ -30,7 +30,7 @@ static void from_numeric_string(Int32* const restrict self,
 static long double to_factorial(Int32* const restrict self);
 
 /** Called by Int32::to_bin(), a.k.a #as_binary() */
-static char* to_binary_string(Int32* const restrict self);
+static const char* to_binary_string(Int32* const restrict self);
 /** @} //int_protected */
 
 Int32 ConstructInteger(const int32_t value)
@@ -68,7 +68,7 @@ static long double to_factorial(Int32* const restrict self)
     return result;
 }
 
-static char* to_binary_string(Int32* const restrict self)
+static const char* to_binary_string(Int32* const restrict self)
 {
     memset(bin_str_buffer, 0, sizeof bin_str_buffer);
     return binary_string(bin_str_buffer, self->value);

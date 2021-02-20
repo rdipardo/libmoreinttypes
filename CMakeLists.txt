@@ -41,6 +41,10 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-fsanitize=null,signed-integer-overflow,bounds)
     link_libraries(-fsanitize=undefined)
   endif()
+  # enable the %Lf format specifier in MinGW builds
+  if(WIN32)
+    target_compile_definitions(moreinttypes PUBLIC -D__USE_MINGW_ANSI_STDIO)
+  endif()
 endif()
 
 install (TARGETS moreinttypes

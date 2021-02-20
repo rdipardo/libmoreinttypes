@@ -52,7 +52,7 @@ printf("New value: %d\n", i.value);
 // "New value: 170"
 
 // what's that in base-2?
-char* bin_str = as_binary(i);
+const char* bin_str = as_binary(i);
 printf("%s\n", bin_str);
 // "1010 1010"
 
@@ -72,7 +72,7 @@ printf("%d\n", value);
 // "170"
 
 char buf[16]  = { 0 };
-char* bin_str = binary_string(buf, 170);
+const char* bin_str = binary_string(buf, 170);
 printf("%s\n", bin_str);
 // "1010 1010"
 

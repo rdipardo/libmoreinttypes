@@ -78,7 +78,7 @@ typedef uint8_t bool;
 #    define INT64_PTR_FMT "%lld"
 #endif
 
-#if __MINGW32__ && !__USE_MINGW_ANSI_STDIO
+#if __MINGW32__ && !(__USE_MINGW_ANSI_STDIO || __USE_MINGW_ANSI_STDIO == 0)
 #    define __USE_MINGW_ANSI_STDIO 1
 #endif /* __MINGW32__ */
 

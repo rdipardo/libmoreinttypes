@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR};${CMAKE_MODULE_PATH}")
+include(ProjectVersion)
 
-project (moreinttypes VERSION 1.1.0)
+project_version (PROJECT_VERSION "pkgconfig/moreinttypes.pc")
+project (moreinttypes VERSION ${PROJECT_VERSION})
 
 file(GLOB LIB_SRC "${PROJECT_SOURCE_DIR}/src/*.c*")
 file(GLOB PUBLIC_HEADERS "${PROJECT_SOURCE_DIR}/include/moreinttypes/*.h")
@@ -19,31 +22,55 @@ set_target_properties (moreinttypes PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
 
 if (MSVC)
-  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-  target_compile_options(moreinttypes PUBLIC /nologo /Ob1 /Ot /Zi /W3 /WX /wd4190)
+  # https://stackoverflow.com/a/24767451
+  set(CMAKE_C_FLAGS "")
+  set(CMAKE_CXX_FLAGS "")
+  set(CMAKE_C_FLAGS_DEBUG "")
+  set(CMAKE_CXX_FLAGS_DEBUG "")
+  set(CMAKE_C_FLAGS_RELEASE "")
+  set(CMAKE_CXX_FLAGS_RELEASE "")
+  set(CMAKE_C_FLAGS_MINSIZEREL "")
+  set(CMAKE_CXX_FLAGS_MINSIZEREL "")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO "")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
+
+  target_compile_definitions(moreinttypes PUBLIC -D_CRT_SECURE_NO_WARNINGS)
+  target_compile_options(moreinttypes PUBLIC /nologo /Zi /W3 /WX /wd4190)
+
+  if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_compile_options(moreinttypes PUBLIC /Od /MTd /DDEBUG)
+    target_link_libraries(moreinttypes PRIVATE -OPT:REF -INCREMENTAL:NO -DEBUG)
+  else()
+    target_compile_options(moreinttypes PUBLIC /Ob1 /Ot /MT /DNDEBUG)
+  endif()
 endif()
 # will test TRUE for MinGW -- see next comment
-if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
   target_compile_options(moreinttypes PRIVATE
         -Wall
         -Werror
         -pedantic
         -Wno-format
-        -Wno-implicit-fallthrough
-        -O2
-        -g)
+        -Wno-implicit-fallthrough)
   # don't pass -lubsan to the linker when building with MinGW
   if((CMAKE_COMPILER_IS_GNUCC
         AND CMAKE_C_COMPILER_VERSION GREATER 4.8)
-      OR (CMAKE_C_COMPILER_ID STREQUAL "Clang"
+      OR (CMAKE_C_COMPILER_ID MATCHES "Clang"
         AND CMAKE_C_COMPILER_VERSION GREATER 3.7)
       AND NOT WIN32)
-    add_compile_options(-fsanitize=null,signed-integer-overflow,bounds)
-    link_libraries(-fsanitize=undefined)
+    target_compile_options(moreinttypes PRIVATE
+        -fsanitize=null,signed-integer-overflow,bounds,undefined)
+    target_link_libraries(moreinttypes PRIVATE -fsanitize=undefined)
   endif()
   # enable the %Lf format specifier in MinGW builds
   if(WIN32)
     target_compile_definitions(moreinttypes PUBLIC -D__USE_MINGW_ANSI_STDIO)
+  endif()
+
+  if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    target_compile_options(moreinttypes PRIVATE -Og -g)
+  else()
+    target_compile_options(moreinttypes PRIVATE -O2)
   endif()
 endif()
 

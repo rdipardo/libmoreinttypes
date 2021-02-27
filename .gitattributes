@@ -1,0 +1,8 @@
+* text=auto
+doxygen/**    text   eol=lf
+pkgconfig/**  text   eol=lf
+**.cmd        text   eol=crlf
+**.bat        text   eol=crlf
+
+## github.com/github/linguist/blob/master/docs/overrides.md#summary
+doxygen/** linguist-documentation

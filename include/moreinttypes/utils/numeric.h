@@ -6,6 +6,10 @@
 #ifndef NUMERIC_H
 #define NUMERIC_H 1
 
+/* https://github.com/doxygen/doxygen/issues/6856#issuecomment-467020583 */
+#ifdef __DOXYGEN__
+#    define USE_64_BITS 1
+#endif
 /**
  * @ingroup numeric
  * @def USE_64_BITS

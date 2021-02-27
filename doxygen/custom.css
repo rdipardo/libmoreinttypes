@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+body, table, div, p, dl {
+  font-size: 16px;
+}
+
+body, table, table.directory, div, p, dl, div.contents,
+#main-nav ul li a, #nav-tree .label, #MSearchField {
+  font-family: Nunito, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, #projectname, #projectnumber, .title {
+  font-family: Raleway, Verdana, sans-serif;
+}
+
+div.fragment {
+  padding: 1.25em;
+}
+
+div.fragment, div.line {
+  font-family: 'Source Code Pro', 'Roboto sans', monospace;
+}
+
+table.params td.paramname {
+  min-width: 100px;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+}
+
+.sm-dox a span.sub-arrow {
+  background: rgba(128,128,128,0.25);
+}
+
+.sm-dox a span.sub-arrow:before {
+  display: block;
+  content: '+';
+}
+
+#projectname {
+  font-size: 250%;
+  margin: 0px;
+  padding: 2px 8px;
+}
+
+#nav-tree .item {
+  padding: 0px 20px;
+}
+
+#nav-tree-contents > ul > li > div.item:not(.selected) {
+  padding-bottom: 8px;
+}
+
+#nav-sync img {
+  padding-top: 4px;
+}

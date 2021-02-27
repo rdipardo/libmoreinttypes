@@ -2,6 +2,7 @@
 .*~
 .*.un~
 .*.swp
+*.bak
 *.tmp
 *.log
 .DS_Store

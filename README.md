@@ -148,7 +148,7 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [Developer Command Prompt]: https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs
 [MSYS2]: https://cmake.org/cmake/help/latest/generator/MSYS%20Makefiles.html#generator:MSYS%20Makefiles
 [MinGW]: https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html
-[nmake]: https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=vs-2019
+[nmake]: https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=msvc-160
 [gcc]: https://gcc.gnu.org
 [clang]: https://clang.llvm.org
 [makefile generator]: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators

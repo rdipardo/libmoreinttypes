@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+export DOXYGEN_PROJECT_NUMBER=$(awk '/^.*[0-9]\./{print $2}' ../pkgconfig/moreinttypes.pc)
+doxygen -u Doxyfile
+doxygen Doxyfile html
+cd ..
+if [[ -x $(which http-server) ]]; then
+    http-server docs/html
+fi

@@ -1,0 +1,26 @@
+name: Doxygen
+on:
+  push:
+    branches:
+      - master
+jobs:
+  doxygen:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docs
+        run: |
+         sudo apt-get -qqy install doxygen
+         cd doxygen
+         export DOXYGEN_PROJECT_NUMBER=$(awk '/^.*[0-9]\./{print $2}' ../pkgconfig/moreinttypes.pc)
+         doxygen -u Doxyfile >/dev/null 2>&1
+         doxygen Doxyfile html
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          enable_jekyll: false
+          publish_dir: './docs/html'
+          user_name: 'actions-gh-pages[bot]'
+          user_email: 'actions-gh-pages@users.noreply.github.com'
+          commit_message: '${{ github.event.head_commit.message }}'

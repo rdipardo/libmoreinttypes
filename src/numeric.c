@@ -15,11 +15,11 @@
 #define BIT_BUFFER_SIZE 512U
 
 #ifndef INT32_MAX
-#    define INT32_MAX 0x7FFFFFFF
+#define INT32_MAX 0x7FFFFFFF
 #endif /* !INT32_MAX */
 
 #ifndef INT64_MAX
-#    define INT64_MAX 0x7FFFFFFFFFFFFFFF
+#define INT64_MAX 0x7FFFFFFFFFFFFFFF
 #endif /* !INT64_MAX */
 
 /**
@@ -39,37 +39,17 @@ static void add_bit(char* dest, char* buffer, uint8_t bit);
  *  @param bits Array of binary digits.
  *  @param bit_width The length of the `bits` array.
  */
-static void
-    write_bits(char* bin_str, char* bit_buf, uint8_t* bits, uint8_t bit_width);
+static void write_bits(char* bin_str, char* bit_buf, uint8_t* bits,
+                       uint8_t bit_width);
 
 long double factorial_of(uint32_t n)
 {
-    uint32_t counter    = 1;
-    long double product = 1.0L;
-
-    while (counter <= n)
-    {
-        product *= counter;
-
-        if (isinf(product))
-        {
-            product = 0.0L;
-            fprintf(stderr,
-                    "\nVALUE ERROR: %" PRId32 "! is greater than %.2Le.\n",
-                    n,
-                    LDBL_MAX);
-            break;
-        }
-
-        ++counter;
-    }
-
-    return product;
+    return factorial_of_64((uint64_t)n);
 }
 
 long double factorial_of_64(uint64_t n)
 {
-    uint64_t counter    = 1;
+    uint64_t counter = 1;
     long double product = 1.0L;
 
     while (counter <= n)
@@ -80,8 +60,7 @@ long double factorial_of_64(uint64_t n)
         {
             product = 0.0L;
             fprintf(stderr,
-                    "\nVALUE ERROR: %" PRId64 "! is greater than %.2Le.\n",
-                    n,
+                    "\nVALUE ERROR: %" PRIu64 "! is greater than %.2Le.\n", n,
                     LDBL_MAX);
             break;
         }
@@ -94,110 +73,34 @@ long double factorial_of_64(uint64_t n)
 
 int32_t parse_int(const char* str, unsigned base)
 {
-    int32_t result = 0;
-    int32_t temp   = 0;
-    size_t i = 0, j = 0;
-    char buffer[128]    = { 0 };
-    char temp_buffer[2] = { 0 };
-    char* end           = { 0 };
-    int (*parse_func)(int);
+    const int64_t result = parse_int_64(str, base);
 
-    memset(buffer, '*', (sizeof buffer));
-    buffer[sizeof buffer - 1] = '\0';
-    parse_func                = (base == 16) ? isxdigit : isdigit;
-
-    if (str && strlen(str) > 0 && strlen(str) <= sizeof buffer)
+    if (result <= INT32_MAX)
     {
-        for (i = 0; i < strlen(str); i++)
-        {
-            if (parse_func(str[i]))
-            {
-                temp_buffer[0] = str[i];
-                temp_buffer[1] = '\0';
-                temp           = (int32_t)strtol(temp_buffer, &end, base);
-                end            = "";
-
-                if (errno == 0)
-                {
-                    if (temp != 0 || (temp == 0 && (temp_buffer[0] == '0')))
-                    {
-                        for (j = 0; j < strlen(buffer); j++)
-                        {
-                            if (buffer[j] == '*')
-                            {
-                                buffer[j] = temp_buffer[0];
-                                break;
-                            }
-                        }
-                    }
-                    else
-                        buffer[i] = '*';
-                }
-                else
-                    errno = 0;
-            }
-            else if (i == 0 && (str[0] == '-' || str[0] == '+'))
-            {
-                buffer[i] = str[i];
-            }
-            else if (i > 0 && str[i] == '.')
-            {
-                buffer[i - 1] = '*';
-                break;
-            }
-        }
-
-        buffer[i] = '\0';
-
-        for (i = 0; i < strlen(buffer); i++)
-        {
-            if (buffer[i] == '*')
-                buffer[i] = '\0';
-        }
-
-        temp = (int32_t)strtol(buffer, &end, base);
-
-        if (errno == ERANGE || (temp < 0 && str[0] != '-')) /* overflow */
-        {
-            errno = 0;
-            fprintf(stderr,
-                    "\nVALUE ERROR: '%s' is greater than %d.\n",
-                    str,
-                    INT32_MAX);
-        }
-        else if (temp > 0 || (temp < 0 && str[0] == '-') /* negative number */
-                 || (temp == 0 && strlen(str) == 1
-                     && str[0] == '0')) /* number was '0' */
-        {
-            result = temp;
-        }
-        else
-        {
-            fprintf(
-                stderr, "\nARGUMENT ERROR: Can't parse value of '%s'.\n", str);
-        }
+        return (int32_t)result;
     }
     else
     {
-        fprintf(stderr, "\nARGUMENT ERROR: Invalid string.\n");
+        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
+                INT32_MAX);
     }
 
-    return result;
+    return 0;
 }
 
 int64_t parse_int_64(const char* str, unsigned base)
 {
     int64_t result = 0;
-    int64_t temp   = 0;
+    int64_t temp = 0;
     size_t i = 0, j = 0;
-    char buffer[128]    = { 0 };
+    char buffer[128] = { 0 };
     char temp_buffer[2] = { 0 };
-    char* end           = { 0 };
+    char* end = { 0 };
     int (*parse_func)(int);
 
     memset(buffer, '*', (sizeof buffer));
     buffer[sizeof buffer - 1] = '\0';
-    parse_func                = (base == 16) ? isxdigit : isdigit;
+    parse_func = (base == 16) ? isxdigit : isdigit;
 
     if (str && strlen(str) > 0 && strlen(str) <= sizeof buffer)
     {
@@ -207,8 +110,8 @@ int64_t parse_int_64(const char* str, unsigned base)
             {
                 temp_buffer[0] = str[i];
                 temp_buffer[1] = '\0';
-                temp           = (int64_t)strtol(temp_buffer, &end, base);
-                end            = "";
+                temp = (int64_t)strtol(temp_buffer, &end, base);
+                end = "";
 
                 if (errno == 0)
                 {
@@ -250,24 +153,22 @@ int64_t parse_int_64(const char* str, unsigned base)
 
         temp = (int64_t)strtoll(buffer, &end, base);
 
-        if (errno == ERANGE)
+        if (errno == ERANGE || (temp < 0 && str[0] != '-')) /* overflow */
         {
             errno = 0;
             fprintf(stderr,
                     "\nVALUE ERROR: '%s' is greater than " INT64_PTR_FMT ".\n",
-                    str,
-                    INT64_MAX);
+                    str, INT64_MAX);
         }
         else if (temp > 0 || (temp < 0 && str[0] == '-') /* negative number */
-                 || (temp == 0 && strlen(str) == 1
-                     && str[0] == '0')) /* number was '0' */
+                 || (temp == 0 && str[0] == '0'))        /* number was '0' */
         {
             result = temp;
         }
         else
         {
-            fprintf(
-                stderr, "\nARGUMENT ERROR: Can't parse value of '%s'.\n", str);
+            fprintf(stderr, "\nARGUMENT ERROR: Can't parse value of '%s'.\n",
+                    str);
         }
     }
     else
@@ -280,27 +181,15 @@ int64_t parse_int_64(const char* str, unsigned base)
 
 const char* binary_string(char* bin_str, int32_t n)
 {
-    char bit_buf[BIT_BUFFER_SIZE] = { 0 };
-    uint8_t bits[64]              = { 0 };
-    uint8_t bit_width             = 0;
-
-    if (n <= INT_MAX)
+    if ((int64_t)n <= INT32_MAX)
     {
-        while (n > 0)
-        {
-            bit_width++;
-            bits[bit_width] = n % 2;
-            n >>= 1; /* n = n / 2 */
-        }
-
-        write_bits(bin_str, bit_buf, bits, bit_width);
+        return binary_string_64(bin_str, (int64_t)n);
     }
     else
     {
         fprintf(stderr,
-                "\nVALUE ERROR: %" PRId32 " is greater than %" PRId32 ".\n",
-                n,
-                INT_MAX);
+                "\nVALUE ERROR: " INT64_PTR_FMT " is greater than %d.\n",
+                (int64_t)n, INT32_MAX);
     }
 
     return bin_str;
@@ -309,8 +198,8 @@ const char* binary_string(char* bin_str, int32_t n)
 const char* binary_string_64(char* bin_str, int64_t n)
 {
     char bit_buf[BIT_BUFFER_SIZE] = { 0 };
-    uint8_t bits[64]              = { 0 };
-    uint8_t bit_width             = 0;
+    uint8_t bits[64] = { 0 };
+    uint8_t bit_width = 0;
 
     if (n <= INT64_MAX)
     {
@@ -325,17 +214,16 @@ const char* binary_string_64(char* bin_str, int64_t n)
     else
     {
         fprintf(stderr,
-                "\n VALUE ERROR: %" PRId64 " is greater than " INT64_PTR_FMT
-                ".\n",
-                n,
-                INT64_MAX);
+                "\n VALUE ERROR: " INT64_PTR_FMT
+                " is greater than " INT64_PTR_FMT ".\n",
+                n, INT64_MAX);
     }
 
     return bin_str;
 }
 
-static inline void
-    write_bits(char* bin_str, char* bit_buf, uint8_t* bits, uint8_t bit_width)
+static inline void write_bits(char* bin_str, char* bit_buf, uint8_t* bits,
+                              uint8_t bit_width)
 {
     uint8_t z = 0;
 
@@ -622,5 +510,7 @@ static inline void add_bit(char* dest, char* buffer, uint8_t bit)
     succ = snprintf(NULL, 0, "%s", buffer);
 
     if (succ > 0)
+    {
         append_string(dest, buffer, BIT_BUFFER_SIZE);
+    }
 }

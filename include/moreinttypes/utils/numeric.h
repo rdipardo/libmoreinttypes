@@ -8,7 +8,7 @@
 
 /* https://github.com/doxygen/doxygen/issues/6856#issuecomment-467020583 */
 #ifdef __DOXYGEN__
-#    define USE_64_BITS 1
+#define USE_64_BITS 1
 #endif
 /**
  * @ingroup numeric
@@ -27,9 +27,9 @@
  * @{
  */
 #ifndef USE_64_BITS
-#    define MATCH_ARCH(func_name) func_name
+#define MATCH_ARCH(func_name) func_name
 #else
-#    define MATCH_ARCH(func_name) func_name##_64
+#define MATCH_ARCH(func_name) func_name##_64
 #endif
 /** @} */
 

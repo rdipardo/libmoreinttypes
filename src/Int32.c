@@ -22,8 +22,7 @@ static char bin_str_buffer[128] = { 0 };
  */
 
 /** Called by Int32::parse(), a.k.a #from_string() */
-static void from_numeric_string(Int32* const restrict self,
-                                const char* str,
+static void from_numeric_string(Int32* const restrict self, const char* str,
                                 unsigned base);
 
 /** Called by Int32::n_bang(), a.k.a #factorial() */
@@ -36,8 +35,8 @@ static const char* to_binary_string(Int32* const restrict self);
 Int32 ConstructInteger(const int32_t value)
 {
 #if __STDC_VERSION__ >= 199901L
-    Int32 self = { .value  = value,
-                   .parse  = from_numeric_string,
+    Int32 self = { .value = value,
+                   .parse = from_numeric_string,
                    .n_bang = to_factorial,
                    .to_bin = to_binary_string };
 #else /* !c99 initalizers */
@@ -47,24 +46,24 @@ Int32 ConstructInteger(const int32_t value)
     return self;
 }
 
-static void from_numeric_string(Int32* const restrict self,
-                                const char* str,
+static void from_numeric_string(Int32* const restrict self, const char* str,
                                 unsigned base)
 {
     int32_t* value_accessor = 0;
-    int32_t new_value       = parse_int(str, base);
+    int32_t new_value = parse_int(str, base);
 
-    if (new_value > 0 || (strlen(str) == 1 && str[0] == '0'))
+    if (new_value > 0 || (new_value < 0 && str[0] == '-') ||
+        (new_value == 0 && str[0] == '0'))
     {
         *(const int32_t**)&value_accessor = &(self->value);
-        *value_accessor                   = new_value;
+        *value_accessor = new_value;
     }
 }
 
 static long double to_factorial(Int32* const restrict self)
 {
     long double result = 0.0L;
-    result             = factorial_of((uint32_t)labs(self->value));
+    result = factorial_of((uint32_t)labs(self->value));
     return result;
 }
 

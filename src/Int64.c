@@ -22,8 +22,7 @@ static char bin_str_buffer[128] = { 0 };
  */
 
 /** Called by Int64::parse(), a.k.a #from_string() */
-static void from_numeric_string(Int64* const restrict self,
-                                const char* str,
+static void from_numeric_string(Int64* const restrict self, const char* str,
                                 unsigned base);
 
 /** Called by Int64::n_bang(), a.k.a #factorial() */
@@ -36,8 +35,8 @@ static const char* to_binary_string(Int64* const restrict self);
 Int64 ConstructInt64(const int64_t value)
 {
 #if __STDC_VERSION__ >= 199901L
-    Int64 self = { .value  = value,
-                   .parse  = from_numeric_string,
+    Int64 self = { .value = value,
+                   .parse = from_numeric_string,
                    .n_bang = to_factorial,
                    .to_bin = to_binary_string };
 #else /* !c99 initalizers */
@@ -47,17 +46,17 @@ Int64 ConstructInt64(const int64_t value)
     return self;
 }
 
-static void from_numeric_string(Int64* const restrict self,
-                                const char* str,
+static void from_numeric_string(Int64* const restrict self, const char* str,
                                 unsigned base)
 {
     int64_t* value_accessor = 0;
-    int64_t new_value       = parse_int_64(str, base);
+    int64_t new_value = parse_int_64(str, base);
 
-    if (new_value > 0 || (strlen(str) == 1 && str[0] == '0'))
+    if (new_value > 0 || (new_value < 0 && str[0] == '-') ||
+        (new_value == 0 && str[0] == '0'))
     {
         *(const int64_t**)&value_accessor = &(self->value);
-        *value_accessor                   = new_value;
+        *value_accessor = new_value;
     }
 }
 
@@ -68,7 +67,7 @@ static long double to_factorial(Int64* const restrict self)
 #if __STDC_VERSION__ >= 201112L || _MSC_VER
     result = factorial_of_64((uint64_t)llabs(self->value));
 #else
-    result     = factorial_of_64((uint64_t)labs(self->value));
+    result = factorial_of_64((uint64_t)labs(self->value));
 #endif
 
     return result;

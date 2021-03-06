@@ -2,12 +2,12 @@
  *  @file text.c
  */
 #if defined(__GNUC__) && !defined(__MINGW32__)
-#    include <moreinttypes/utils.h>
+#include <moreinttypes/utils.h>
 /* use POSIX implementation of `alloca.h` when available */
-#    include <alloca.h>
+#include <alloca.h>
 #else
-#    include <malloc.h>
-#    include <moreinttypes/utils.h>
+#include <malloc.h>
+#include <moreinttypes/utils.h>
 #endif
 
 #include <stdio.h>
@@ -15,8 +15,8 @@
 
 void append_string(char* dest, const char* src, size_t lim)
 {
-    char* buf     = NULL;
-    int succ      = 0;
+    char* buf = NULL;
+    int succ = 0;
     size_t growth = strlen(src) + 1;
     size_t end, offset = strlen(dest) + 1;
     size_t new_length = offset + growth;
@@ -28,7 +28,7 @@ void append_string(char* dest, const char* src, size_t lim)
         snprintf(buf, offset, "%s", dest);
 
         offset -= 1;
-        end  = offset;
+        end = offset;
         succ = snprintf(buf + offset, growth, "%s", src);
 
         if (succ > 0 && (size_t)succ < MAX_LEN)
@@ -51,8 +51,8 @@ void chomp(char(*pstr))
     {
         for (i = 0; i < len; i++)
         {
-            if (i > 0 && i < len - 1
-                && (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
+            if (i > 0 && i < len - 1 &&
+                (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
             {
                 *(pstr + i) = '\0';
                 break;

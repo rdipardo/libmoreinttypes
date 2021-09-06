@@ -51,7 +51,7 @@ void chomp(char(*pstr))
     {
         for (i = 0; i < len; i++)
         {
-            if (i > 0 && i < len - 1 &&
+            if (i >= 0 && i < len - 1 &&
                 (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
             {
                 *(pstr + i) = '\0';

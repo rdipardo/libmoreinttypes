@@ -32,7 +32,9 @@
 typedef unsigned char uint8_t;
 #ifndef __cplusplus
 typedef uint8_t bool;
+// clang-format off
 #define false ((uint8_t)0)
+// clang-format no
 #define true !false
 #endif /* !bool */
 #endif /* C89/90 */
@@ -49,8 +51,8 @@ typedef uint8_t bool;
 #define SHRT_PTR_FMT "%h"
 #define U_SHRT_PTR_FMT "%hu"
 
-#if (_WIN64 || __LP64__ || _LP64) && __MINGW32__
-/* 64-bit MinGW-w64 Environment */
+#if (_WIN64 || __LP64__ || _LP64) && (__MINGW32__ || __MACH__)
+/* 64-bit macOS X or MinGW-w64 Environment */
 
 #define SIZE_T_FMT "%llu"
 #define INT_PTR_FMT "%lld"

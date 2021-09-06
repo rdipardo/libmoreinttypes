@@ -101,6 +101,7 @@ int64_t parse_int_64(const char* str, unsigned base)
     memset(buffer, '*', (sizeof buffer));
     buffer[sizeof buffer - 1] = '\0';
     parse_func = (base == 16) ? isxdigit : isdigit;
+    errno = 0;
 
     if (str && strlen(str) > 0 && strlen(str) <= sizeof buffer)
     {

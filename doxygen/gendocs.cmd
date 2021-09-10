@@ -7,5 +7,5 @@ SET "DOXYGEN_PROJECT_VERSION=%VERSION_STR:~9%"
 doxygen -u Doxyfile
 doxygen Doxyfile html
 cd ..
-http-server docs/html 2>NUL
+pyw -m http.server --directory docs/html 2>NUL
 ENDLOCAL

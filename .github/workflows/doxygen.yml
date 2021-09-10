@@ -1,8 +1,8 @@
 name: Doxygen
 on:
   push:
-    branches:
-      - master
+    paths:
+      - '**/moreinttypes.pc'
 jobs:
   doxygen:
     runs-on: ubuntu-20.04

@@ -31,7 +31,7 @@ Examples
 **Using function macros (they wrap the "member functions")**
 ```c
 #include <stdio.h>
-#include <moreinttypes/core.h>
+#include <moreinttypes/core.h> //< Make sure this comes last!
 
 Int32 i = integer(122333333);
 

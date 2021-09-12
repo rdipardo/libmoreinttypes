@@ -92,7 +92,7 @@ void test_math_lib()
     printf("-1! = %.0Lf\n", MATCH_ARCH(factorial_of)(-1));
     printf("0! = %.0Lf\n", MATCH_ARCH(factorial_of)(0));
     printf("170! = %.0Lf\n", MATCH_ARCH(factorial_of)(170));
-    printf("1754! = %.0Lf\n", MATCH_ARCH(factorial_of)(170));
+    printf("1754! = %.0Lf\n", MATCH_ARCH(factorial_of)(1754));
 }
 
 void test_string_lib()

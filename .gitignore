@@ -28,6 +28,7 @@ target/
 *build*/
 .build/
 bin/
+test/cpputest/
 doc*/
 .env/
 .vs/

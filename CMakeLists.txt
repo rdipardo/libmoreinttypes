@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR};${CMAKE_MODULE_PATH}")
 include(ProjectVersion)
 
@@ -38,7 +38,7 @@ if (MSVC)
   target_compile_options(moreinttypes PUBLIC /nologo /Zi /W3 /WX /wd4190)
 
   if(CMAKE_BUILD_TYPE MATCHES "Debug")
-    target_compile_options(moreinttypes PUBLIC /Od /MTd /DDEBUG)
+    target_compile_options(moreinttypes PRIVATE /Od /MTd /DDEBUG)
     target_link_libraries(moreinttypes PRIVATE -OPT:REF -INCREMENTAL:NO -DEBUG)
   else()
     target_compile_options(moreinttypes PUBLIC /Ob1 /Ot /MT /DNDEBUG)
@@ -58,9 +58,9 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
       OR (CMAKE_C_COMPILER_ID MATCHES "Clang"
         AND CMAKE_C_COMPILER_VERSION GREATER 3.7)
       AND NOT WIN32)
-    target_compile_options(moreinttypes PRIVATE
+    target_compile_options(moreinttypes PUBLIC
         -fsanitize=null,signed-integer-overflow,bounds,undefined)
-    target_link_libraries(moreinttypes PRIVATE -fsanitize=undefined)
+    target_link_libraries(moreinttypes PUBLIC -fsanitize=undefined)
   endif()
   # enable the %Lf format specifier in MinGW builds
   if(WIN32)
@@ -85,6 +85,7 @@ install(FILES ${UTILS_API} DESTINATION include/moreinttypes/utils)
 install(FILES "${PROJECT_SOURCE_DIR}/pkgconfig/moreinttypes.pc"
         DESTINATION lib/pkgconfig)
 
+add_subdirectory("${PROJECT_SOURCE_DIR}/test")
 add_subdirectory("${PROJECT_SOURCE_DIR}/examples/demo++")
 add_subdirectory("${PROJECT_SOURCE_DIR}/examples/demo")
 

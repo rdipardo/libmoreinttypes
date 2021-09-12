@@ -1,0 +1,26 @@
+name: MSVC
+on: [push, pull_request]
+env:
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
+  GENERATOR: '-G"NMake Makefiles"'
+jobs:
+  build:
+    strategy:
+      matrix:
+        arch: [x86, x64]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.1.x'
+    - name: Set up MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: ${{matrix.arch}}
+    - name: Configure CMake
+      run: cmake -H$(pwd) -B_build ${{env.CONFIG}} ${{env.GENERATOR}}
+      shell: powershell
+    - name: Build and Test (msvc ${{matrix.arch}})
+      run: cmake --build _build

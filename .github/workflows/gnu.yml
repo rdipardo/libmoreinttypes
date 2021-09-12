@@ -1,0 +1,20 @@
+name: GCC,Clang
+on: [push, pull_request]
+env:
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.1.x'
+    - name: Configure CMake
+      run: cmake -H. -B_build ${{env.CONFIG}}
+    - name: Build and Test (${{matrix.os}})
+      run: cmake --build _build

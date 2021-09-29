@@ -68,7 +68,9 @@ void ltrim(char(*pstr))
 
 void rtrim(char(*pstr))
 {
-    /** @todo Implement ::rtrim */
+    char* end = pstr + strlen(pstr);
+	while ( isspace(*--end) );
+	*(end + 1) = '\0';
 }
 
 void trim(char(*pstr))

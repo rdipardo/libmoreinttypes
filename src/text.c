@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 void append_string(char* dest, const char* src, size_t lim)
 {

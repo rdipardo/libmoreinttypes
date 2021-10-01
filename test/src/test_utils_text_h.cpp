@@ -37,3 +37,17 @@ TEST(Strings, ChompLeavesEmptyStringsUnchanged)
     chomp(text);
     STRCMP_EQUAL("", text);
 }
+
+TEST(Strings, RtrimRemovesRightEndSpaces)
+{
+    char text[] = "hello             ";
+    rtrim(text);
+    STRCMP_EQUAL("hello", text);
+}
+
+TEST(Strings, RtrimLeavesEmptyStringsUnchanged)
+{
+    char text[] = "";
+    rtrim(text);
+    STRCMP_EQUAL("", text);
+}

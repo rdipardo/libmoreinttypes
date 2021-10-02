@@ -88,4 +88,4 @@ install(FILES "${PROJECT_SOURCE_DIR}/pkgconfig/moreinttypes.pc"
 add_subdirectory("${PROJECT_SOURCE_DIR}/test")
 add_subdirectory("${PROJECT_SOURCE_DIR}/examples/demo++")
 add_subdirectory("${PROJECT_SOURCE_DIR}/examples/demo")
-
+add_subdirectory("${PROJECT_SOURCE_DIR}/examples/rtrim")

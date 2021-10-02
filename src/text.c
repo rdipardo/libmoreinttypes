@@ -64,11 +64,17 @@ void chomp(char(*pstr))
 
 void ltrim(char(*pstr))
 {
-    char* temp_pstr = pstr;
-    while ( isspace(*temp_pstr) ) {
-        ++temp_pstr;
+    int i=0; j=0;
+
+    while ( isspace(pstr[i]) ) {
+        ++i;
     }
-    memmove(pstr, temp_pstr, temp_pstr - pstr);
+
+    while ( pstr[i] ) {
+        pstr[j++] = pstr[i++];
+    }
+
+    pstr[j] = '\0';
 }
 
 void rtrim(char(*pstr))

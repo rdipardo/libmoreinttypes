@@ -64,7 +64,7 @@ void chomp(char(*pstr))
 
 void ltrim(char(*pstr))
 {
-    int i=0; j=0;
+    int i=0, j=0;
 
     while ( isspace(pstr[i]) ) {
         ++i;

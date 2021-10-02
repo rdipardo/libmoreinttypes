@@ -64,7 +64,11 @@ void chomp(char(*pstr))
 
 void ltrim(char(*pstr))
 {
-    /** @todo Implement ::ltrim */
+    char* temp_pstr = pstr;
+    while ( isspace(*temp_pstr) ) {
+        ++temp_pstr;
+    }
+    memmove(pstr, temp_pstr, temp_pstr - pstr);
 }
 
 void rtrim(char(*pstr))

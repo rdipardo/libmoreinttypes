@@ -51,3 +51,16 @@ TEST(Strings, RtrimLeavesEmptyStringsUnchanged)
     rtrim(text);
     STRCMP_EQUAL("", text);
 }
+
+TEST(Strings, LtrimRemovesLeftStartSpaces)
+{
+    char text[] = "     some string";
+    ltrim(text);
+    STRCMP_EQUAL("some string", text);
+}
+
+TEST(Strings, LtrimLeavesEmptyStringsUnchanged) {
+    char text[] = "";
+    ltrim(text);
+    STRCMP_EQUAL("", text);
+}

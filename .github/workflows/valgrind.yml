@@ -1,0 +1,21 @@
+name: rtrim() Runtime Check
+on: [push]
+env:
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install valgrind
+      run: |-
+       sudo apt-get -qq update
+       sudo apt-get -qqy install valgrind
+    - name: Set up CMake
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.1.x'
+    - name: Configure CMake
+      run: cmake -H. -B_build ${{env.CONFIG}} -DRUN_RTRIM_DEMO=1
+    - name: Build and Test
+      run: cmake --build _build --target rtrim-demo

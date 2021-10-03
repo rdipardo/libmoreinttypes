@@ -34,7 +34,7 @@ int main()
          << "\"" << allocd_text << "\"" << endl;
 
     free(allocd_text);
-    allocd_text == NULL;
+    allocd_text = NULL;
 
     cout << "====================== FINISHED ============================"
          << endl;

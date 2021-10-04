@@ -32,9 +32,9 @@
 typedef unsigned char uint8_t;
 #ifndef __cplusplus
 typedef uint8_t bool;
-// clang-format off
+/* clang-format off */
 #define false ((uint8_t)0)
-// clang-format no
+/* clang-format on */
 #define true !false
 #endif /* !bool */
 #endif /* C89/90 */

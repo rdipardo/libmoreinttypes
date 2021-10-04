@@ -24,7 +24,7 @@ Features
 - compatible with code targeting ANSI C
 
  **Note**
- A C99 preprocessor is recommended for building.
+ A compiler supporting the C99 standard is required for building.
 
 Examples
 --------

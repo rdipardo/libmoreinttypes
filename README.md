@@ -21,7 +21,7 @@ Features
 </table>
 
 - compiles on Windows and Linux platforms (so far)
-- compatible with code targeting ANSI C
+- compatible with code targeting ANSI C ([a GNU compiler][iso-c] supporting `-ansi` is required)
 
  **Note**
  A compiler supporting the C99 standard is required for building.
@@ -155,3 +155,4 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
 [the documentation]: https://rdipardo.github.io/libmoreinttypes
 [polymorphic function macros]: https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html
+[iso-c]: https://github.com/rdipardo/libmoreinttypes/blob/3384cd35f0907b9dd9c3a4efe54d9c315fb1f967/include/moreinttypes/_compat.h

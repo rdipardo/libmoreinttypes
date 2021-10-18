@@ -69,8 +69,8 @@ void ltrim(char(*pstr))
 
 void rtrim(char(*pstr))
 {
-    char* end = pstr + strlen(pstr);
-    while ( isspace(*--end) );
+    char* end = pstr + strlen(pstr) - 1;
+    while (end >= pstr && isspace(*end)) --end;
     *(end + 1) = '\0';
 }
 

@@ -24,6 +24,9 @@
 *.mp3
 *.mp4
 /*.dir
+*.iml
+*.iws
+.idea/
 target/
 *build*/
 .build/

@@ -2,7 +2,6 @@
  *  @file Int64.c
  */
 #include <moreinttypes/types/Int64.h>
-#include <stdlib.h> /* labs(), llabs() */
 #include <string.h>
 
 /**
@@ -62,15 +61,7 @@ static void from_numeric_string(Int64* const restrict self, const char* str,
 
 static long double to_factorial(Int64* const restrict self)
 {
-    long double result = 0.0L;
-
-#if __STDC_VERSION__ >= 201112L || _MSC_VER
-    result = factorial_of_64((uint64_t)llabs(self->value));
-#else
-    result = factorial_of_64((uint64_t)labs(self->value));
-#endif
-
-    return result;
+    return factorial_of_64((uint64_t)self->value);
 }
 
 static const char* to_binary_string(Int64* const restrict self)

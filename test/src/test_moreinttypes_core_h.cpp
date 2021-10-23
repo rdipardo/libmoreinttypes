@@ -92,3 +92,17 @@ TEST(TestMoreinttypesCoreH, FactorialOfChecksBounds)
     const double f = factorial(i);
     DOUBLES_EQUAL(0.0, f, 0.1);
 }
+
+TEST(TestMoreinttypesCoreH, FactorialChecksBoundsGivenNegativeInput)
+{
+    Int32 i = integer(-1);
+    const double f = factorial(i);
+    DOUBLES_EQUAL(0.0, f, 0.1);
+}
+
+TEST(TestMoreinttypesCoreH, Factorial64ChecksBoundsGivenNegativeInput)
+{
+    Int64 i = integer64(-1);
+    const double f = factorial(i);
+    DOUBLES_EQUAL(0.0, f, 0.1);
+}

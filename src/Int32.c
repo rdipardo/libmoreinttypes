@@ -2,7 +2,6 @@
  *  @file Int32.c
  */
 #include <moreinttypes/types/Int32.h>
-#include <stdlib.h> /* labs() */
 #include <string.h>
 
 /**
@@ -62,9 +61,7 @@ static void from_numeric_string(Int32* const restrict self, const char* str,
 
 static long double to_factorial(Int32* const restrict self)
 {
-    long double result = 0.0L;
-    result = factorial_of((uint32_t)labs(self->value));
-    return result;
+    return factorial_of((uint32_t)self->value);
 }
 
 static const char* to_binary_string(Int32* const restrict self)

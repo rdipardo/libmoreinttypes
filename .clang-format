@@ -5,6 +5,7 @@ AlignConsecutiveAssignments: false
 AlignOperands: true
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: true
 AlignTrailingComments: true
 BraceWrapping:
     AfterClass: true

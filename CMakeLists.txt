@@ -11,7 +11,7 @@ file(GLOB TYPES_API "${PROJECT_SOURCE_DIR}/include/moreinttypes/types/*.h")
 file(GLOB UTILS_API "${PROJECT_SOURCE_DIR}/include/moreinttypes/utils/*.h")
 
 add_library(moreinttypes SHARED ${LIB_SRC})
-include_directories(moreinttypes "${PROJECT_SOURCE_DIR}/include")
+include_directories("${PROJECT_SOURCE_DIR}/include")
 
 set_target_properties (moreinttypes PROPERTIES
     VERSION ${PROJECT_VERSION}

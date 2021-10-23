@@ -53,7 +53,8 @@ TEST(Math, ParseIntValidatesBase)
 TEST(Math, ParseIntChecksBounds)
 {
     const uint64_t value = 0;
-    const uint64_t parsed = MATCH_ARCH(parse_int)("FFFFFFFFFFFFFFFFFFFFFFFF", 16);
+    const uint64_t parsed =
+        MATCH_ARCH(parse_int)("FFFFFFFFFFFFFFFFFFFFFFFF", 16);
     CHECK_EQUAL(value, parsed);
 }
 

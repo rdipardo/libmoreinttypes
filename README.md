@@ -120,7 +120,7 @@ As the admin user, run `make install`, or `mingw32-make install`, or `nmake inst
 
 License
 -------
-Copyright (c) 2020 Robert Di Pardo. All rights reserved.
+Copyright (c) 2020 Robert Di Pardo and Contributors. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:

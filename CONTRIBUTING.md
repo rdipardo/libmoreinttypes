@@ -30,15 +30,22 @@ Creating a demo program is encouraged, but *not* required. To do that, you shoul
 
 For **all** contributions, make sure to:
 
-- follow this naming convention:
+- follow these coding conventions:
 
 |                                                         | Naming style                     |
 |:--------------------------------------------------------|:--------------------------------:|
 | `struct`, `typedef struct`, "constructors" <sup>1</sup> | PascalCase                       |
 | functions, variables, header files <sup>2</sup>         | snake_case                       |
 |                                                                                            |
-| <sup>1</sup> functions returning a `struct`, e.g. `ConstructInteger()`                   |
+| <sup>1</sup> functions returning a `struct` or `struct *`, e.g. `ConstructInteger()`       |
 | <sup>2</sup> exception: header's defining a `struct` should be PascalCase, e.g. `Int32.h`  |
+
+|                                                         | Comment (doc) style                                |
+|:--------------------------------------------------------|:---------------------------------------------------|
+|  files with `.h`, `.c` extensions                       | `/* ISO C  */`                                     |
+|  files with `.cpp`, `.cxx`, `.hpp`, `.hxx` extensions   | `// C++ `                                          |
+|  documentation comments                                 | - `/** block style */`, __never__ `/// line style` |
+|                                                         | - begin [tags] with `@`, __never__ `\`             |
 
 - compile the project according to the [build instructions][]
 - **do not change any version numbers**
@@ -62,3 +69,4 @@ For **all** contributions, make sure to:
 [completed examples]: https://github.com/rdipardo/libmoreinttypes/tree/master/examples
 [sample test cases]: https://cpputest.github.io/manual.html#getting_started
 [test suite]: https://github.com/rdipardo/libmoreinttypes/tree/master/test/src
+[tags]: https://www.doxygen.nl/manual/commands.html

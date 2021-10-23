@@ -1,12 +1,20 @@
 name: GCC,Clang
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - 'ma**'
+  push:
+    branches:
+      - 'ma**'
+    tags-ignore:
+      - '**'
 env:
   CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
 jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-latest]
+        os: [ubuntu-20.04, macos-10.15]
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v2

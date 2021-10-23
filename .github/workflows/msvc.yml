@@ -1,5 +1,13 @@
 name: MSVC
-on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - 'ma**'
+  push:
+    branches:
+      - 'ma**'
+    tags-ignore:
+      - '**'
 env:
   CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
   GENERATOR: '-G"NMake Makefiles"'
@@ -8,7 +16,7 @@ jobs:
     strategy:
       matrix:
         arch: [x86, x64]
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
     - name: Set up CMake

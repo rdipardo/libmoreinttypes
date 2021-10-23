@@ -38,7 +38,7 @@ extern "C" {
 MOREINTTYPES_EXPORTS void append_string(char* dest, const char* src,
                                         size_t lim);
 
-/** Removes the newline from the end of a string.
+/** Removes all ASCII newline chars from the end of a string.
  *  @param pstr Pointer to a string.
  */
 MOREINTTYPES_EXPORTS void chomp(char(*pstr));

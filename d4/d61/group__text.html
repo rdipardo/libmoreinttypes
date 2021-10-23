@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">moreinttypes
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.4.0 (unreleased)</span>
    </div>
   </td>
  </tr>
@@ -101,21 +101,65 @@ Macros</h2></td></tr>
 <tr class="memdesc:gab7df5ef6620ab7e2f8726f9fb359718f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends text to a string.  <a href="../../d4/d61/group__text.html#gab7df5ef6620ab7e2f8726f9fb359718f">More...</a><br /></td></tr>
 <tr class="separator:gab7df5ef6620ab7e2f8726f9fb359718f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga71d6b8a156ae06f5099666fa7c252c0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga71d6b8a156ae06f5099666fa7c252c0c">chomp</a> (char(*pstr))</td></tr>
-<tr class="memdesc:ga71d6b8a156ae06f5099666fa7c252c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the newline from the end of a string.  <a href="../../d4/d61/group__text.html#ga71d6b8a156ae06f5099666fa7c252c0c">More...</a><br /></td></tr>
+<tr class="memdesc:ga71d6b8a156ae06f5099666fa7c252c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all ASCII newline chars from the end of a string.  <a href="../../d4/d61/group__text.html#ga71d6b8a156ae06f5099666fa7c252c0c">More...</a><br /></td></tr>
 <tr class="separator:ga71d6b8a156ae06f5099666fa7c252c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaef5c6f757f8dcce0800a2233b61ab609"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#gaef5c6f757f8dcce0800a2233b61ab609">ltrim</a> (char(*pstr))</td></tr>
-<tr class="memdesc:gaef5c6f757f8dcce0800a2233b61ab609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading whitespace chars from a string.  <a href="../../d4/d61/group__text.html#gaef5c6f757f8dcce0800a2233b61ab609">More...</a><br /></td></tr>
-<tr class="separator:gaef5c6f757f8dcce0800a2233b61ab609"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab7a91f511ebdbfe00b3a9c2ba3e0df09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#gab7a91f511ebdbfe00b3a9c2ba3e0df09">rtrim</a> (char(*pstr))</td></tr>
-<tr class="memdesc:gab7a91f511ebdbfe00b3a9c2ba3e0df09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes trailing whitespace chars from a string.  <a href="../../d4/d61/group__text.html#gab7a91f511ebdbfe00b3a9c2ba3e0df09">More...</a><br /></td></tr>
-<tr class="separator:gab7a91f511ebdbfe00b3a9c2ba3e0df09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga712d6a1947f541d9a9a38a7a4f0fdeda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga712d6a1947f541d9a9a38a7a4f0fdeda">trim</a> (char(*pstr))</td></tr>
-<tr class="memdesc:ga712d6a1947f541d9a9a38a7a4f0fdeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all surrounding whitespace chars from a string.  <a href="../../d4/d61/group__text.html#ga712d6a1947f541d9a9a38a7a4f0fdeda">More...</a><br /></td></tr>
-<tr class="separator:ga712d6a1947f541d9a9a38a7a4f0fdeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5fe2f874a54c0c90823009407f3e592a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga5fe2f874a54c0c90823009407f3e592a">ltrim_s</a> (char(*dest), const char(*src))</td></tr>
+<tr class="memdesc:ga5fe2f874a54c0c90823009407f3e592a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a read-only string with leading whitespace removed.  <a href="../../d4/d61/group__text.html#ga5fe2f874a54c0c90823009407f3e592a">More...</a><br /></td></tr>
+<tr class="separator:ga5fe2f874a54c0c90823009407f3e592a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e4e341dac15a1294b097bdff64a6acf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf">rtrim_s</a> (char(*dest), const char(*src))</td></tr>
+<tr class="memdesc:ga1e4e341dac15a1294b097bdff64a6acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a read-only string with trailing whitespace removed.  <a href="../../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf">More...</a><br /></td></tr>
+<tr class="separator:ga1e4e341dac15a1294b097bdff64a6acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc95ce5f179b9f993c78f71ca3c7a4de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#gadc95ce5f179b9f993c78f71ca3c7a4de">trim_s</a> (char(*dest), const char(*src))</td></tr>
+<tr class="memdesc:gadc95ce5f179b9f993c78f71ca3c7a4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a read-only string with all surrounding whitespace removed.  <a href="../../d4/d61/group__text.html#gadc95ce5f179b9f993c78f71ca3c7a4de">More...</a><br /></td></tr>
+<tr class="separator:gadc95ce5f179b9f993c78f71ca3c7a4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga018d9e435e26cb8b798da9954c8ab55f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga018d9e435e26cb8b798da9954c8ab55f">ltrim</a>(pstr)</td></tr>
+<tr class="memdesc:ga018d9e435e26cb8b798da9954c8ab55f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes leading whitespace chars from a string.  <a href="../../d4/d61/group__text.html#ga018d9e435e26cb8b798da9954c8ab55f">More...</a><br /></td></tr>
+<tr class="separator:ga018d9e435e26cb8b798da9954c8ab55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga324cd960205ebb855fb422ce613e87c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga324cd960205ebb855fb422ce613e87c1">rtrim</a>(pstr)</td></tr>
+<tr class="memdesc:ga324cd960205ebb855fb422ce613e87c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes trailing whitespace chars from a string.  <a href="../../d4/d61/group__text.html#ga324cd960205ebb855fb422ce613e87c1">More...</a><br /></td></tr>
+<tr class="separator:ga324cd960205ebb855fb422ce613e87c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8b6153ef340cd45b4c0e04fbf502c077"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga8b6153ef340cd45b4c0e04fbf502c077">trim</a>(pstr)</td></tr>
+<tr class="memdesc:ga8b6153ef340cd45b4c0e04fbf502c077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all surrounding whitespace chars from a string.  <a href="../../d4/d61/group__text.html#ga8b6153ef340cd45b4c0e04fbf502c077">More...</a><br /></td></tr>
+<tr class="separator:ga8b6153ef340cd45b4c0e04fbf502c077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1fba0c234e7668d0a9aa912cf043a57a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga1fba0c234e7668d0a9aa912cf043a57a">ltrim_rw</a> (char(*pstr))</td></tr>
+<tr class="memdesc:ga1fba0c234e7668d0a9aa912cf043a57a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called internally by <a class="el" href="../../d4/d61/group__text.html#ga5fe2f874a54c0c90823009407f3e592a" title="Copies a read-only string with leading whitespace removed.">ltrim_s()</a> when the second argument is <code>NULL</code>  <a href="../../d4/d61/group__text.html#ga1fba0c234e7668d0a9aa912cf043a57a">More...</a><br /></td></tr>
+<tr class="separator:ga1fba0c234e7668d0a9aa912cf043a57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e1fb13cfbef4006642ba3253d866871"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#ga8e1fb13cfbef4006642ba3253d866871">rtrim_rw</a> (char(*pstr))</td></tr>
+<tr class="memdesc:ga8e1fb13cfbef4006642ba3253d866871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called internally by <a class="el" href="../../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf" title="Copies a read-only string with trailing whitespace removed.">rtrim_s()</a> when the second argument is <code>NULL</code>  <a href="../../d4/d61/group__text.html#ga8e1fb13cfbef4006642ba3253d866871">More...</a><br /></td></tr>
+<tr class="separator:ga8e1fb13cfbef4006642ba3253d866871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaffd7d8a3bd4a2fd1fa16b0cc099d64f6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d61/group__text.html#gaffd7d8a3bd4a2fd1fa16b0cc099d64f6">trim_rw</a> (char(*pstr))</td></tr>
+<tr class="memdesc:gaffd7d8a3bd4a2fd1fa16b0cc099d64f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called internally by <a class="el" href="../../d4/d61/group__text.html#gadc95ce5f179b9f993c78f71ca3c7a4de" title="Copies a read-only string with all surrounding whitespace removed.">trim_s()</a> when the second argument is <code>NULL</code>  <a href="../../d4/d61/group__text.html#gaffd7d8a3bd4a2fd1fa16b0cc099d64f6">More...</a><br /></td></tr>
+<tr class="separator:gaffd7d8a3bd4a2fd1fa16b0cc099d64f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>String manipulation functions. </p>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga018d9e435e26cb8b798da9954c8ab55f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga018d9e435e26cb8b798da9954c8ab55f">&#9670;&nbsp;</a></span>ltrim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ltrim</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pstr</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes leading whitespace chars from a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gaabf4f709c8199e41cf279c77112345fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaabf4f709c8199e41cf279c77112345fe">&#9670;&nbsp;</a></span>MAX_LEN</h2>
 
@@ -128,6 +172,58 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Maximum allowed length of a string, when appending to it. </p>
+
+</div>
+</div>
+<a id="ga324cd960205ebb855fb422ce613e87c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga324cd960205ebb855fb422ce613e87c1">&#9670;&nbsp;</a></span>rtrim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define rtrim</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pstr</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes trailing whitespace chars from a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8b6153ef340cd45b4c0e04fbf502c077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8b6153ef340cd45b4c0e04fbf502c077">&#9670;&nbsp;</a></span>trim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define trim</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pstr</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes all surrounding whitespace chars from a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -192,7 +288,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the newline from the end of a string. </p>
+<p>Removes all ASCII newline chars from the end of a string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
@@ -202,84 +298,221 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gaef5c6f757f8dcce0800a2233b61ab609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaef5c6f757f8dcce0800a2233b61ab609">&#9670;&nbsp;</a></span>ltrim()</h2>
+<a id="ga1fba0c234e7668d0a9aa912cf043a57a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1fba0c234e7668d0a9aa912cf043a57a">&#9670;&nbsp;</a></span>ltrim_rw()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ltrim </td>
+          <td class="memname">static void ltrim_rw </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>pstr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Removes leading whitespace chars from a string. </p>
+<p>Called internally by <a class="el" href="../../d4/d61/group__text.html#ga5fe2f874a54c0c90823009407f3e592a" title="Copies a read-only string with leading whitespace removed.">ltrim_s()</a> when the second argument is <code>NULL</code> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+    <tr><td class="paramname">pstr</td><td>Pointer to a mutable <code>char</code> array. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Implement <a class="el" href="../../d4/d61/group__text.html#gaef5c6f757f8dcce0800a2233b61ab609" title="Removes leading whitespace chars from a string.">ltrim</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Implement <a class="el" href="../../d4/d61/group__text.html#ga1fba0c234e7668d0a9aa912cf043a57a" title="Called internally by ltrim_s() when the second argument is NULL">ltrim_rw</a> </dd></dl>
 
 </div>
 </div>
-<a id="gab7a91f511ebdbfe00b3a9c2ba3e0df09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab7a91f511ebdbfe00b3a9c2ba3e0df09">&#9670;&nbsp;</a></span>rtrim()</h2>
+<a id="ga5fe2f874a54c0c90823009407f3e592a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5fe2f874a54c0c90823009407f3e592a">&#9670;&nbsp;</a></span>ltrim_s()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void rtrim </td>
+          <td class="memname">void ltrim_s </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies a read-only string with leading whitespace removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dest</td><td>Target buffer &mdash; <em>make sure it's been initialized!</em> </td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to a read-only string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Finish implementing <a class="el" href="../../d4/d61/group__text.html#ga5fe2f874a54c0c90823009407f3e592a" title="Copies a read-only string with leading whitespace removed.">ltrim_s</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga8e1fb13cfbef4006642ba3253d866871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8e1fb13cfbef4006642ba3253d866871">&#9670;&nbsp;</a></span>rtrim_rw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void rtrim_rw </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>pstr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Removes trailing whitespace chars from a string. </p>
+<p>Called internally by <a class="el" href="../../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf" title="Copies a read-only string with trailing whitespace removed.">rtrim_s()</a> when the second argument is <code>NULL</code> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+    <tr><td class="paramname">pstr</td><td>Pointer to a mutable <code>char</code> array. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>Implement <a class="el" href="../../d4/d61/group__text.html#gab7a91f511ebdbfe00b3a9c2ba3e0df09" title="Removes trailing whitespace chars from a string.">rtrim</a> </dd></dl>
 
 </div>
 </div>
-<a id="ga712d6a1947f541d9a9a38a7a4f0fdeda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga712d6a1947f541d9a9a38a7a4f0fdeda">&#9670;&nbsp;</a></span>trim()</h2>
+<a id="ga1e4e341dac15a1294b097bdff64a6acf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e4e341dac15a1294b097bdff64a6acf">&#9670;&nbsp;</a></span>rtrim_s()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void trim </td>
+          <td class="memname">void rtrim_s </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies a read-only string with trailing whitespace removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dest</td><td>Target buffer &mdash; <em>make sure it's been initialized!</em> </td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to a read-only string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000002">Todo:</a></b></dt><dd>Finish implementing <a class="el" href="../../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf" title="Copies a read-only string with trailing whitespace removed.">rtrim_s</a> </dd></dl>
+
+</div>
+</div>
+<a id="gaffd7d8a3bd4a2fd1fa16b0cc099d64f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaffd7d8a3bd4a2fd1fa16b0cc099d64f6">&#9670;&nbsp;</a></span>trim_rw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void trim_rw </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>pstr</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Removes all surrounding whitespace chars from a string. </p>
+<p>Called internally by <a class="el" href="../../d4/d61/group__text.html#gadc95ce5f179b9f993c78f71ca3c7a4de" title="Copies a read-only string with all surrounding whitespace removed.">trim_s()</a> when the second argument is <code>NULL</code> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pstr</td><td>Pointer to a string. </td></tr>
+    <tr><td class="paramname">pstr</td><td>Pointer to a mutable <code>char</code> array. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Implement <a class="el" href="../../d4/d61/group__text.html#ga712d6a1947f541d9a9a38a7a4f0fdeda" title="Removes all surrounding whitespace chars from a string.">trim</a> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>Implement <a class="el" href="../../d4/d61/group__text.html#gaffd7d8a3bd4a2fd1fa16b0cc099d64f6" title="Called internally by trim_s() when the second argument is NULL">trim_rw</a> </dd></dl>
+
+</div>
+</div>
+<a id="gadc95ce5f179b9f993c78f71ca3c7a4de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc95ce5f179b9f993c78f71ca3c7a4de">&#9670;&nbsp;</a></span>trim_s()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trim_s </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies a read-only string with all surrounding whitespace removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dest</td><td>Target buffer &mdash; <em>make sure it's been initialized!</em> </td></tr>
+    <tr><td class="paramname">src</td><td>Pointer to a read-only string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Finish implementing <a class="el" href="../../d4/d61/group__text.html#gadc95ce5f179b9f993c78f71ca3c7a4de" title="Copies a read-only string with all surrounding whitespace removed.">trim_s</a> </dd></dl>
 
 </div>
 </div>

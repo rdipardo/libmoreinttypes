@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rtrim_50',['rtrim',['../d4/d61/group__text.html#gab7a91f511ebdbfe00b3a9c2ba3e0df09',1,'text.c']]]
+  ['rtrim_5frw_57',['rtrim_rw',['../d4/d61/group__text.html#ga8e1fb13cfbef4006642ba3253d866871',1,'text.c']]],
+  ['rtrim_5fs_58',['rtrim_s',['../d4/d61/group__text.html#ga1e4e341dac15a1294b097bdff64a6acf',1,'text.c']]]
 ];

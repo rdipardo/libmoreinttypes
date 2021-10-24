@@ -64,7 +64,19 @@ void chomp(char(*pstr))
 
 void ltrim(char(*pstr))
 {
-    /** @todo Implement ::ltrim */
+    int i = 0, j = 0;
+
+    while (isspace(pstr[i]))
+    {
+        ++i;
+    }
+
+    while (pstr[i])
+    {
+        pstr[j++] = pstr[i++];
+    }
+
+    pstr[j] = '\0';
 }
 
 void rtrim(char(*pstr))

@@ -24,6 +24,12 @@
 #define strcasecmp _stricmp
 #endif /* _MSC_VER */
 
+#ifndef NULL
+/* clang-format off */
+#define NULL ((void*)0)
+/* clang-format on */
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -31,9 +37,9 @@ extern "C" {
  *  @{
  */
 /** Appends text to a string.
- * @param dest Target buffer &mdash; <em>make sure it's been initialized!</em>
- * @param src Text to append.
- * @param lim Total size of target buffer.
+ * @param[out] dest Target buffer &mdash; <em>make sure it's initialized!</em>
+ * @param[in] src Text to append.
+ * @param[in] lim Total size of target buffer.
  */
 MOREINTTYPES_EXPORTS void append_string(char* dest, const char* src,
                                         size_t lim);
@@ -43,24 +49,45 @@ MOREINTTYPES_EXPORTS void append_string(char* dest, const char* src,
  */
 MOREINTTYPES_EXPORTS void chomp(char(*pstr));
 
+/** Writes a copy of @p src to @p dest with leading whitespace removed.
+ *  @param[out] dest Target buffer.
+ *  @param[in] src Pointer to a read-only string.
+ */
+MOREINTTYPES_EXPORTS void ltrim_s(char(*dest), const char(*src));
+
+/** Writes a copy of @p src to @p dest with trailing whitespace removed.
+ *  @param[out] dest Target buffer.
+ *  @param[in] src Pointer to a read-only string.
+ */
+MOREINTTYPES_EXPORTS void rtrim_s(char(*dest), const char(*src));
+
+/** Writes a copy of @p src to @p dest with all surrounding whitespace removed.
+ *  @param[out] dest Target buffer.
+ *  @param[in] src Pointer to a read-only string.
+ */
+MOREINTTYPES_EXPORTS void trim_s(char(*dest), const char(*src));
+/** @} */
+#ifdef __cplusplus
+}
+#endif
+
+/** @ingroup text
+ *  @{
+ */
 /** Removes leading whitespace chars from a string.
  *  @param pstr Pointer to a string.
  */
-MOREINTTYPES_EXPORTS void ltrim(char(*pstr));
+#define ltrim(pstr) ltrim_s(pstr, NULL);
 
 /** Removes trailing whitespace chars from a string.
  *  @param pstr Pointer to a string.
  */
-MOREINTTYPES_EXPORTS void rtrim(char(*pstr));
+#define rtrim(pstr) rtrim_s(pstr, NULL);
 
 /** Removes all surrounding whitespace chars from a string.
  *  @param pstr Pointer to a string.
  */
-MOREINTTYPES_EXPORTS void trim(char(*pstr));
+#define trim(pstr) trim_s(pstr, NULL);
 /** @} */
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* !STRING_UTILS_H */

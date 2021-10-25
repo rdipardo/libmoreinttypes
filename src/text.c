@@ -14,6 +14,21 @@
 #include <string.h>
 #include <ctype.h>
 
+/** Called internally by ::ltrim_s() when the second argument is `NULL`
+ *  @param pstr Pointer to a writable `char` array.
+ */
+static void ltrim_rw(char(*pstr));
+
+/** Called internally by ::rtrim_s() when the second argument is `NULL`
+ *  @param pstr Pointer to a writable `char` array.
+ */
+static void rtrim_rw(char(*pstr));
+
+/** Called internally by ::trim_s() when the second argument is `NULL`
+ *  @param pstr Pointer to a writable `char` array.
+ */
+static void trim_rw(char(*pstr));
+
 void append_string(char* dest, const char* src, size_t lim)
 {
     char* buf = NULL;
@@ -62,7 +77,43 @@ void chomp(char(*pstr))
     }
 }
 
-void ltrim(char(*pstr))
+void ltrim_s(char(*dest), const char(*src))
+{
+    if (src)
+    {
+        /** @todo Finish implementing ::ltrim_s */
+    }
+    else
+    {
+        ltrim_rw(dest);
+    }
+}
+
+void rtrim_s(char(*dest), const char(*src))
+{
+    if (src)
+    {
+        /** @todo Finish implementing ::rtrim_s */
+    }
+    else
+    {
+        rtrim_rw(dest);
+    }
+}
+
+void trim_s(char(*dest), const char(*src))
+{
+    if (src)
+    {
+        /** @todo Finish implementing ::trim_s */
+    }
+    else
+    {
+        trim_rw(dest);
+    }
+}
+
+static void ltrim_rw(char(*pstr))
 {
     int i = 0, j = 0;
 
@@ -79,14 +130,14 @@ void ltrim(char(*pstr))
     pstr[j] = '\0';
 }
 
-void rtrim(char(*pstr))
+static void rtrim_rw(char(*pstr))
 {
     char* end = pstr + strlen(pstr) - 1;
     while (end >= pstr && isspace(*end)) --end;
     *(end + 1) = '\0';
 }
 
-void trim(char(*pstr))
+static void trim_rw(char(*pstr))
 {
-    /** @todo Implement ::trim */
+    /** @todo Implement ::trim_rw */
 }

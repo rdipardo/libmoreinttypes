@@ -29,6 +29,27 @@ static void rtrim_rw(char(*pstr));
  */
 static void trim_rw(char(*pstr));
 
+/** Called internally by ::ltrim_s() when the second argument is not `NULL`,
+ *  but a read-only string
+ *  @param dest Pointer to a writable `char` array.
+ *  @param src Pointer to a read-only `char` array
+ */
+static void ltrim_ro(char(*dest), const char(*src));
+
+/** Called internally by ::rtrim_s() when the second argument is not `NULL`,
+ *  but a read-only string
+ *  @param dest Pointer to a writable `char` array.
+ *  @param src Pointer to a read-only `char` array
+ */
+static void rtrim_ro(char(*dest), const char(*src));
+
+/** Called internally by ::trim_s() when the second argument is not `NULL`,
+ *  but a read-only string
+ *  @param dest Pointer to a writable `char` array.
+ *  @param src Pointer to a read-only `char` array
+ */
+static void trim_ro(char(*dest), const char(*src));
+
 void append_string(char* dest, const char* src, size_t lim)
 {
     char* buf = NULL;
@@ -81,7 +102,7 @@ void ltrim_s(char(*dest), const char(*src))
 {
     if (src)
     {
-        /** @todo Finish implementing ::ltrim_s */
+        ltrim_ro(dest, src);
     }
     else
     {
@@ -93,7 +114,7 @@ void rtrim_s(char(*dest), const char(*src))
 {
     if (src)
     {
-        /** @todo Finish implementing ::rtrim_s */
+        rtrim_ro(dest, src);
     }
     else
     {
@@ -105,7 +126,7 @@ void trim_s(char(*dest), const char(*src))
 {
     if (src)
     {
-        /** @todo Finish implementing ::trim_s */
+        trim_ro(dest, src);
     }
     else
     {
@@ -139,5 +160,39 @@ static void rtrim_rw(char(*pstr))
 
 static void trim_rw(char(*pstr))
 {
-    /** @todo Implement ::trim_rw */
+    rtrim_rw(pstr);
+    ltrim_rw(pstr);
+}
+
+static void ltrim_ro(char(*dest), const char(*src))
+{
+    /* copy a segment of `src` into `dest` */
+    size_t i = 0;
+    while (isspace(src[i])) ++i;
+
+    size_t j = 0;
+    while (src[i]) dest[j++] = src[i++];
+
+    dest[j] = '\0';
+}
+
+static void rtrim_ro(char(*dest), const char(*src))
+{
+    long long i = (long long) strlen(src) - 1;
+    while (i >= 0 && isspace(src[i])) --i;
+    if (i >= 0)
+    {
+        /* We use memmove instead of `memcpy`,
+         because `dest` and `src` might overlap */
+        size_t n = (size_t) i + 1;
+        memmove(dest, src, n);
+    }
+
+    dest[i + 1] = '\0';
+}
+
+static void trim_ro(char(*dest), const char(*src))
+{
+    rtrim_ro(dest, src);
+    ltrim_ro(dest, dest);
 }

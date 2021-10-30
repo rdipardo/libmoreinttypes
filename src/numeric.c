@@ -91,8 +91,7 @@ int32_t parse_int(const char* str, unsigned base)
 int64_t parse_int_64(const char* str, unsigned base)
 {
     int64_t result = 0;
-    int64_t temp = 0;
-    size_t i = 0, j = 0;
+
     char buffer[128] = { 0 };
     char temp_buffer[2] = { 0 };
     char* end = { 0 };
@@ -105,6 +104,9 @@ int64_t parse_int_64(const char* str, unsigned base)
 
     if (str && strlen(str) > 0 && strlen(str) <= sizeof buffer)
     {
+        int64_t temp = 0;
+        size_t i = 0, j = 0;
+
         for (i = 0; i < strlen(str); i++)
         {
             if (parse_func(str[i]))
@@ -116,7 +118,7 @@ int64_t parse_int_64(const char* str, unsigned base)
 
                 if (errno == 0)
                 {
-                    if (temp != 0 || (temp == 0 && (temp_buffer[0] == '0')))
+                    if (temp != 0 || temp_buffer[0] == '0')
                     {
                         for (j = 0; j < strlen(buffer); j++)
                         {
@@ -198,12 +200,12 @@ const char* binary_string(char* bin_str, int32_t n)
 
 const char* binary_string_64(char* bin_str, int64_t n)
 {
-    char bit_buf[BIT_BUFFER_SIZE] = { 0 };
-    uint8_t bits[64] = { 0 };
-    uint8_t bit_width = 0;
-
     if (n <= INT64_MAX)
     {
+        char bit_buf[BIT_BUFFER_SIZE] = { 0 };
+        uint8_t bits[64] = { 0 };
+        uint8_t bit_width = 0;
+
         while (n > 0)
         {
             bit_width++;

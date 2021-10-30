@@ -53,7 +53,6 @@ static void trim_ro(char(*dest), const char(*src));
 void append_string(char* dest, const char* src, size_t lim)
 {
     char* buf = NULL;
-    int succ = 0;
     size_t growth = strlen(src) + 1;
     size_t end, offset = strlen(dest) + 1;
     size_t new_length = offset + growth;
@@ -66,7 +65,7 @@ void append_string(char* dest, const char* src, size_t lim)
 
         offset -= 1;
         end = offset;
-        succ = snprintf(buf + offset, growth, "%s", src);
+        int succ = snprintf(buf + offset, growth, "%s", src);
 
         if (succ > 0 && (size_t)succ < MAX_LEN)
         {
@@ -82,10 +81,10 @@ void append_string(char* dest, const char* src, size_t lim)
 
 void chomp(char(*pstr))
 {
-    size_t i, len = strlen(pstr) + 1;
-
     if (pstr)
     {
+        size_t i, len = strlen(pstr) + 1;
+
         for (i = 0; i < len; i++)
         {
             if (i >= 0 && i < len - 1 &&
@@ -178,13 +177,13 @@ static void ltrim_ro(char(*dest), const char(*src))
 
 static void rtrim_ro(char(*dest), const char(*src))
 {
-    long long i = (long long) strlen(src) - 1;
+    long long i = (long long)strlen(src) - 1;
     while (i >= 0 && isspace(src[i])) --i;
     if (i >= 0)
     {
         /* We use memmove instead of `memcpy`,
          because `dest` and `src` might overlap */
-        size_t n = (size_t) i + 1;
+        size_t n = (size_t)i + 1;
         memmove(dest, src, n);
     }
 

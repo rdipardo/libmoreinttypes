@@ -3,8 +3,6 @@ on:
   push:
     paths:
       - '**/moreinttypes.pc'
-    tags-ignore:
-      - '**'
 jobs:
   doxygen:
     runs-on: ubuntu-20.04

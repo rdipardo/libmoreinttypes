@@ -24,7 +24,6 @@ var NAVTREE =
 [
   [ "moreinttypes", "index.html", [
     [ "Description", "index.html", null ],
-    [ "Todo List", "dd/da0/todo.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],

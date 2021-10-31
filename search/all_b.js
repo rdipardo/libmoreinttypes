@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['string_20lib_34',['String Lib',['../d4/d61/group__text.html',1,'']]]
+  ['string_20lib_32',['String Lib',['../d4/d61/group__text.html',1,'']]]
 ];

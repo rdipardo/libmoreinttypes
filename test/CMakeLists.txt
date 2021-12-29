@@ -37,9 +37,23 @@ if (MSVC)
     target_link_libraries (utests PRIVATE winmm.lib)
 endif()
 
+set(CHECKER )
+if(WITH_VALGRIND)
+    find_program(VALGRIND "valgrind")
+    if(VALGRIND)
+        list (APPEND MEM_CHECK_ARGS
+              --leak-check=full
+              --track-origins=yes
+              --suppressions="${PROJECT_SOURCE_DIR}/test/valgrind.supp"
+              --error-exitcode=1)
+        list (APPEND CHECKER "${VALGRIND}" ${MEM_CHECK_ARGS})
+        target_compile_definitions(utests PRIVATE -DVALGRIND)
+    endif()
+endif()
+
 set_target_properties (utests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
 add_custom_command(TARGET utests
     POST_BUILD
-    COMMAND "$<TARGET_FILE:utests>"
+    COMMAND ${CHECKER} "$<TARGET_FILE:utests>"
     WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/build")

@@ -84,8 +84,9 @@ printf("6! = %.0Lf\n", f);
 Building
 --------
 - **All environments require [cmake](https://cmake.org)**
+- (_optional_) [valgrind], to profile memory usage during unit tests
 - (_optional_) [pkg-config](https://packages.debian.org/sid/pkg-config), if available for your system
-- (_optional_) [doxygen](https://www.doxygen.nl/index.html), if you'd like a local copy of [the documentation][]
+- (_optional_) [doxygen], if you'd like a local copy of [the documentation][]
 
 **Windows** developers can use the [Visual C++ compiler][] in either the 2015, 2017 or 2019 edition.
 
@@ -105,12 +106,50 @@ The build steps are the same for all environments, with one exception:
 **Note**
 It's better to run `cmake .. -G"NMake Makefiles"` when using the Visual C++ compiler.
 This will prevent `cmake` from choosing a [Visual Studio Generator][] by default.
+Adding `-DWITH_VALGRIND=1` to the command line will run a memory leak check with [valgrind], if installed.
 
-- run: `make`, or (if using [MinGW][]) `mingw32-make`, or (if using [nmake][]) `nmake`
+- run:
+<div></div>
+
+
+    make
+
+or, if using [MinGW][]:
+
+    mingw32-make
+
+or, if using [nmake][]:
+
+    nmake
+
 
 Installing
 ----------
-As the admin user, run `make install`, or `mingw32-make install`, or `nmake install` (as above)
+As the admin user, run:
+
+    make install
+
+or
+
+    mingw32-make install
+
+or
+
+    nmake install
+
+
+API Documentation
+-----------------
+To build the [the documentation] and serve it at `localhost:8000`, enter the `doxygen` directory and run:
+
+    ./gendocs
+
+or, on Windows,
+
+    .\gendocs
+
+**Note**
+Make sure [doxygen] and [python] are installed and visible to your system's `PATH`.
 
 ---
 **This project took inspiration from the following sources:**
@@ -151,6 +190,9 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [nmake]: https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=msvc-160
 [gcc]: https://gcc.gnu.org
 [clang]: https://clang.llvm.org
+[valgrind]: https://valgrind.org/downloads
+[python]: https://www.python.org/downloads
+[doxygen]: https://www.doxygen.nl/index.html
 [makefile generator]: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
 [the documentation]: https://rdipardo.github.io/libmoreinttypes

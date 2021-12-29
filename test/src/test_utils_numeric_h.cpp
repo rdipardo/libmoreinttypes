@@ -83,7 +83,7 @@ TEST(Math, FactorialOfChecksBoundsGivenNegativeInput)
 }
 
 // https://stackoverflow.com/a/7120740
-#if !defined(_MSC_VER)
+#if !(defined(_MSC_VER) || defined(VALGRIND))
 TEST(Math, FactorialOf170)
 {
     const char* value =

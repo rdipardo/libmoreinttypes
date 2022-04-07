@@ -83,12 +83,20 @@ void chomp(char(*pstr))
 {
     if (pstr)
     {
-        size_t i, len = strlen(pstr) + 1;
+        size_t i = 0, len = strlen(pstr) + 1;
 
-        for (i = 0; i < len; i++)
+        /* skip ahead to string content, if any */
+        while (isspace(*(pstr + i))) i++;
+
+        if (i >= len - 1)
         {
-            if (i >= 0 && i < len - 1 &&
-                (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
+            /* string was empty except for whitespace */
+            *(pstr) = '\0';
+        }
+
+        for (; i < len; i++)
+        {
+            if (i < len - 1 && (*(pstr + i) == '\r' || *(pstr + i) == '\n'))
             {
                 *(pstr + i) = '\0';
                 break;

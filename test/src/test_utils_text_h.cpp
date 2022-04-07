@@ -39,6 +39,13 @@ TEST(Strings, ChompLeavesEmptyStringsUnchanged)
     STRCMP_EQUAL("", text);
 }
 
+TEST(Strings, ChompLeavesLeadingSpaceUnchanged)
+{
+    char text[] = "\r\n\t\t\r\n\t\r\n\t \tRaw input\r\n\r\n\r\n";
+    chomp(text);
+    STRCMP_EQUAL("\r\n\t\t\r\n\t\r\n\t \tRaw input", text);
+}
+
 TEST(Strings, RtrimRemovesRightEndSpaces)
 {
     char text[] = "hello             ";

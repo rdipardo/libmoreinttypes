@@ -1,0 +1,39 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include <windows.h>
+
+#define VERSION_MOREINTTYPES "1.4.0.0\0"
+#define VERSION_WORDS 1,4,0,0
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION VERSION_WORDS
+ PRODUCTVERSION VERSION_WORDS
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_DLL
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Robert Di Pardo <https://github.com/rdipardo>\0"
+            VALUE "FileDescription", "Minimal C extension library providing enhanced integer types\0"
+            VALUE "FileVersion", VERSION_MOREINTTYPES "\0"
+            VALUE "InternalName", "libmoreinttypes\0"
+            VALUE "LegalCopyright", "Copyright (c) 2020, Robert Di Pardo and Contributors\0"
+            VALUE "OriginalFilename", "moreinttypes.dll\0"
+            VALUE "ProductName", "libmoreinttypes\0"
+            VALUE "ProductVersion", VERSION_MOREINTTYPES "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

@@ -26,6 +26,8 @@
 /*.dir
 *.iml
 *.iws
+*.aps
+*.res
 .idea/
 target/
 *build*/

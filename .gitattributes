@@ -1,6 +1,7 @@
 * text=auto
 doxygen/**    text   eol=lf
 pkgconfig/**  text   eol=lf
+**.rc         text   eol=crlf
 **.cmd        text   eol=crlf
 **.bat        text   eol=crlf
 

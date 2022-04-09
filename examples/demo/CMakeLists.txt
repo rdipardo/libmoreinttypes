@@ -3,7 +3,7 @@ set(CMAKE_INSTALL_RPATH lib)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 add_executable(demo "main.c")
 set_target_properties (demo PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 target_link_libraries(demo PRIVATE moreinttypes)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
@@ -14,5 +14,5 @@ if(RUN_DEMO)
     add_custom_command(TARGET demo
                       POST_BUILD
                       COMMAND "demo"
-                      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
+                      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 endif()

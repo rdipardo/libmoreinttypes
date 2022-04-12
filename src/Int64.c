@@ -22,7 +22,7 @@ static char bin_str_buffer[128] = { 0 };
 
 /** Called by Int64::parse(), a.k.a #from_string() */
 static void from_numeric_string(Int64* const restrict self, const char* str,
-                                unsigned base);
+                                int base);
 
 /** Called by Int64::n_bang(), a.k.a #factorial() */
 static long double to_factorial(Int64* const restrict self);
@@ -46,7 +46,7 @@ Int64 ConstructInt64(const int64_t value)
 }
 
 static void from_numeric_string(Int64* const restrict self, const char* str,
-                                unsigned base)
+                                int base)
 {
     int64_t* value_accessor = 0;
     int64_t new_value = parse_int_64(str, base);

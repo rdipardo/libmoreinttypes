@@ -71,7 +71,7 @@ long double factorial_of_64(uint64_t n)
     return product;
 }
 
-int32_t parse_int(const char* str, unsigned base)
+int32_t parse_int(const char* str, int base)
 {
     const int64_t result = parse_int_64(str, base);
 
@@ -88,7 +88,7 @@ int32_t parse_int(const char* str, unsigned base)
     return 0;
 }
 
-int64_t parse_int_64(const char* str, unsigned base)
+int64_t parse_int_64(const char* str, int base)
 {
     int64_t result = 0;
 
@@ -184,7 +184,7 @@ int64_t parse_int_64(const char* str, unsigned base)
 
 const char* binary_string(char* bin_str, int32_t n)
 {
-    if ((int64_t)n <= INT32_MAX)
+    if (n <= INT32_MAX)
     {
         return binary_string_64(bin_str, (int64_t)n);
     }

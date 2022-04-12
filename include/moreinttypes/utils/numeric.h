@@ -82,9 +82,9 @@ MOREINTTYPES_EXPORTS long double factorial_of_64(uint64_t n);
  *  @param base The radix to use when parsing `str`.
  *  @return The integral value of `str`, otherwise `0`.
  */
-MOREINTTYPES_EXPORTS int32_t parse_int(const char* str, unsigned int base);
+MOREINTTYPES_EXPORTS int32_t parse_int(const char* str, int base);
 /** @copydoc ::parse_int */
-MOREINTTYPES_EXPORTS int64_t parse_int_64(const char* str, unsigned int base);
+MOREINTTYPES_EXPORTS int64_t parse_int_64(const char* str, int base);
 
 /** Converts an integer to a string representation of its binary equivalent,
  *  formatted in space-separated nibbles.

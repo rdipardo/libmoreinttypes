@@ -15,7 +15,7 @@ typedef struct Int32 {
     /** The underlying value of this Int32 */
     const int32_t value;
     /** Attempts to set the value of this Int32 by parsing a numeric string. */
-    void (*parse)(struct Int32* const restrict, const char*, unsigned);
+    void (*parse)(struct Int32* const restrict, const char*, int);
     /** Returns the factorial of this Int32's value. */
     long double (*n_bang)(struct Int32* const restrict);
     /** Returns the base-2 representation of this Int32's value as a string. */

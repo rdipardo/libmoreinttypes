@@ -52,8 +52,15 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
   target_compile_options(moreinttypes PRIVATE
         -Wall
+        -Wextra
         -Werror
         -pedantic
+        -Warray-bounds=2
+        -Werror=discarded-array-qualifiers
+        -Werror=discarded-qualifiers
+        -Werror=incompatible-pointer-types
+        -Werror=init-self
+        -Werror=uninitialized
         -Wno-format
         -Wno-implicit-fallthrough)
   # don't pass -lubsan to the linker when building with MinGW

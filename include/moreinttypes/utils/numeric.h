@@ -86,6 +86,13 @@ MOREINTTYPES_EXPORTS int32_t parse_int(const char* str, int base);
 /** @copydoc ::parse_int */
 MOREINTTYPES_EXPORTS int64_t parse_int_64(const char* str, int base);
 
+/** Returns true if and only if the given string represents the given value.
+ *  @param str  A string representation of an integral value.
+ *  @param val The value returned after parsing @p str.
+ *  @return True if @p val really is the value represented by @p str.
+ */
+MOREINTTYPES_EXPORTS bool parse_succeeded(const char* str, const int64_t val);
+
 /** Converts an integer to a string representation of its binary equivalent,
  *  formatted in space-separated nibbles.
  *  @param buffer A string buffer to use as scratch memory.

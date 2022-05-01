@@ -51,8 +51,7 @@ static void from_numeric_string(Int32* const restrict self, const char* str,
     int32_t* value_accessor = 0;
     int32_t new_value = parse_int(str, base);
 
-    if (new_value > 0 || (new_value < 0 && str[0] == '-') ||
-        (new_value == 0 && str[0] == '0'))
+    if (parse_succeeded(str, new_value))
     {
         *(const int32_t**)&value_accessor = &(self->value);
         *value_accessor = new_value;

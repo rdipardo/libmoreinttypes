@@ -163,8 +163,7 @@ int64_t parse_int_64(const char* str, int base)
                     "\nVALUE ERROR: '%s' is greater than " INT64_PTR_FMT ".\n",
                     str, INT64_MAX);
         }
-        else if (temp > 0 || (temp < 0 && str[0] == '-') /* negative number */
-                 || (temp == 0 && str[0] == '0'))        /* number was '0' */
+        else if (parse_succeeded(str, temp))
         {
             result = temp;
         }
@@ -223,6 +222,12 @@ const char* binary_string_64(char* bin_str, int64_t n)
     }
 
     return bin_str;
+}
+
+bool parse_succeeded(const char* str, const int64_t val)
+{
+    return (val > 0 || (val < 0 && str[0] == '-') /* negative number */
+            || (val == 0 && str[0] == '0'));      /* number was '0' */
 }
 
 static inline void write_bits(char* bin_str, char* bit_buf, uint8_t* bits,

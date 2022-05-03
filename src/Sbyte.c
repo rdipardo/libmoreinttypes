@@ -2,8 +2,8 @@
  *  @file Sbyte.c
  */
 #include <moreinttypes/types/Sbyte.h>
-#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 /**
  *  @private
@@ -74,8 +74,7 @@ static int8_t parse_sbyte(const char* str, int base)
     }
     else
     {
-        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
-                INT8_MAX);
+        write_value_error("'%s' is greater than %d", str, INT8_MAX);
     }
 
     return 0;

@@ -2,8 +2,8 @@
  *  @file UInt16.c
  */
 #include <moreinttypes/types/UInt16.h>
-#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 /**
  *  @private
@@ -71,8 +71,7 @@ static uint16_t parse_ushort(const char* str, int base)
 
     if (result < 0)
     {
-        fprintf(stderr,
-                "\nVALUE ERROR: needed an unsigned value but got '%s'.\n", str);
+        write_argument_error("Expected unsigned value but got '%s'", str);
     }
     else if (result <= UINT16_MAX)
     {
@@ -80,8 +79,7 @@ static uint16_t parse_ushort(const char* str, int base)
     }
     else
     {
-        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
-                UINT16_MAX);
+        write_value_error("'%s' is greater than %d", str, UINT16_MAX);
     }
 
     return 0;

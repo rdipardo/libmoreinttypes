@@ -84,7 +84,14 @@ MOREINTTYPES_EXPORTS long double factorial_of_64(uint64_t n);
  */
 MOREINTTYPES_EXPORTS int32_t parse_int(const char* str, int base);
 /** @copydoc ::parse_int */
+MOREINTTYPES_EXPORTS uint32_t parse_uint(const char* str, int base);
+/** @copydoc ::parse_int */
 MOREINTTYPES_EXPORTS int64_t parse_int_64(const char* str, int base);
+/** @copydoc ::parse_int
+ *  @remarks Negative values will be cast to their 2's complement by implicit
+ * type conversion.
+ */
+MOREINTTYPES_EXPORTS uint64_t parse_uint_64(const char* str, int base);
 
 /** Returns true if and only if the given string represents the given value.
  *  @param str  A string representation of an integral value.
@@ -98,10 +105,12 @@ MOREINTTYPES_EXPORTS bool parse_succeeded(const char* str, const int64_t val);
  *  @param buffer A string buffer to use as scratch memory.
  *  @param n      An integer.
  *  @return A formatted string representation of `n` in base-2 notation.
+ *  @remarks Negative values will be cast to their 2's complement by implicit
+ * type conversion.
  */
-MOREINTTYPES_EXPORTS const char* binary_string(char* buffer, int32_t n);
+MOREINTTYPES_EXPORTS const char* binary_string(char* buffer, uint32_t n);
 /** @copydoc ::binary_string */
-MOREINTTYPES_EXPORTS const char* binary_string_64(char* buffer, int64_t n);
+MOREINTTYPES_EXPORTS const char* binary_string_64(char* buffer, uint64_t n);
 /** @} */
 #ifdef __cplusplus
 }

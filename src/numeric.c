@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <float.h>
 #include <math.h>
+#include "debug.h"
 
 #define ASCII_GAP 32
 #define ASCII_ZERO 48
@@ -59,9 +60,8 @@ long double factorial_of_64(uint64_t n)
         if (isinf(product))
         {
             product = 0.0L;
-            fprintf(stderr,
-                    "\nVALUE ERROR: %" PRIu64 "! is greater than %.2Le.\n", n,
-                    LDBL_MAX);
+            write_value_error("%" PRIu64 "! is greater than %.2Le", n,
+                              LDBL_MAX);
             break;
         }
 
@@ -81,8 +81,27 @@ int32_t parse_int(const char* str, int base)
     }
     else
     {
-        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
-                INT32_MAX);
+        write_value_error("'%s' is greater than %d", str, INT32_MAX);
+    }
+
+    return 0;
+}
+
+uint32_t parse_uint(const char* str, int base)
+{
+    const int64_t result = parse_int_64(str, base);
+
+    if (result < 0)
+    {
+        write_argument_error("Expected unsigned value but got '%s'", str);
+    }
+    else if (result <= UINT32_MAX)
+    {
+        return (uint32_t)result;
+    }
+    else
+    {
+        write_value_error("'%s' is greater than %u", str, UINT32_MAX);
     }
 
     return 0;
@@ -159,9 +178,8 @@ int64_t parse_int_64(const char* str, int base)
         if (errno == ERANGE || (temp < 0 && str[0] != '-')) /* overflow */
         {
             errno = 0;
-            fprintf(stderr,
-                    "\nVALUE ERROR: '%s' is greater than " INT64_PTR_FMT ".\n",
-                    str, INT64_MAX);
+            write_value_error("'%s' is greater than " INT64_PTR_FMT, str,
+                              INT64_MAX);
         }
         else if (parse_succeeded(str, temp))
         {
@@ -169,40 +187,135 @@ int64_t parse_int_64(const char* str, int base)
         }
         else
         {
-            fprintf(stderr, "\nARGUMENT ERROR: Can't parse value of '%s'.\n",
-                    str);
+            write_argument_error("Can't parse value of '%s'", str);
         }
     }
     else
     {
-        fprintf(stderr, "\nARGUMENT ERROR: Invalid string.\n");
+        write_argument_error("Invalid string '%s'", str);
     }
 
     return result;
 }
 
-const char* binary_string(char* bin_str, int32_t n)
+uint64_t parse_uint_64(const char* str, int base)
 {
-    if (n <= INT32_MAX)
+    uint64_t result = 0;
+    char buffer[128] = { 0 };
+    char temp_buffer[2] = { 0 };
+    char* end = { 0 };
+    int (*parse_func)(int);
+
+    memset(buffer, '*', (sizeof buffer));
+    buffer[sizeof buffer - 1] = '\0';
+    parse_func = (base == 16) ? isxdigit : isdigit;
+    errno = 0;
+
+    if (strlen(str) >= 2 && str[0] == '-' && parse_func(str[1]))
+    {
+        write_argument_error("Expected unsigned value but got '%s'", str);
+    }
+    else if (str && strlen(str) > 0 && strlen(str) <= sizeof buffer)
+    {
+        uint64_t temp = 0;
+        size_t i = 0, j = 0;
+
+        for (i = 0; i < strlen(str); i++)
+        {
+            if (parse_func(str[i]))
+            {
+                temp_buffer[0] = str[i];
+                temp_buffer[1] = '\0';
+                temp = (int64_t)strtol(temp_buffer, &end, base);
+                end = "";
+
+                if (errno == 0)
+                {
+                    if (temp != 0 || temp_buffer[0] == '0')
+                    {
+                        for (j = 0; j < strlen(buffer); j++)
+                        {
+                            if (buffer[j] == '*')
+                            {
+                                buffer[j] = temp_buffer[0];
+                                break;
+                            }
+                        }
+                    }
+                    else
+                        buffer[i] = '*';
+                }
+                else
+                    errno = 0;
+            }
+            else if (i == 0 && (str[0] == '-' || str[0] == '+'))
+            {
+                buffer[i] = str[i];
+            }
+            else if (i > 0 && str[i] == '.')
+            {
+                buffer[i - 1] = '*';
+                break;
+            }
+        }
+
+        buffer[i] = '\0';
+
+        for (i = 0; i < strlen(buffer); i++)
+        {
+            if (buffer[i] == '*')
+                buffer[i] = '\0';
+        }
+
+        temp = (uint64_t)strtoull(buffer, &end, base);
+
+        if (errno == ERANGE) /* overflow */
+        {
+            errno = 0;
+            write_value_error("'%s' is greater than " INT64_PTR_FMT, str,
+                              UINT64_MAX);
+        }
+        else if (temp < INT64_MAX && ((int64_t)temp) < 0)
+        {
+            write_argument_error("Expected unsigned value but got '%s'", str);
+        }
+        else if (temp != 0 || str[0] == '0')
+        {
+            result = temp;
+        }
+        else
+        {
+            write_argument_error("Can't parse value of '%s'", str);
+        }
+    }
+    else
+    {
+        write_argument_error("Invalid string '%s'", str);
+    }
+
+    return result;
+}
+
+const char* binary_string(char* bin_str, uint32_t n)
+{
+    if (n <= UINT32_MAX)
     {
         return binary_string_64(bin_str, (int64_t)n);
     }
     else
     {
-        fprintf(stderr,
-                "\nVALUE ERROR: " INT64_PTR_FMT " is greater than %d.\n",
-                (int64_t)n, INT32_MAX);
+        write_value_error("%u is greater than %u", n, UINT32_MAX);
     }
 
     return bin_str;
 }
 
-const char* binary_string_64(char* bin_str, int64_t n)
+const char* binary_string_64(char* bin_str, uint64_t n)
 {
-    if (n <= INT64_MAX)
+    if (n <= UINT64_MAX)
     {
         char bit_buf[BIT_BUFFER_SIZE] = { 0 };
-        uint8_t bits[64] = { 0 };
+        uint8_t bits[65] = { 0 };
         uint8_t bit_width = 0;
 
         while (n > 0)
@@ -215,10 +328,8 @@ const char* binary_string_64(char* bin_str, int64_t n)
     }
     else
     {
-        fprintf(stderr,
-                "\n VALUE ERROR: " INT64_PTR_FMT
-                " is greater than " INT64_PTR_FMT ".\n",
-                n, INT64_MAX);
+        write_value_error(INT64_PTR_FMT " is greater than " INT64_PTR_FMT, n,
+                          UINT64_MAX);
     }
 
     return bin_str;

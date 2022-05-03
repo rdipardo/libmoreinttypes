@@ -75,7 +75,7 @@ typedef unsigned long uint64_t;
 #define INT_PTR_FMT "%lld"
 #define INT64_PTR_FMT INT_PTR_FMT
 
-#elif __GNUC__ && (__LP64__ || _LP64)
+#elif (_WIN64 || __LP64__ || _LP64) && (__GNUC__ || __MINGW32__)
 /* 64-bit GNU Environment */
 
 #define SIZE_T_FMT "%lu"
@@ -85,7 +85,7 @@ typedef unsigned long uint64_t;
 #elif _MSC_VER
 /* Visual C++ Environment */
 
-#define SIZE_T_FMT "%Iu"
+#define SIZE_T_FMT "%I64u"
 #define INT_PTR_FMT "%Id"
 #define INT64_PTR_FMT "%I64d"
 

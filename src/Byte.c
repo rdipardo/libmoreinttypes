@@ -2,8 +2,8 @@
  *  @file Byte.c
  */
 #include <moreinttypes/types/Byte.h>
-#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 /**
  *  @private
@@ -70,8 +70,7 @@ static uint8_t parse_byte(const char* str, int base)
 
     if (result < 0)
     {
-        fprintf(stderr,
-                "\nVALUE ERROR: needed an unsigned value but got '%s'.\n", str);
+        write_argument_error("Expected unsigned value but got '%s'", str);
     }
     else if (result <= UINT8_MAX)
     {
@@ -79,8 +78,7 @@ static uint8_t parse_byte(const char* str, int base)
     }
     else
     {
-        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
-                UINT8_MAX);
+        write_value_error("'%s' is greater than %d", str, UINT8_MAX);
     }
 
     return 0;

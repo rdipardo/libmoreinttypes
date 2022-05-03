@@ -26,8 +26,15 @@ void test_data_types()
 {
     Int32 an_int = integer(122333333);
     Int64 an_int_64 = integer64(0x77F9FE);
+    UInt32 ui32 = uinteger(0xFFFFFFFF);
+    UInt64 ui64 = uinteger64(0);
 
-    printf("\n------------------ Int32 -----------------\n");
+    if (sizeof(uint64_t) == 4)
+        from_string(ui64, "0xFFFFFFFF", 16);
+    else
+        from_string(ui64, "0xEFFFFFFFFFFFFFFF", 16);
+
+    printf("\n---------------- (U)Int32 ----------------\n");
     puts("------------------------------------------");
     puts("------------- Bounds Checking ------------");
     puts("------------------------------------------");
@@ -35,12 +42,20 @@ void test_data_types()
     from_string(an_int, "three", 2);
     from_string(an_int, "", 2);
     from_string(an_int, "FFFFFFFFFFFFFF", 16);
+    from_string(ui32, "-12", 10);
+    from_string(ui32, "-eff", 16);
 
     printf("\nCurrent value of Int32 %d\n", an_int.value);
+    printf("Current value of UInt32 %u \n", ui32.value);
 
+    from_string(ui32, "7FFFFFFFFFFFFFFF", 16);
     from_string(an_int, "7FFFFFFF", 16);
-    printf("\nValue now %d.\n", an_int.value);
-    printf("%d in base-2: %s", an_int.value, as_binary(an_int));
+
+    printf("\nValue of Int32 now %d.\n", an_int.value);
+    printf("Value of UInt32 now %u.\n", ui32.value);
+
+    printf("%d in base-2:\t%40s\n", an_int.value, as_binary(an_int));
+    printf("%u in base-2:\t%40s\n", ui32.value, as_binary(ui32));
 
     from_string(an_int, "6", 10);
     printf("\nValue now %d \n", an_int.value);
@@ -49,7 +64,8 @@ void test_data_types()
     from_string(an_int, "10101010", 2);
     printf("New value: %d \n", an_int.value);
     printf("%d! = %.0Lf\n", an_int.value, factorial(an_int));
-    printf("\n------------------ Int64 -----------------\n");
+
+    printf("\n---------------- (U)Int64 ----------------\n");
     puts("------------------------------------------");
     puts("------------- Bounds Checking ------------");
     puts("------------------------------------------");
@@ -57,13 +73,21 @@ void test_data_types()
     from_string(an_int_64, "three", 2);
     from_string(an_int_64, "", 2);
     from_string(an_int_64, "FFFFFFFFFFFFFFFFFFFFFFFF", 16);
+    from_string(ui64, "-24", 10);
+    from_string(ui64, "-ff7f", 16);
 
     printf("\nCurrent value of Int64 " INT64_PTR_FMT "\n", an_int_64.value);
+    printf("Current value of UInt64 " SIZE_T_FMT "\n", ui64.value);
 
     from_string(an_int_64, "7FFFFFFFFFFFFFFF", 16);
-    printf("\nValue now " INT64_PTR_FMT "\n", an_int_64.value);
-    printf("" INT64_PTR_FMT " in base-2: %s", an_int_64.value,
+    from_string(ui64, "FFFFFFFFFFFFFFFF", 16);
+
+    printf("\nValue of Int64 now " INT64_PTR_FMT "\n", an_int_64.value);
+    printf("Value of UInt64 now " SIZE_T_FMT "\n", ui64.value);
+
+    printf(INT64_PTR_FMT " in base-2:\t%80s\n", an_int_64.value,
            as_binary(an_int_64));
+    printf(SIZE_T_FMT " in base-2:\t%80s\n", ui64.value, as_binary(ui64));
 
     from_string(an_int_64, "6", 10);
     printf("\nNew value " INT64_PTR_FMT "\n", an_int_64.value);

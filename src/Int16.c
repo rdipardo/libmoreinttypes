@@ -2,8 +2,8 @@
  *  @file Int16.c
  */
 #include <moreinttypes/types/Int16.h>
-#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 /**
  *  @private
@@ -74,8 +74,7 @@ static int16_t parse_short(const char* str, int base)
     }
     else
     {
-        fprintf(stderr, "\nVALUE ERROR: '%s' is greater than %d.\n", str,
-                INT16_MAX);
+        write_value_error("'%s' is greater than %d", str, INT16_MAX);
     }
 
     return 0;

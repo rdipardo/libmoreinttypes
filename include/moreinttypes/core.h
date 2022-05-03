@@ -7,5 +7,7 @@
 #include "types/Int64.h"
 #include "types/Sbyte.h"
 #include "types/UInt16.h"
+#include "types/UInt32.h"
+#include "types/UInt64.h"
 
 #endif /* !MOREINTTYPES_CORE_H */

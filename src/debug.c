@@ -7,6 +7,12 @@
 
 typedef enum ErrorType { VALUE = -1, ARGUMENT } Error;
 
+#ifndef _DEBUG
+static void write_error(Error nop, ...)
+{
+    (void)(nop);
+}
+#else
 static void write_error(Error error, const char* msg, va_list vargs)
 {
     switch (error)
@@ -24,6 +30,7 @@ static void write_error(Error error, const char* msg, va_list vargs)
     vfprintf(stderr, msg, vargs);
     fprintf(stderr, ".\n");
 }
+#endif
 
 void write_argument_error(const char* msg, ...)
 {

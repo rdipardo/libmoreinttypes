@@ -1,5 +1,9 @@
 #ifdef _MSC_VER
+#ifdef _DEBUG
+#pragma comment(lib, "moreinttypesd.lib")
+#else
 #pragma comment(lib, "moreinttypes.lib")
+#endif
 #endif
 
 #define USE_64_BITS 1

@@ -25,6 +25,10 @@ set_target_properties (moreinttypes PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+  target_compile_definitions(moreinttypes PUBLIC _DEBUG)
+endif()
+
 if (MSVC)
   # https://stackoverflow.com/a/24767451
   set(CMAKE_C_FLAGS "")
@@ -44,6 +48,7 @@ if (MSVC)
   if(CMAKE_BUILD_TYPE MATCHES "Debug")
     target_compile_options(moreinttypes PRIVATE /Od /MTd /DDEBUG)
     target_link_libraries(moreinttypes PRIVATE -OPT:REF -INCREMENTAL:NO -DEBUG)
+    set_target_properties(moreinttypes PROPERTIES DEBUG_POSTFIX "d")
   else()
     target_compile_options(moreinttypes PUBLIC /Ob1 /Ot /MT /DNDEBUG)
   endif()

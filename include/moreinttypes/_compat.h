@@ -30,31 +30,28 @@
 #define __STDC_LIMIT_MACROS
 #include <inttypes.h> /* <stdint.h> */
 #include <limits.h>
-#include <stdbool.h>
-#else
-#ifndef __cplusplus
-/* polyfill for <stdbool.h> */
-
-typedef unsigned char uint8_t;
-typedef uint8_t bool;
-/* clang-format off */
-#define false ((uint8_t)0)
-/* clang-format on */
-#define true !false
-
-#if STRICT_ANSI && (__GNUC__ || __MINGW32__)
+#elif STRICT_ANSI && (__GNUC__ || __MINGW32__) && !defined(__cplusplus)
 /* polyfill for <stdint.h>/<inttypes.h> */
 
 typedef char int8_t;
 typedef short int16_t;
 typedef int int32_t;
 typedef long int64_t;
+typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
 typedef unsigned long uint64_t;
 #endif /* !<stdint.h> && !long long */
-#endif /* !bool */
-#endif /* strict C89/90 */
+
+#ifndef __cplusplus
+/* polyfill for <stdbool.h> */
+
+typedef uint8_t bool;
+/* clang-format off */
+#define false ((uint8_t)0)
+/* clang-format on */
+#define true !false
+#endif
 
 /***********************************************************
 *** Match print format specifiers to expected bit-widths ***
@@ -68,8 +65,8 @@ typedef unsigned long uint64_t;
 #define SHRT_PTR_FMT "%h"
 #define U_SHRT_PTR_FMT "%hu"
 
-#if (_WIN64 || __LP64__ || _LP64) && (__MACH__ || (__MINGW32__ && !STRICT_ANSI))
-/* 64-bit macOS X or C99 compiler targeting a 64-bit MinGW-w64 Environment */
+#if __MACH__ || (_WIN64 && __MINGW32__ && !STRICT_ANSI)
+/* Apple Clang or C99 compiler targeting a 64-bit MinGW-w64 Environment */
 
 #define SIZE_T_FMT "%llu"
 #define INT_PTR_FMT "%lld"
@@ -92,7 +89,11 @@ typedef unsigned long uint64_t;
 #else
 /* Any 32-bit Environment */
 
+#ifdef __MINGW32__
+#define SIZE_T_FMT "%lu"
+#else
 #define SIZE_T_FMT "%u"
+#endif
 #define INT_PTR_FMT "%d"
 #define INT64_PTR_FMT "%ld"
 #endif

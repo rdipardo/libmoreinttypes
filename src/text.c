@@ -54,11 +54,12 @@ void append_string(char* dest, const char* src, size_t lim)
 {
     char* buf = NULL;
     size_t growth = strlen(src) + 1;
-    size_t end, offset = strlen(dest) + 1;
+    size_t offset = strlen(dest) + 1;
     size_t new_length = offset + growth;
 
     if (new_length < MAX_LEN && new_length < lim)
     {
+        size_t end;
         buf = (char*)alloca(new_length);
         memset(buf, 0, new_length);
         snprintf(buf, offset, "%s", dest);

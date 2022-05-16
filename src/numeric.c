@@ -272,7 +272,7 @@ uint64_t parse_uint_64(const char* str, int base)
         if (errno == ERANGE) /* overflow */
         {
             errno = 0;
-            write_value_error("'%s' is greater than " INT64_PTR_FMT, str,
+            write_value_error("'%s' is greater than " SIZE_T_FMT, str,
                               UINT64_MAX);
         }
         else if (temp < INT64_MAX && ((int64_t)temp) < 0)
@@ -328,7 +328,7 @@ const char* binary_string_64(char* bin_str, uint64_t n)
     }
     else
     {
-        write_value_error(INT64_PTR_FMT " is greater than " INT64_PTR_FMT, n,
+        write_value_error(INT64_PTR_FMT " is greater than " SIZE_T_FMT, n,
                           UINT64_MAX);
     }
 

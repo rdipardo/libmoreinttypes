@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">moreinttypes
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.5.0</span>
    </div>
   </td>
  </tr>
@@ -90,20 +90,40 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><p>A minimal library of enhanced integer types for C</p>
 <h1>Features </h1>
 <ul>
-<li>read and write to <code>const</code> integers wrapped in <code><a class="el" href="d5/d4a/structInt32.html" title="Encapsulates a 32-bit integer.">Int32</a></code> and <code><a class="el" href="de/d8d/structInt64.html" title="Encapsulates a 64-bit integer.">Int64</a></code> data types</li>
+<li>read and write to encapsulated signed/unsigned <code>const</code> integers</li>
 <li>parse numeric strings with free functions or by calling through "member" functions</li>
 <li><a href="https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html">polymorphic function macros</a></li>
 <li>use only what you need:</li>
 </ul>
-<table class="doxtable">
+<table border="0">
 <tr>
-<td><code>#include &lt;moreinttypes/core.h&gt;</code> </td><td><code><a class="el" href="d5/d4a/structInt32.html" title="Encapsulates a 32-bit integer.">Int32</a></code> and <code><a class="el" href="de/d8d/structInt64.html" title="Encapsulates a 64-bit integer.">Int64</a></code> data types, math and string library   </td></tr>
+<td><code>#include &lt;moreinttypes/core.h&gt;</code> </td><td align="right"><em>data types<sup>*</sup>, math and string library</em>  </td></tr>
 <tr>
-<td><code>#include &lt;moreinttypes/utils.h&gt;</code> </td><td>math and string library only   </td></tr>
+<td><code>#include &lt;moreinttypes/utils.h&gt;</code> </td><td align="right"><em>math and string library only</em>  </td></tr>
+<tr>
+<td colspan="2"><small><sup>*</sup> Since version 1.5, the following types are provided:</small> <ul style="list-style-type:none">
+<li>
+<a class="el" href="dd/d8f/structByte.html" title="Encapsulates an unsigned 8-bit integer.">Byte</a> </li>
+<li>
+<a class="el" href="db/d25/structInt16.html" title="Encapsulates a signed 16-bit integer.">Int16</a> </li>
+<li>
+<a class="el" href="d5/d4a/structInt32.html" title="Encapsulates a 32-bit integer.">Int32</a> </li>
+<li>
+<a class="el" href="de/d8d/structInt64.html" title="Encapsulates a 64-bit integer.">Int64</a> </li>
+<li>
+<a class="el" href="d9/d90/structSbyte.html" title="Encapsulates a signed 8-bit integer.">Sbyte</a> </li>
+<li>
+<a class="el" href="d8/d71/structUInt16.html" title="Encapsulates an unsigned 16-bit integer.">UInt16</a> </li>
+<li>
+<a class="el" href="dd/d18/structUInt32.html" title="Encapsulates an unsigned 32-bit integer.">UInt32</a> </li>
+<li>
+<a class="el" href="d0/d1c/structUInt64.html" title="Encapsulates an unsigned 64-bit integer.">UInt64</a> </li>
+</ul>
+</td></tr>
 </table>
 <ul>
 <li>compiles on Windows and Linux platforms (so far)</li>
-<li><p class="startli">compatible with code targeting ANSI C (<a href="https://github.com/rdipardo/libmoreinttypes/blob/3384cd35f0907b9dd9c3a4efe54d9c315fb1f967/include/moreinttypes/_compat.h">a GNU compiler</a> supporting <code>-ansi</code> is required)</p>
+<li><p class="startli">compatible with code targeting ANSI C (<a href="https://github.com/rdipardo/libmoreinttypes/blob/5355b132ebaeb939843587191859e10d26cd1080/include/moreinttypes/_compat.h">a GNU compiler</a> supporting <code>-ansi</code> is required)</p>
 <p class="startli"><b>Note</b> A compiler supporting the C99 standard is required for building.</p>
 </li>
 </ul>
@@ -141,12 +161,12 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!-- fragment --><p><b>Using free functions</b> </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;moreinttypes/utils.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> value = <a class="code" href="d1/d6a/group__numeric.html#gadc3a936efc0d4ab8dfaf163e46df4496">parse_int</a>(<span class="stringliteral">&quot;10101010&quot;</span>, 2);</div>
+<div class="line"><span class="keywordtype">int</span> value = <a class="code" href="d1/d6a/group__numeric.html#ga881c4d6e8c2763bc03c7ad8a59c7e666">parse_int</a>(<span class="stringliteral">&quot;10101010&quot;</span>, 2);</div>
 <div class="line">printf(<span class="stringliteral">&quot;%d\n&quot;</span>, value);</div>
 <div class="line"><span class="comment">// &quot;170&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">char</span> buf[16]  = { 0 };</div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* bin_str = <a class="code" href="d1/d6a/group__numeric.html#ga5841a8a1b6a07e0ab8e47114d331fb2b">binary_string</a>(buf, 170);</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* bin_str = <a class="code" href="d1/d6a/group__numeric.html#ga869e8dc86ec9456656f2c627288216b3">binary_string</a>(buf, 170);</div>
 <div class="line">printf(<span class="stringliteral">&quot;%s\n&quot;</span>, bin_str);</div>
 <div class="line"><span class="comment">// &quot;1010 1010&quot;</span></div>
 <div class="line"> </div>
@@ -156,6 +176,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!-- fragment --><h1>Building </h1>
 <ul>
 <li><b>All environments require <a href="https://cmake.org">cmake</a></b></li>
+<li>(<em>optional</em>) <a href="https://valgrind.org/downloads">valgrind</a>, to profile memory usage during unit tests</li>
 <li>(<em>optional</em>) <a href="https://packages.debian.org/sid/pkg-config">pkg-config</a>, if available for your system</li>
 <li>(<em>optional</em>) <a href="https://www.doxygen.nl/index.html">doxygen</a>, if you'd like a local copy of <a href="https://rdipardo.github.io/libmoreinttypes">the documentation</a></li>
 </ul>
@@ -172,12 +193,21 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>make and enter the build directory: <code>mkdir cmake-build &amp;&amp; cd cmake-build</code></li>
 <li>run: <code>cmake ..</code>, or (to use a certain <a href="https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators">makefile generator</a>) <code>cmake .. -G"&lt;name_of_generator&gt;"</code></li>
 </ul>
-<p><b>Note</b> It's better to run <code>cmake .. -G"NMake Makefiles"</code> when using the Visual C++ compiler. This will prevent <code>cmake</code> from choosing a <a href="https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html">Visual Studio Generator</a> by default.</p>
+<p><b>Note</b> It's better to run <code>cmake .. -G"NMake Makefiles"</code> when using the Visual C++ compiler. This will prevent <code>cmake</code> from choosing a <a href="https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html">Visual Studio Generator</a> by default. Adding <code>-DWITH_VALGRIND=1</code> to the command line will run a memory leak check with <a href="https://valgrind.org/downloads">valgrind</a>, if installed.</p>
 <ul>
-<li>run: <code>make</code>, or (if using <a href="https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html">MinGW</a>) <code>mingw32-make</code>, or (if using <a href="https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=msvc-160">nmake</a>) <code>nmake</code></li>
+<li>run: <div></div></li>
 </ul>
-<h1>Installing </h1>
-<p>As the admin user, run <code>make install</code>, or <code>mingw32-make install</code>, or <code>nmake install</code> (as above)</p>
+<pre class="fragment">make
+</pre><p>or, if using <a href="https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html">MinGW</a>: </p><pre class="fragment">mingw32-make
+</pre><p>or, if using <a href="https://docs.microsoft.com/en-us/cpp/build/reference/running-nmake?view=msvc-160">nmake</a>: </p><pre class="fragment">nmake
+</pre><h1>Installing </h1>
+<p>As the admin user, run: </p><pre class="fragment">make install
+</pre><p>or </p><pre class="fragment">mingw32-make install
+</pre><p>or </p><pre class="fragment">nmake install
+</pre><h1>API Documentation </h1>
+<p>To build the <a href="https://rdipardo.github.io/libmoreinttypes">the documentation</a> and serve it at <code>localhost:8000</code>, enter the <code>doxygen</code> directory and run: </p><pre class="fragment">./gendocs
+</pre><p>or, on Windows, </p><pre class="fragment">.\gendocs
+</pre><p><b>Note</b> Make sure <a href="https://www.doxygen.nl/index.html">doxygen</a> and <a href="https://www.python.org/downloads">python</a> are installed and visible to your system's <code>PATH</code>.</p>
 <hr  />
 <p> <b>This project took inspiration from the following sources:</b></p><ul>
 <li>the <a href="https://github.com/CObjectSystem/COS">C Object System</a>. Like this library, it strives to be compatible with ANSI/C89 while taking advantage of C99 features at compile time</li>
@@ -197,11 +227,11 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="ttc" id="agroup__int__fn__wrappers_html_gaffd476860fdd8b444c67642a5409b346"><div class="ttname"><a href="d2/d46/group__int__fn__wrappers.html#gaffd476860fdd8b444c67642a5409b346">as_binary</a></div><div class="ttdeci">#define as_binary(i)</div><div class="ttdoc">Returns the binary equivalent of the given integer type as a string.</div><div class="ttdef"><b>Definition:</b> Integral.h:37</div></div>
 <div class="ttc" id="astructInt32_html"><div class="ttname"><a href="d5/d4a/structInt32.html">Int32</a></div><div class="ttdoc">Encapsulates a 32-bit integer.</div><div class="ttdef"><b>Definition:</b> Int32.h:14</div></div>
 <div class="ttc" id="astructInt32_html_a172a4d3a96e8d5b826a21ef95f4703de"><div class="ttname"><a href="d5/d4a/structInt32.html#a172a4d3a96e8d5b826a21ef95f4703de">Int32::value</a></div><div class="ttdeci">const int32_t value</div><div class="ttdoc">The underlying value of this Int32.</div><div class="ttdef"><b>Definition:</b> Int32.h:16</div></div>
-<div class="ttc" id="agroup__numeric_html_ga5841a8a1b6a07e0ab8e47114d331fb2b"><div class="ttname"><a href="d1/d6a/group__numeric.html#ga5841a8a1b6a07e0ab8e47114d331fb2b">binary_string</a></div><div class="ttdeci">const char * binary_string(char *buffer, int32_t n)</div><div class="ttdoc">Converts an integer to a string representation of its binary equivalent, formatted in space-separated...</div><div class="ttdef"><b>Definition:</b> numeric.c:185</div></div>
-<div class="ttc" id="agroup__numeric_html_gadc3a936efc0d4ab8dfaf163e46df4496"><div class="ttname"><a href="d1/d6a/group__numeric.html#gadc3a936efc0d4ab8dfaf163e46df4496">parse_int</a></div><div class="ttdeci">int32_t parse_int(const char *str, unsigned int base)</div><div class="ttdoc">Returns the integral value represented by the given numeric string.</div></div>
+<div class="ttc" id="agroup__numeric_html_ga869e8dc86ec9456656f2c627288216b3"><div class="ttname"><a href="d1/d6a/group__numeric.html#ga869e8dc86ec9456656f2c627288216b3">binary_string</a></div><div class="ttdeci">const char * binary_string(char *buffer, uint32_t n)</div><div class="ttdoc">Converts an integer to a string representation of its binary equivalent, formatted in space-separated...</div><div class="ttdef"><b>Definition:</b> numeric.c:299</div></div>
 <div class="ttc" id="agroup__int__fn__wrappers_html_gad153a9079d484bcd9dc10998364c408e"><div class="ttname"><a href="d2/d46/group__int__fn__wrappers.html#gad153a9079d484bcd9dc10998364c408e">factorial</a></div><div class="ttdeci">#define factorial(i)</div><div class="ttdoc">Returns the factorial of the given integer type.</div><div class="ttdef"><b>Definition:</b> Integral.h:23</div></div>
+<div class="ttc" id="agroup__numeric_html_ga881c4d6e8c2763bc03c7ad8a59c7e666"><div class="ttname"><a href="d1/d6a/group__numeric.html#ga881c4d6e8c2763bc03c7ad8a59c7e666">parse_int</a></div><div class="ttdeci">int32_t parse_int(const char *str, int base)</div><div class="ttdoc">Returns the integral value represented by the given numeric string.</div><div class="ttdef"><b>Definition:</b> numeric.c:74</div></div>
 <div class="ttc" id="agroup__int__fn__wrappers_html_ga74ba3cb46c35a51fbd8285d9996fc2e7"><div class="ttname"><a href="d2/d46/group__int__fn__wrappers.html#ga74ba3cb46c35a51fbd8285d9996fc2e7">from_string</a></div><div class="ttdeci">#define from_string(i, str, b)</div><div class="ttdoc">Tries to set the value of the given integer type by parsing a numeric string.</div><div class="ttdef"><b>Definition:</b> Integral.h:31</div></div>
-<div class="ttc" id="agroup__numeric_html_ga0bcb86c8145c16ce88b72f6c14eb8311"><div class="ttname"><a href="d1/d6a/group__numeric.html#ga0bcb86c8145c16ce88b72f6c14eb8311">factorial_of</a></div><div class="ttdeci">long double factorial_of(uint32_t n)</div><div class="ttdoc">Returns the factorial of an unsigned integer.</div><div class="ttdef"><b>Definition:</b> numeric.c:45</div></div>
+<div class="ttc" id="agroup__numeric_html_ga0bcb86c8145c16ce88b72f6c14eb8311"><div class="ttname"><a href="d1/d6a/group__numeric.html#ga0bcb86c8145c16ce88b72f6c14eb8311">factorial_of</a></div><div class="ttdeci">long double factorial_of(uint32_t n)</div><div class="ttdoc">Returns the factorial of an unsigned integer.</div><div class="ttdef"><b>Definition:</b> numeric.c:46</div></div>
 <div class="ttc" id="agroup__int__ctor_html_gafebceb07843c912b224de929d65a2938"><div class="ttname"><a href="d0/dc1/group__int__ctor.html#gafebceb07843c912b224de929d65a2938">integer</a></div><div class="ttdeci">#define integer(x)</div><div class="ttdoc">Returns an initialized Int32 struct.</div><div class="ttdef"><b>Definition:</b> Int32.h:37</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

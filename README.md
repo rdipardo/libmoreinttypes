@@ -4,19 +4,34 @@ A minimal library of enhanced integer types for C
 
 Features
 --------
-- read and write to `const` integers wrapped in `Int32` and `Int64` data types
+- read and write to encapsulated signed/unsigned `const` integers
 - parse numeric strings with free functions or by calling through "member" functions
 - [polymorphic function macros][]
 - use only what you need:
 
-<table>
+<table border="0">
   <tr>
     <td><code>#include &lt;moreinttypes/core.h&gt;</code></td>
-    <td><code>Int32</code> and <code>Int64</code> data types, math and string library </td>
+    <td align="right"><em>data types<sup>*</sup>, math and string library</em></td>
   </tr>
   <tr>
     <td><code>#include &lt;moreinttypes/utils.h&gt;</code></td>
-    <td>math and string library only </td>
+    <td align="right"><em>math and string library only</em></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <small><sup>*</sup> Since version 1.5, the following types are provided:</small>
+      <ul style="list-style-type:none">
+        <li>Byte</li>
+        <li>Int16</li>
+        <li>Int32</li>
+        <li>Int64</li>
+        <li>Sbyte</li>
+        <li>UInt16</li>
+        <li>UInt32</li>
+        <li>UInt64</li>
+      </ul>
+    </td>
   </tr>
 </table>
 
@@ -197,4 +212,4 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
 [the documentation]: https://rdipardo.github.io/libmoreinttypes
 [polymorphic function macros]: https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html
-[iso-c]: https://github.com/rdipardo/libmoreinttypes/blob/3384cd35f0907b9dd9c3a4efe54d9c315fb1f967/include/moreinttypes/_compat.h
+[iso-c]: https://github.com/rdipardo/libmoreinttypes/blob/5355b132ebaeb939843587191859e10d26cd1080/include/moreinttypes/_compat.h

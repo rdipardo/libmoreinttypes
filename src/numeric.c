@@ -24,23 +24,27 @@
 #endif /* !INT64_MAX */
 
 /**
- *  Appends a binary digit to the given buffer.
+ *  Writes a zero-padded span of bits into the destination buffer.
  *  @remarks Called internally by ::write_bits
  *  @param dest A string to append to.
  *  @param buffer Scratch memory to which the bit will be written.
- *  @param bit A `0` or a `1`.
+ *  @param[in, out] bit_width Pointer to the array length of @p bits; it will be
+ *      reduced by the number of bits written.
+ *  @param bits Array of binary digits.
+ *  @param max A multiple of 4 that is >= the value of @p bit_width.
  */
-static void add_bit(char* dest, char* buffer, uint8_t bit);
+static void fill_bits(char* dest, char* buffer, uint8_t* bit_width,
+                      const uint8_t* bits, const uint8_t max);
 
 /**
  *  Writes an array of binary digits to the given buffer.
  *  @remarks Called internally by ::binary_string and ::binary_string_64
- *  @param bin_str The target buffer (and first argument of ::add_bit)
- *  @param bit_buf The second argument of ::add_bit
+ *  @param bin_str The target buffer (and first argument of ::fill_bits)
+ *  @param bit_buf The second argument of ::fill_bits
  *  @param bits Array of binary digits.
  *  @param bit_width The length of the `bits` array.
  */
-static void write_bits(char* bin_str, char* bit_buf, uint8_t* bits,
+static void write_bits(char* bin_str, char* bit_buf, const uint8_t* bits,
                        uint8_t bit_width);
 
 long double factorial_of(uint32_t n)
@@ -341,269 +345,93 @@ bool parse_succeeded(const char* str, const int64_t val)
             || (val == 0 && str[0] == '0'));      /* number was '0' */
 }
 
-static inline void write_bits(char* bin_str, char* bit_buf, uint8_t* bits,
+static inline void write_bits(char* bin_str, char* bit_buf, const uint8_t* bits,
                               uint8_t bit_width)
 {
-    uint8_t z = 0;
-
     switch (bit_width)
     {
         case 64:
         case 63:
         case 62:
         case 61:
-            for (z = 64 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 60)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 64);
         case 60:
         case 59:
         case 58:
         case 57:
-            for (z = 60 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 56)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 60);
         case 56:
         case 55:
         case 54:
         case 53:
-            for (z = 56 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 52)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 56);
         case 52:
         case 51:
         case 50:
         case 49:
-            for (z = 52 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 48)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 52);
         case 48:
         case 47:
         case 46:
         case 45:
-            for (z = 48 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 44)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 48);
         case 44:
         case 43:
         case 42:
         case 41:
-            for (z = 44 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 40)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 44);
         case 40:
         case 39:
         case 38:
         case 37:
-            for (z = 40 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 36)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 40);
         case 36:
         case 35:
         case 34:
         case 33:
-            for (z = 36 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 32)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 36);
         case 32:
         case 31:
         case 30:
         case 29:
-            for (z = 32 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 28)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 32);
         case 28:
         case 27:
         case 26:
         case 25:
-            for (z = 28 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 24)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 28);
         case 24:
         case 23:
         case 22:
         case 21:
-            for (z = 24 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 20)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 24);
         case 20:
         case 19:
         case 18:
         case 17:
-            for (z = 20 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 16)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 20);
         case 16:
         case 15:
         case 14:
         case 13:
-            for (z = 16 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 12)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 16);
         case 12:
         case 11:
         case 10:
         case 9:
-            for (z = 12 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 8)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 12);
         case 8:
         case 7:
         case 6:
         case 5:
-            for (z = 8 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 4)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
-
-            add_bit(bin_str, bit_buf, ASCII_GAP);
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 8);
         case 4:
         case 3:
         case 2:
         case 1:
-            for (z = 4 - bit_width; z > 0; z--)
-            {
-                add_bit(bin_str, bit_buf, ASCII_ZERO);
-            }
-
-            while (bit_width > 0)
-            {
-                add_bit(bin_str, bit_buf, bits[bit_width]);
-                bit_width--;
-            }
+            fill_bits(bin_str, bit_buf, &bit_width, bits, 4);
             break;
-        case 0:
+        default:
             memcpy((void*)bin_str, "0000", 5);
             break;
     }
@@ -632,4 +460,16 @@ static inline void add_bit(char* dest, char* buffer, uint8_t bit)
     {
         append_string(dest, buffer, BIT_BUFFER_SIZE);
     }
+}
+
+static inline void fill_bits(char* dest, char* buffer, uint8_t* bit_width,
+                             const uint8_t* bits, const uint8_t max)
+{
+    for (uint8_t i = max - *bit_width; i > 0; i--)
+        add_bit(dest, buffer, ASCII_ZERO);
+
+    while (*bit_width > (max - 4)) add_bit(dest, buffer, bits[(*bit_width)--]);
+
+    if (max > 4)
+        add_bit(dest, buffer, ASCII_GAP);
 }

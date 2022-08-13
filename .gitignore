@@ -34,6 +34,7 @@ target/
 .build/
 bin/
 test/cpputest/
+test/check
 doc*/
 .env/
 .vs/

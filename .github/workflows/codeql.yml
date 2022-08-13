@@ -21,10 +21,10 @@ jobs:
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
       with:
-        cmake-version: '3.1.x'
+        cmake-version: '3.13.x'
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       with:
         languages: 'cpp'
 
@@ -34,4 +34,4 @@ jobs:
         cmake --build _build -- moreinttypes
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2

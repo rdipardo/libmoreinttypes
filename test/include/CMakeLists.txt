@@ -1,5 +1,0 @@
-file(GLOB HELPER_LIB_SRC "*.c*")
-add_library(utesthelpers OBJECT ${HELPER_LIB_SRC})
-if (MSVC)
-    target_compile_options(utesthelpers PRIVATE /Od /MDd /EHsc /DDEBUG)
-endif()

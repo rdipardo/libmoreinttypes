@@ -1,23 +1,10 @@
-# Contributing
-
-#### Start by reading the [Code of Conduct][]
-
-Browse the [open issues][].
-Feel free to open a new issue if nothing is available.
-
-Fork the main branch. Read about [making forks][] if you need help with this step.
-
-Clone your fork.
-
-Make sure the project compiles on your machine by following the [build instructions][].
-
 ## Pull Request Process
 
-This library is tested with the [CppUTest](https://cpputest.github.io) framework.
+This library is tested with the [Check](https://libcheck.github.io/check) unit testing framework.
 
 If you are contributing to the library's API, you need to:
 
-- look at some [sample test cases] to get familiar with the macros used by CppUTest
+- read [this tutorial] on writing tests for Check
 - find a [test suite] related to the *module* (i.e. header file) you worked on
 - if your module is brand new, create a new suite and write your tests there
 
@@ -43,7 +30,7 @@ For **all** contributions, make sure to:
 |                                                         | Comment (doc) style                                |
 |:--------------------------------------------------------|:---------------------------------------------------|
 |  files with `.h`, `.c` extensions                       | `/* ISO C  */`                                     |
-|  files with `.cpp`, `.cxx`, `.hpp`, `.hxx` extensions   | `// C++ `                                          |
+|  files with `.cpp`, `.cxx`, `.hpp`, `.hxx` extensions   | `// C++`                                           |
 |  documentation comments                                 | - `/** block style */`, __never__ `/// line style` |
 |                                                         | - begin [tags] with `@`, __never__ `\`             |
 
@@ -59,14 +46,11 @@ For **all** contributions, make sure to:
 - **do** link your program with the main project library, like so: `target_link_libraries(my_demo_program PRIVATE moreinttypes)`
 
 
-[Code of Conduct]: CODE_OF_CONDUCT.md
-[making forks]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
 [create your pull request]: https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork
 [CMakeLists.txt]: https://www.jetbrains.com/help/clion/cmakelists-txt-file.html
-[open issues]: https://github.com/rdipardo/libmoreinttypes/issues?q=is%3Aissue+is%3Aopen
 [build instructions]: https://github.com/rdipardo/libmoreinttypes#building
 [main configuration file]: https://github.com/rdipardo/libmoreinttypes/blob/master/CMakeLists.txt
 [completed examples]: https://github.com/rdipardo/libmoreinttypes/tree/master/examples
-[sample test cases]: https://cpputest.github.io/manual.html#getting_started
+[this tutorial]: https://libcheck.github.io/check/doc/check_html/check_3.html#How-to-Write-a-Test
 [test suite]: https://github.com/rdipardo/libmoreinttypes/tree/master/test/src
 [tags]: https://www.doxygen.nl/manual/commands.html

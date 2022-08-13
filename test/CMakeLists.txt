@@ -2,39 +2,55 @@
 include (ExternalProject)
 set(CMAKE_INSTALL_RPATH lib)
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-set(CppUTestRootDirectory "${PROJECT_SOURCE_DIR}/test/cpputest")
+set(LibCheckRootDirectory "${PROJECT_SOURCE_DIR}/test/check")
 externalproject_add (
-    cpputest-build
-    GIT_REPOSITORY "https://github.com/cpputest/cpputest.git"
-    GIT_TAG latest-passing-build
-    PREFIX "${CppUTestRootDirectory}"
-    SOURCE_DIR "${CppUTestRootDirectory}/git"
-    BINARY_DIR "${CppUTestRootDirectory}/git/cpputest_build"
-    CMAKE_ARGS "-DCMAKE_BUILD_TYPE=Debug;-DEXTENSIONS=OFF;-DTESTS=OFF;-DTESTS_BUILD_DISCOVER=OFF"
+    libcheck
+    GIT_REPOSITORY "https://github.com/libcheck/check.git"
+    GIT_TAG "0.15.2"
+    GIT_SHALLOW 1
+    SOURCE_DIR "${LibCheckRootDirectory}"
+    BUILD_IN_SOURCE 0
+    CMAKE_ARGS "-DCMAKE_BUILD_TYPE=Debug;-DBUILD_TESTING=OFF"
     INSTALL_COMMAND ""
 )
-externalproject_get_property(cpputest-build BINARY_DIR)
-set(CPPUTEST_STATIC "libCppUTest.a")
+externalproject_get_property(libcheck BINARY_DIR)
 
-if (MSVC)
-    set(CPPUTEST_STATIC "CppUTest.lib")
+# link statically on all platforms but Linux:
+# https://github.com/libcheck/check/issues/156#issuecomment-402209866
+# https://github.com/libcheck/check/issues/48#issuecomment-224461999
+set(LIBCOMPAT "libcompat.a")
+if(CMAKE_HOST_APPLE OR MINGW)
+    set(LIBCHECK "libcheck.a")
+else()
+    set(LIBCHECK "libcheck.so")
 endif()
 
-list(APPEND UTEST_DEPS
-    "${BINARY_DIR}/src/CppUTest/${CPPUTEST_STATIC}"
-    moreinttypes)
-file(GLOB UTEST_SRC "src/*.c*")
+if (MSVC)
+    set(LIBCHECK "check.lib")
+    set(LIBCOMPAT "compat.lib")
+endif()
 
-add_subdirectory ("include")
-add_executable(utests ${UTEST_SRC} $<TARGET_OBJECTS:utesthelpers>)
-add_dependencies (utests cpputest-build)
-target_include_directories(utests PRIVATE "include" "${CppUTestRootDirectory}/git/include")
+file (TO_CMAKE_PATH "${BINARY_DIR}/src/${LIBCHECK}" LIBCHECK_PATH)
+file (TO_CMAKE_PATH "${BINARY_DIR}/lib/${LIBCOMPAT}" LIBCOMPAT_PATH)
+
+if(CMAKE_HOST_WIN32)
+    string(REGEX REPLACE "/" "\\\\" LIBCHECK "${LIBCHECK_PATH}")
+    string(REGEX REPLACE "/" "\\\\" LIBCOMPAT "${LIBCOMPAT_PATH}")
+else()
+    set(LIBCHECK "${LIBCHECK_PATH}")
+    set(LIBCOMPAT "${LIBCOMPAT_PATH}")
+endif()
+
+file(GLOB UTEST_SRC "src/*.c")
+add_executable(utests ${UTEST_SRC})
+add_dependencies (utests libcheck)
+target_include_directories(utests PRIVATE "${BINARY_DIR}" "${BINARY_DIR}/src")
+list(APPEND UTEST_DEPS "${LIBCHECK}" "${LIBCOMPAT}" moreinttypes)
 target_link_libraries(utests PRIVATE ${UTEST_DEPS})
 target_compile_definitions(utests PRIVATE -DUSE_64_BITS)
 
 if (MSVC)
-    target_compile_options(utests PRIVATE /Od /MDd /EHsc /DDEBUG)
-    target_link_libraries (utests PRIVATE winmm.lib)
+    target_compile_options(utests PRIVATE /Od /MDd /DDEBUG)
 endif()
 
 set(CHECKER )
@@ -44,7 +60,6 @@ if(WITH_VALGRIND)
         list (APPEND MEM_CHECK_ARGS
               --leak-check=full
               --track-origins=yes
-              --suppressions="${PROJECT_SOURCE_DIR}/test/valgrind.supp"
               --error-exitcode=1)
         list (APPEND CHECKER "${VALGRIND}" ${MEM_CHECK_ARGS})
         target_compile_definitions(utests PRIVATE -DVALGRIND)

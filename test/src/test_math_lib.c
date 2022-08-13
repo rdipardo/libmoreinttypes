@@ -1,90 +1,89 @@
-#include <cstdint>
-#include "TestHelpers.h"
-#include "CppUTest/TestHarness.h"
+#include <stdio.h>
+#include "suites.h"
 #include "moreinttypes/utils.h"
 
-using namespace TestHelpers;
-
-TEST_GROUP(Math){};
-
-TEST(Math, ParseIntFromBinaryString)
+START_TEST(ParseIntFromBinaryString)
 {
-    int parsed = parse_int("10101010", 2);
-    CHECK_EQUAL(170, parsed);
+    const int parsed = parse_int("10101010", 2);
+    ck_assert_int_eq(170, parsed);
 }
 
-TEST(Math, ParseIntFromOctalString)
+START_TEST(ParseIntFromOctalString)
 {
     const int parsed = parse_int("252", 8);
-    CHECK_EQUAL(170, parsed);
+    ck_assert_int_eq(170, parsed);
 }
 
-TEST(Math, ParseIntFromDecimalString)
+START_TEST(ParseIntFromDecimalString)
 {
     const int parsed = parse_int("170", 10);
-    CHECK_EQUAL(170, parsed);
+    ck_assert_int_eq(170, parsed);
 }
 
-TEST(Math, ParseIntFromHexString)
+START_TEST(ParseIntFromHexString)
 {
     const int parsed = parse_int("Aa", 16);
-    CHECK_EQUAL(170, parsed);
+    ck_assert_int_eq(170, parsed);
 }
 
-TEST(Math, ParseInt64FromHexString)
+START_TEST(ParseInt64FromHexString)
 {
     const uint64_t value = 0xFFFFFFFFFFFFFFF;
     const uint64_t parsed = MATCH_ARCH(parse_int)("FFFFFFFFFFFFFFF", 16);
-    CHECK_EQUAL_TEXT(value, parsed, "USE_64_BITS should be defined!");
+    ck_assert_msg(value == parsed, "USE_64_BITS should be defined!");
 }
 
-TEST(Math, ParseIntValidatesInput)
+START_TEST(ParseIntValidatesInput)
 {
     const int parsed = parse_int("", 2);
-    CHECK_EQUAL(0, parsed);
+    ck_assert_int_eq(0, parsed);
 }
 
-TEST(Math, ParseIntValidatesBase)
+START_TEST(ParseIntValidatesBase)
 {
     const int parsed = parse_int("abcd", 10);
-    CHECK_EQUAL(0, parsed);
+    ck_assert_int_eq(0, parsed);
 }
 
-TEST(Math, ParseIntChecksBounds)
+START_TEST(ParseIntChecksBounds)
 {
     const uint64_t value = 0;
     const uint64_t parsed =
         MATCH_ARCH(parse_int)("FFFFFFFFFFFFFFFFFFFFFFFF", 16);
-    CHECK_EQUAL(value, parsed);
+    ck_assert(value == parsed);
 }
 
-TEST(Math, FactorialOfZero)
+START_TEST(FactorialOfZero)
 {
-    const double f = (double)factorial_of(0);
-    DOUBLES_EQUAL(1.0, f, 0.1);
+    const long double f = factorial_of(0);
+    ck_assert_ldouble_eq_tol(1.0L, f, 0.1L);
 }
 
-TEST(Math, FactorialOfSix)
+START_TEST(FactorialOfSix)
 {
-    const double f = (double)factorial_of(6);
-    DOUBLES_EQUAL(720.0, f, 0.1);
+    const long double f = factorial_of(6);
+    ck_assert_ldouble_eq_tol(720.0L, f, 0.1L);
 }
 
-TEST(Math, FactorialOfChecksBounds)
+START_TEST(FactorialOfChecksBounds)
 {
-    const double f = (double)MATCH_ARCH(factorial_of)(0x1000);
-    DOUBLES_EQUAL(0.0, f, 0.1);
+    const long double f = MATCH_ARCH(factorial_of)(0x1000);
+    ck_assert_ldouble_eq_tol(0.0L, f, 0.1L);
 }
 
-TEST(Math, FactorialOfChecksBoundsGivenNegativeInput)
+START_TEST(FactorialOfChecksBoundsGivenNegativeInput)
 {
-    const double f = (double)MATCH_ARCH(factorial_of)(-1);
-    DOUBLES_EQUAL(0.0, f, 0.1);
+    const long double f = factorial_of(-1);
+    ck_assert_ldouble_eq_tol(0.0L, f, 0.1L);
 }
 
-// https://stackoverflow.com/a/7120740
-#if !(defined(_MSC_VER) || defined(VALGRIND))
-TEST(Math, FactorialOf170)
+START_TEST(FactorialOf64ChecksBoundsGivenNegativeInput)
+{
+    const long double f = factorial_of_64(-1);
+    ck_assert_ldouble_eq_tol(0.0L, f, 0.1L);
+}
+
+START_TEST(FactorialOf170)
 {
     const char* value =
         "7257415615307998964955965095451627218788030796485756987610814761435430"
@@ -92,12 +91,13 @@ TEST(Math, FactorialOf170)
         "7752419726689407394349778788471523324527373471412274801370200536059197"
         "3100433273922458354834163910515297271113307287253169560774338881425893"
         "093276062890708813790314496";
-    std::stringstream result;
-    factorial_to_string(170, result);
-    STRCMP_EQUAL(value, result.str().c_str());
+    const long double result = MATCH_ARCH(factorial_of)(170);
+    char szResult[512] = { 0 };
+    snprintf(szResult, 512, "%.0Lf", result);
+    ck_assert_str_eq(value, szResult);
 }
 
-TEST(Math, FactorialOf1754)
+START_TEST(FactorialOf1754)
 {
     const char* value =
         "1979261890105010055285037090156832449109147659845547453334913812144794"
@@ -171,8 +171,39 @@ TEST(Math, FactorialOf1754)
         "4386009180986933568188934783047318504875179817989069467811255178135892"
         "8289582491754088122265189877759716054142230730539765341914208711733424"
         "0920115573918239455805735698432";
-    std::stringstream result;
-    factorial_to_string(1754, result);
-    STRCMP_EQUAL(value, result.str().c_str());
+    const long double result = MATCH_ARCH(factorial_of)(1754);
+    char szResult[5120] = { 0 };
+    snprintf(szResult, 5120, "%.0Lf", result);
+    ck_assert_str_eq(value, szResult);
 }
+
+Suite* test_math_lib(void)
+{
+    Suite* suite;
+    TCase* tc_utils;
+    suite = suite_create("Math");
+    tc_utils = tcase_create("Utils");
+    tcase_add_test(tc_utils, ParseIntFromBinaryString);
+    tcase_add_test(tc_utils, ParseIntFromOctalString);
+    tcase_add_test(tc_utils, ParseIntFromDecimalString);
+    tcase_add_test(tc_utils, ParseIntFromHexString);
+    tcase_add_test(tc_utils, ParseInt64FromHexString);
+    tcase_add_test(tc_utils, ParseIntValidatesInput);
+    tcase_add_test(tc_utils, ParseIntValidatesBase);
+    tcase_add_test(tc_utils, ParseIntChecksBounds);
+    tcase_add_test(tc_utils, FactorialOfZero);
+    tcase_add_test(tc_utils, FactorialOfSix);
+
+/* https://stackoverflow.com/a/7120740 */
+#if !(defined(_MSC_VER) || defined(VALGRIND))
+    tcase_add_test(tc_utils, FactorialOf170);
+    tcase_add_test(tc_utils, FactorialOf1754);
 #endif
+#ifndef VALGRIND
+    tcase_add_test(tc_utils, FactorialOfChecksBounds);
+    tcase_add_test(tc_utils, FactorialOfChecksBoundsGivenNegativeInput);
+    tcase_add_test(tc_utils, FactorialOf64ChecksBoundsGivenNegativeInput);
+#endif
+    suite_add_tcase(suite, tc_utils);
+    return suite;
+}

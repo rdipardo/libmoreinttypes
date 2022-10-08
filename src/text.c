@@ -4,7 +4,7 @@
 #if defined(__GNUC__) && !defined(__MINGW32__)
 #include <moreinttypes/utils.h>
 /* use POSIX implementation of `alloca.h` when available */
-#include <alloca.h>
+#include <stdlib.h>
 #else
 #include <malloc.h>
 #include <moreinttypes/utils.h>

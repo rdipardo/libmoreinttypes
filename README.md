@@ -170,7 +170,7 @@ Make sure [doxygen] and [python] are installed and visible to your system's `PAT
 **This project took inspiration from the following sources:**
 - the [C Object System](https://github.com/CObjectSystem/COS). Like this library, it strives to be compatible with ANSI/C89 while taking advantage of C99 features at compile time
 - Schreiner, A.-T. (1993). [Object-oriented programming
-  in ANSI-C](https://www.cs.rit.edu/~ats/books/ooc.pdf). You can read the full text of this obscure classic for free online
+  with ANSI-C](https://www.cs.rit.edu/~ats/books/ooc.pdf). You can read the full text of this obscure classic for free online
 
 License
 -------

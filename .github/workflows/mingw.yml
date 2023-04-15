@@ -9,7 +9,7 @@ on:
     tags-ignore:
       - '**'
 env:
-  CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DBUILD_STATIC=ON'
   GENERATOR: '-G"MinGW Makefiles"'
 jobs:
   build:

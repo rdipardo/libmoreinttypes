@@ -25,10 +25,39 @@ set_target_properties (moreinttypes PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
-if(CMAKE_BUILD_TYPE MATCHES "Debug")
-  target_compile_definitions(moreinttypes PUBLIC _DEBUG)
+# ==================================================
+# Build options
+# ==================================================
+option(BUILD_STATIC
+  "Build ${CMAKE_PROJECT_NAME} as a static library" OFF)
+
+option(ENABLE_UBSAN
+  "GCC,Clang: Enable the Undefined Behavior Sanitizer (ubsan)" ON)
+
+if (BUILD_STATIC)
+  add_library(moreinttypes-static STATIC ${LIB_SRC})
+
+  set_target_properties (moreinttypes-static PROPERTIES
+      VERSION ${PROJECT_VERSION}
+      COMPILE_DEFINITIONS MOREINTTYPES_EXPORTS_BUILT_AS_STATIC=1
+      OUTPUT_NAME moreinttypes
+      ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/static")
+
+  install (TARGETS moreinttypes-static
+           ARCHIVE DESTINATION lib)
 endif()
 
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+  add_compile_definitions(_DEBUG)
+  set_target_properties(moreinttypes PROPERTIES DEBUG_POSTFIX "d")
+  if (BUILD_STATIC)
+    set_target_properties(moreinttypes-static PROPERTIES DEBUG_POSTFIX "d")
+  endif()
+endif()
+
+# ==================================================
+# Toolchains
+# ==================================================
 if (MSVC)
   # https://stackoverflow.com/a/24767451
   set(CMAKE_C_FLAGS "")
@@ -42,20 +71,28 @@ if (MSVC)
   set(CMAKE_C_FLAGS_RELWITHDEBINFO "")
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
 
-  target_compile_definitions(moreinttypes PUBLIC -D_CRT_SECURE_NO_WARNINGS)
-  target_compile_options(moreinttypes PUBLIC /nologo /Zi /W3 /WX /wd4190)
+  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+  target_compile_options(moreinttypes PRIVATE /nologo /Zi /W4 /WX /wd4190)
+  if (BUILD_STATIC)
+    target_compile_options(moreinttypes-static PRIVATE /nologo /Zi /W4 /WX)
+  endif()
 
   if(CMAKE_BUILD_TYPE MATCHES "Debug")
-    target_compile_options(moreinttypes PRIVATE /Od /MTd /DDEBUG)
+    target_compile_options(moreinttypes PRIVATE /Od /LDd /DDEBUG)
     target_link_libraries(moreinttypes PRIVATE -OPT:REF -INCREMENTAL:NO -DEBUG)
-    set_target_properties(moreinttypes PROPERTIES DEBUG_POSTFIX "d")
+    if (BUILD_STATIC)
+      target_compile_options(moreinttypes-static PRIVATE /Od /MTd /DDEBUG)
+    endif()
   else()
-    target_compile_options(moreinttypes PUBLIC /Ob1 /Ot /MT /DNDEBUG)
+    target_compile_options(moreinttypes PUBLIC /Ob1 /Ot /LD /DNDEBUG)
+    if (BUILD_STATIC)
+      target_compile_options(moreinttypes-static PUBLIC /Ob1 /Ot /MT /DNDEBUG)
+    endif()
   endif()
 endif()
 # will test TRUE for MinGW -- see next comment
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
-  target_compile_options(moreinttypes PRIVATE
+  list(APPEND POSIX_C_FLAGS
         -Wall
         -Wextra
         -Werror
@@ -67,32 +104,33 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
         -Wno-implicit-fallthrough)
 
 if(NOT CMAKE_C_COMPILER_ID MATCHES "Clang")
-  target_compile_options(moreinttypes PRIVATE
+  list(APPEND POSIX_C_FLAGS
         -Warray-bounds=2
         -Werror=discarded-array-qualifiers
         -Werror=discarded-qualifiers)
 endif()
 
   # don't pass -lubsan to the linker when building with MinGW
-  if((CMAKE_COMPILER_IS_GNUCC
+  if(ENABLE_UBSAN AND ((CMAKE_COMPILER_IS_GNUCC
         AND CMAKE_C_COMPILER_VERSION GREATER 4.8)
       OR (CMAKE_C_COMPILER_ID MATCHES "Clang"
         AND CMAKE_C_COMPILER_VERSION GREATER 3.7)
-      AND NOT WIN32)
-    target_compile_options(moreinttypes PUBLIC
+      AND NOT WIN32))
+    list(APPEND POSIX_C_FLAGS
         -fsanitize=null,signed-integer-overflow,bounds,undefined)
     target_link_libraries(moreinttypes PUBLIC -fsanitize=undefined)
   endif()
   # enable the %Lf format specifier in MinGW builds
   if(WIN32)
-    target_compile_definitions(moreinttypes PUBLIC -D__USE_MINGW_ANSI_STDIO)
+    add_compile_definitions(__USE_MINGW_ANSI_STDIO)
   endif()
 
   if(CMAKE_BUILD_TYPE MATCHES "Debug")
-    target_compile_options(moreinttypes PRIVATE -Og -g)
-  else()
-    target_compile_options(moreinttypes PRIVATE -O2)
+    list(APPEND POSIX_C_FLAGS -Og)
   endif()
+
+  list (JOIN POSIX_C_FLAGS " " POSIX_C_FLAGS_STRING)
+  set (CMAKE_C_FLAGS "${POSIX_C_FLAGS_STRING} ${CMAKE_C_FLAGS}")
 endif()
 
 install (TARGETS moreinttypes

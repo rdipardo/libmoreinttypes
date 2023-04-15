@@ -9,12 +9,13 @@ on:
     tags-ignore:
       - '**'
 env:
-  CONFIG: '-DCMAKE_BUILD_TYPE=Debug'
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DBUILD_STATIC=ON'
 jobs:
   build:
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-latest]
+        ubsan: ['ON', '']
     runs-on: ${{matrix.os}}
     steps:
     - uses: actions/checkout@v3
@@ -23,6 +24,6 @@ jobs:
       with:
         cmake-version: '3.13.x'
     - name: Configure CMake
-      run: cmake -H. -B_build ${{env.CONFIG}}
+      run: cmake -H. -B_build ${{env.CONFIG}} -DENABLE_UBSAN=${{matrix.ubsan}}
     - name: Build and Test (${{matrix.os}})
       run: cmake --build _build

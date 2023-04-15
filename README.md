@@ -103,7 +103,7 @@ Building
 - (_optional_) [pkg-config](https://packages.debian.org/sid/pkg-config), if available for your system
 - (_optional_) [doxygen], if you'd like a local copy of [the documentation][]
 
-**Windows** developers can use the [Visual C++ compiler][] in either the 2015, 2017 or 2019 edition.
+**Windows** developers can use the [Visual C++ compiler][], edition 2015 or later.
 
 Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will work also.
 
@@ -121,6 +121,7 @@ The build steps are the same for all environments, with one exception:
 **Note**
 It's better to run `cmake .. -G"NMake Makefiles"` when using the Visual C++ compiler.
 This will prevent `cmake` from choosing a [Visual Studio Generator][] by default.
+
 Adding `-DWITH_VALGRIND=1` to the command line will run a memory leak check with [valgrind], if installed.
 
 - run:
@@ -198,7 +199,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-[Visual C++ compiler]: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2019
+[Visual C++ compiler]: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation
 [Developer Command Prompt]: https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs
 [MSYS2]: https://cmake.org/cmake/help/latest/generator/MSYS%20Makefiles.html#generator:MSYS%20Makefiles
 [MinGW]: https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html

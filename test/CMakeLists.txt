@@ -51,6 +51,10 @@ target_compile_definitions(utests PRIVATE -DUSE_64_BITS)
 
 if (MSVC)
     target_compile_options(utests PRIVATE /Od /MDd /DDEBUG)
+else()
+    target_compile_options(utests PRIVATE
+      -Wno-overlength-strings
+      -Wno-gnu-zero-variadic-macro-arguments)
 endif()
 
 set(CHECKER )

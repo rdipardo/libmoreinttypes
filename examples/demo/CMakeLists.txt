@@ -8,6 +8,8 @@ target_link_libraries(demo PRIVATE moreinttypes)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID MATCHES "Clang")
     target_compile_options(demo PRIVATE -ansi -Wall -Werror -pedantic)
+elseif(MSVC)
+    target_compile_options(demo PRIVATE /nologo /Zi /W3 /WX)
 endif()
 
 if(RUN_DEMO)

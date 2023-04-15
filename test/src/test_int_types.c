@@ -43,7 +43,7 @@ START_TEST(ParseIntFromHexString)
 
 START_TEST(ParseInt64FromHexString)
 {
-    const uint64_t value = 0xFFFFFFFFFFFFFFF;
+    const int64_t value = 0xFFFFFFFFFFFFFFF;
     Int64 i = integer64(0);
     from_string(i, "FFFFFFFFFFFFFFF", 16);
     ck_assert(value == i.value);

@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: libmoreinttypes
 Description: Minimal C extension library providing enhanced integer types.
-Version: 1.5.0
+Version: 1.6.0
 
 Libs: -L${libdir} -lmoreinttypes -Wl,-allow-shlib-undefined
 Cflags: -I${includedir}

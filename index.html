@@ -27,7 +27,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">moreinttypes
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.6.0</span>
    </div>
   </td>
  </tr>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>(<em>optional</em>) <a href="https://packages.debian.org/sid/pkg-config">pkg-config</a>, if available for your system</li>
 <li>(<em>optional</em>) <a href="https://www.doxygen.nl/index.html">doxygen</a>, if you'd like a local copy of <a href="https://rdipardo.github.io/libmoreinttypes">the documentation</a></li>
 </ul>
-<p><b>Windows</b> developers can use the <a href="https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation?view=vs-2019">Visual C++ compiler</a> in either the 2015, 2017 or 2019 edition.</p>
+<p><b>Windows</b> developers can use the <a href="https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation">Visual C++ compiler</a>, edition 2015 or later.</p>
 <p>Compiling with the <a href="https://cmake.org/cmake/help/latest/generator/MinGW%20Makefiles.html">MinGW</a> toolchain or inside the <a href="https://cmake.org/cmake/help/latest/generator/MSYS%20Makefiles.html#generator:MSYS%20Makefiles">MSYS2</a> environment will work also.</p>
 <p><b>Linux</b> devs can use <a href="https://gcc.gnu.org">gcc</a> (version 4.9 and up) or <a href="https://clang.llvm.org">clang</a> (version 3.8 and up).</p>
 <blockquote class="doxtable">
@@ -193,7 +193,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>make and enter the build directory: <code>mkdir cmake-build &amp;&amp; cd cmake-build</code></li>
 <li>run: <code>cmake ..</code>, or (to use a certain <a href="https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators">makefile generator</a>) <code>cmake .. -G"&lt;name_of_generator&gt;"</code></li>
 </ul>
-<p><b>Note</b> It's better to run <code>cmake .. -G"NMake Makefiles"</code> when using the Visual C++ compiler. This will prevent <code>cmake</code> from choosing a <a href="https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html">Visual Studio Generator</a> by default. Adding <code>-DWITH_VALGRIND=1</code> to the command line will run a memory leak check with <a href="https://valgrind.org/downloads">valgrind</a>, if installed.</p>
+<p><b>Note</b> It's better to run <code>cmake .. -G"NMake Makefiles"</code> when using the Visual C++ compiler. This will prevent <code>cmake</code> from choosing a <a href="https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html">Visual Studio Generator</a> by default.</p>
+<p>Adding <code>-DWITH_VALGRIND=1</code> to the command line will run a memory leak check with <a href="https://valgrind.org/downloads">valgrind</a>, if installed.</p>
 <ul>
 <li>run: <div></div></li>
 </ul>
@@ -211,7 +212,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <hr  />
 <p> <b>This project took inspiration from the following sources:</b></p><ul>
 <li>the <a href="https://github.com/CObjectSystem/COS">C Object System</a>. Like this library, it strives to be compatible with ANSI/C89 while taking advantage of C99 features at compile time</li>
-<li>Schreiner, A.-T. (1993). <a href="https://www.cs.rit.edu/~ats/books/ooc.pdf">Object-oriented programming in ANSI-C</a>. You can read the full text of this obscure classic for free online</li>
+<li>Schreiner, A.-T. (1993). <a href="https://www.cs.rit.edu/~ats/books/ooc.pdf">Object-oriented programming with ANSI-C</a>. You can read the full text of this obscure classic for free online</li>
 </ul>
 <h1>License </h1>
 <p>Copyright (c) 2020 Robert Di Pardo and Contributors. All rights reserved.</p>

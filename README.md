@@ -122,7 +122,9 @@ The build steps are the same for all environments, with one exception:
 It's better to run `cmake .. -G"NMake Makefiles"` when using the Visual C++ compiler.
 This will prevent `cmake` from choosing a [Visual Studio Generator][] by default.
 
-Adding `-DWITH_VALGRIND=1` to the command line will run a memory leak check with [valgrind], if installed.
+Adding `-DMOREINTTYPES_CHECK_WITH_VALGRIND=ON` to the command line will run a memory leak check with [valgrind], if installed.
+Add `-DMOREINTTYPES_BUILD_EXAMPLES=ON` to build some sample programs.
+To run a sample program immediately, pass `-DMOREINTTYPES_RUN_DEMO=ON`.
 
 - run:
 <div></div>

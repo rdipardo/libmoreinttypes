@@ -59,6 +59,10 @@ endif()
 
 set(CHECKER )
 if(WITH_VALGRIND)
+  deprecate_option(WITH_VALGRIND MOREINTTYPES_CHECK_WITH_VALGRIND)
+endif()
+
+if(MOREINTTYPES_CHECK_WITH_VALGRIND)
     find_program(VALGRIND "valgrind")
     if(VALGRIND)
         list (APPEND MEM_CHECK_ARGS

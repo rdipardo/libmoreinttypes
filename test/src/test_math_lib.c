@@ -2,6 +2,11 @@
 #include "suites.h"
 #include "moreinttypes/utils.h"
 
+/* https://stackoverflow.com/a/7120740 */
+#if !(defined(_MSC_VER) || defined(VALGRIND))
+#define HAVE_LONG_DOUBLE
+#endif
+
 START_TEST(ParseIntFromBinaryString)
 {
     const int parsed = parse_int("10101010", 2);
@@ -65,6 +70,7 @@ START_TEST(FactorialOfSix)
     ck_assert_ldouble_eq_tol(720.0L, f, 0.1L);
 }
 
+#ifndef VALGRIND
 START_TEST(FactorialOfChecksBounds)
 {
     const long double f = MATCH_ARCH(factorial_of)(0x1000);
@@ -82,7 +88,9 @@ START_TEST(FactorialOf64ChecksBoundsGivenNegativeInput)
     const long double f = factorial_of_64(-1);
     ck_assert_ldouble_eq_tol(0.0L, f, 0.1L);
 }
+#endif /* !VALGRIND */
 
+#ifdef HAVE_LONG_DOUBLE
 START_TEST(FactorialOf170)
 {
     const char* value =
@@ -176,6 +184,7 @@ START_TEST(FactorialOf1754)
     snprintf(szResult, 5120, "%.0Lf", result);
     ck_assert_str_eq(value, szResult);
 }
+#endif /* HAVE_LONG_DOUBLE */
 
 Suite* test_math_lib(void)
 {
@@ -194,10 +203,10 @@ Suite* test_math_lib(void)
     tcase_add_test(tc_utils, FactorialOfZero);
     tcase_add_test(tc_utils, FactorialOfSix);
 
-/* https://stackoverflow.com/a/7120740 */
-#if !(defined(_MSC_VER) || defined(VALGRIND))
+#ifdef HAVE_LONG_DOUBLE
     tcase_add_test(tc_utils, FactorialOf170);
     tcase_add_test(tc_utils, FactorialOf1754);
+#undef HAVE_LONG_DOUBLE
 #endif
 #ifndef VALGRIND
     tcase_add_test(tc_utils, FactorialOfChecksBounds);

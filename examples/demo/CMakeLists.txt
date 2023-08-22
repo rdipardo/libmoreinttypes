@@ -12,7 +12,11 @@ elseif(MSVC)
     target_compile_options(demo PRIVATE /nologo /Zi /W3 /WX)
 endif()
 
-if(RUN_DEMO)
+if(MOREINTTYPES_BUILD_EXAMPLES AND RUN_DEMO)
+  deprecate_option(RUN_DEMO MOREINTTYPES_RUN_DEMO)
+endif()
+
+if(MOREINTTYPES_RUN_DEMO)
     add_custom_command(TARGET demo
                       POST_BUILD
                       COMMAND "demo"

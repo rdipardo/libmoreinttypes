@@ -84,6 +84,7 @@ START_TEST(FactorialOfSix)
     ck_assert_ldouble_eq_tol(720.0L, f, 0.1L);
 }
 
+#ifndef VALGRIND
 START_TEST(FactorialOfChecksBounds)
 {
     Int64 i = integer64(0x1000);
@@ -104,6 +105,7 @@ START_TEST(FactorialOf64ChecksBoundsGivenNegativeInput)
     const long double f = factorial(i);
     ck_assert_ldouble_eq_tol(0.0L, f, 0.1L);
 }
+#endif /* !VALGRIND */
 
 Suite* test_int_types(void)
 {

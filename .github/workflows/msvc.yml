@@ -1,34 +1,39 @@
 name: MSVC
 on:
   pull_request:
-    branches:
-      - 'ma**'
   push:
     branches:
-      - 'ma**'
+      - '**'
     tags-ignore:
       - '**'
 env:
-  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DBUILD_STATIC=ON'
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_STATIC=ON'
+  CONFIG_ARM: '-DMOREINTTYPES_BUILD_TESTS=OFF -DMOREINTTYPES_BUILD_EXAMPLES=ON'
   GENERATOR: '-G"NMake Makefiles"'
 jobs:
   build:
     strategy:
       matrix:
-        arch: [x86, x64]
-    runs-on: windows-2019
+        arch: [x86, x64, amd64_arm, amd64_arm64]
+        cmake: ['3.13', 'latest']
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
       with:
-        cmake-version: '3.13.x'
+        cmake-version: ${{ matrix.cmake }}
     - name: Set up MSVC
       uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: ${{matrix.arch}}
     - name: Configure CMake
+      if: ${{ !contains(matrix.arch, 'arm') }}
       run: cmake -H$(pwd) -B_build ${{env.CONFIG}} ${{env.GENERATOR}}
+      shell: powershell
+    - name: Configure CMake for ARM
+      if: ${{ contains(matrix.arch, 'arm') }}
+      run: cmake -H$(pwd) -B_build ${{env.CONFIG_ARM}} ${{env.GENERATOR}}
       shell: powershell
     - name: Build and Test (msvc ${{matrix.arch}})
       run: cmake --build _build

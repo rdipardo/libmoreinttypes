@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up CMake
       uses: jwlawson/actions-setup-cmake@v1
@@ -30,7 +30,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake -H. -B_build -DCMAKE_BUILD_TYPE=Debug
+        cmake -H. -B_build -DCMAKE_BUILD_TYPE=Debug -Wno-dev
         cmake --build _build -- moreinttypes
 
     - name: Perform CodeQL Analysis

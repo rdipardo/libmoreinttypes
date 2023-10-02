@@ -1,41 +1,38 @@
 name: MinGW
 on:
   pull_request:
-    branches:
-      - 'ma**'
   push:
     branches:
-      - 'ma**'
+      - '**'
     tags-ignore:
       - '**'
 env:
-  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DBUILD_STATIC=ON'
-  GENERATOR: '-G"MinGW Makefiles"'
+  CMAKE_CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_STATIC=ON'
+  CMAKE_GENERATOR: '-G"MinGW Makefiles"'
 jobs:
   build:
     strategy:
       matrix:
-        bits: [32, 64]
-    runs-on: windows-2019
-    env:
-      mingw: mingw${{matrix.bits}}
+        msystem: [mingw32, mingw64]
+    runs-on: windows-latest
     defaults:
       run:
-        shell: cmd
+        shell: msys2 {0}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    # https://github.com/msys2/setup-msys2/blob/main/examples/cmake.yml
     - name: Set up MinGW toolchain
       uses: msys2/setup-msys2@v2
       with:
-        msystem: ${{env.mingw}}
-        release: false
-    - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v1
-      with:
-        cmake-version: '3.13.x'
-    - name: Build and Test (${{env.mingw}})
+        msystem: ${{matrix.msystem}}
+        update: true
+        install: |
+          git
+          make
+        pacboy: |
+          toolchain:p
+          cmake:p
+    - name: Build and Test (${{matrix.msystem}})
       run: |
-        set "PATH=C:\msys64\${{ env.mingw }}\bin;%PATH:C:\Program Files\Git\usr\bin;=%"
-        mkdir _build && cd _build
-        cmake .. ${{env.CONFIG}} ${{env.GENERATOR}}
-        mingw32-make
+        cmake -H. -B_build ${{env.CMAKE_CONFIG}} ${{env.CMAKE_GENERATOR}}
+        cmake --build _build

@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.13) # https://github.com/libcheck/check/issues/325
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR};${CMAKE_MODULE_PATH}")
-include(ProjectVersion)
-include(DeprecatedOptions)
+include(cmake/ProjectVersion.cmake)
+include(cmake/DeprecatedOptions.cmake)
 
-project_version (PROJECT_VERSION "pkgconfig/moreinttypes.pc")
+project_version (PROJECT_VERSION "${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig/moreinttypes.pc")
 project (moreinttypes VERSION ${PROJECT_VERSION})
 
 file(GLOB LIB_SRC "${PROJECT_SOURCE_DIR}/src/*.c*")

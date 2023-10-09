@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 export DOXYGEN_PROJECT_NUMBER=$(awk '/^.*[0-9]\./{print $2}' ../pkgconfig/moreinttypes.pc)
-doxygen -u Doxyfile
 doxygen Doxyfile html
 cd ..
 python3 -m http.server --directory docs/html 2>/dev/null

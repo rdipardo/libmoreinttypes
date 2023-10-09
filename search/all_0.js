@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['append_5fstring_0',['append_string',['../d4/d61/group__text.html#gab7df5ef6620ab7e2f8726f9fb359718f',1,'append_string(char *dest, const char *src, size_t lim):&#160;text.c'],['../d4/d61/group__text.html#gab7df5ef6620ab7e2f8726f9fb359718f',1,'append_string(char *dest, const char *src, size_t lim):&#160;text.c']]],
-  ['as_5fbinary_1',['as_binary',['../d2/d46/group__int__fn__wrappers.html#gaffd476860fdd8b444c67642a5409b346',1,'Integral.h']]]
+  ['_22member_22_20functions_0',['&quot;Member&quot; Functions',['../da/ddb/group__byte__protected.html',1,'(Global Namespace)'],['../d3/d5a/group__int16__protected.html',1,'(Global Namespace)'],['../d0/d57/group__int64__protected.html',1,'(Global Namespace)'],['../d9/dd5/group__int__protected.html',1,'(Global Namespace)'],['../d2/d2e/group__sbyte__protected.html',1,'(Global Namespace)'],['../d3/dc7/group__uint16__protected.html',1,'(Global Namespace)'],['../db/dc3/group__uint64__protected.html',1,'(Global Namespace)'],['../dd/db5/group__uint__protected.html',1,'(Global Namespace)']]]
 ];

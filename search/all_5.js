@@ -1,14 +1,8 @@
 var searchData=
 [
-  ['int16_21',['Int16',['../db/d25/structInt16.html',1,'']]],
-  ['int16_22',['Int16',['../dc/db2/group__int16__class.html',1,'']]],
-  ['int32_23',['Int32',['../d5/d4a/structInt32.html',1,'']]],
-  ['int64_24',['Int64',['../de/d8d/structInt64.html',1,'']]],
-  ['int64_25',['Int64',['../df/d90/group__int64__class.html',1,'']]],
-  ['int32_26',['Int32',['../d5/d95/group__int__class.html',1,'']]],
-  ['interface_27',['Interface',['../d2/d46/group__int__fn__wrappers.html',1,'']]],
-  ['integral_28',['Integral',['../d3/dcb/group__int__interface.html',1,'']]],
-  ['integer_29',['integer',['../d0/dc1/group__int__ctor.html#gafebceb07843c912b224de929d65a2938',1,'Int32.h']]],
-  ['integer16_30',['integer16',['../d3/d5d/group__int16__ctor.html#ga04f32ab8fb59f669ae6bf1888428ba80',1,'Int16.h']]],
-  ['integer64_31',['integer64',['../d7/d14/group__int64__ctor.html#gab5c29538f40a74934081bcc643eebac9',1,'Int64.h']]]
+  ['factorial_11',['factorial',['../d2/d46/group__int__fn__wrappers.html#gad153a9079d484bcd9dc10998364c408e',1,'Integral.h']]],
+  ['factorial_5fof_12',['factorial_of',['../d1/d6a/group__numeric.html#ga0bcb86c8145c16ce88b72f6c14eb8311',1,'factorial_of(uint32_t n):&#160;numeric.c'],['../d1/d6a/group__numeric.html#ga0bcb86c8145c16ce88b72f6c14eb8311',1,'factorial_of(uint32_t n):&#160;numeric.c']]],
+  ['factorial_5fof_5f64_13',['factorial_of_64',['../d1/d6a/group__numeric.html#gacc8238b74d33916a286b963f790b33b9',1,'numeric.c']]],
+  ['from_5fnumeric_5fstring_14',['from_numeric_string',['../da/ddb/group__byte__protected.html#ga215523b94a36d6ebb4e770b8ee1b8358',1,'from_numeric_string(Byte *const restrict self, const char *str, int base):&#160;Byte.c'],['../d3/d5a/group__int16__protected.html#ga3815d08de6bea1646d0ce29edfe256df',1,'from_numeric_string(Int16 *const restrict self, const char *str, int base):&#160;Int16.c'],['../d9/dd5/group__int__protected.html#gaeb26b4e6cbaddbcf09bce6c15cd74e37',1,'from_numeric_string(Int32 *const restrict self, const char *str, int base):&#160;Int32.c'],['../d0/d57/group__int64__protected.html#ga6808b2512ae9269920de00fb51e2a804',1,'from_numeric_string(Int64 *const restrict self, const char *str, int base):&#160;Int64.c'],['../d2/d2e/group__sbyte__protected.html#ga1f2e3cf14a220630159046e6dfdd1d12',1,'from_numeric_string(Sbyte *const restrict self, const char *str, int base):&#160;Sbyte.c'],['../d3/dc7/group__uint16__protected.html#gae9f39cc8fed6c35569c7964f6d6ee286',1,'from_numeric_string(UInt16 *const restrict self, const char *str, int base):&#160;UInt16.c'],['../dd/db5/group__uint__protected.html#gac1b1a227043654033a25cfd3aaac6e00',1,'from_numeric_string(UInt32 *const restrict self, const char *str, int base):&#160;UInt32.c'],['../db/dc3/group__uint64__protected.html#ga3628afbd1c66180c2a9d8433aacc4d28',1,'from_numeric_string(UInt64 *const restrict self, const char *str, int base):&#160;UInt64.c']]],
+  ['from_5fstring_15',['from_string',['../d2/d46/group__int__fn__wrappers.html#ga74ba3cb46c35a51fbd8285d9996fc2e7',1,'Integral.h']]]
 ];

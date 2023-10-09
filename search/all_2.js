@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['constructor_6',['Constructor',['../db/d38/group__byte__ctor.html',1,'']]],
-  ['chomp_7',['chomp',['../d4/d61/group__text.html#ga71d6b8a156ae06f5099666fa7c252c0c',1,'text.c']]],
-  ['constructor_8',['Constructor',['../d3/d5d/group__int16__ctor.html',1,'']]],
-  ['constructor_9',['Constructor',['../d7/d14/group__int64__ctor.html',1,'']]],
-  ['constructor_10',['Constructor',['../d0/dc1/group__int__ctor.html',1,'']]],
-  ['constructor_11',['Constructor',['../d0/ddb/group__sbyte__ctor.html',1,'']]],
-  ['constructor_12',['Constructor',['../da/d78/group__uint16__ctor.html',1,'']]],
-  ['constructor_13',['Constructor',['../dc/d38/group__uint64__ctor.html',1,'']]],
-  ['constructor_14',['Constructor',['../df/deb/group__uint__ctor.html',1,'']]]
+  ['binary_5fstring_3',['binary_string',['../d1/d6a/group__numeric.html#ga869e8dc86ec9456656f2c627288216b3',1,'numeric.c']]],
+  ['binary_5fstring_5f64_4',['binary_string_64',['../d1/d6a/group__numeric.html#gab8e94d2b6cae7b46a29f308542958db0',1,'numeric.c']]],
+  ['byte_5',['Byte',['../dd/d8f/structByte.html',1,'']]],
+  ['byte_6',['byte',['../db/d38/group__byte__ctor.html#ga7a118373b78eb49ad2d8f5249968949e',1,'Byte.h']]],
+  ['byte_7',['Byte',['../df/dc8/group__byte__class.html',1,'']]]
 ];

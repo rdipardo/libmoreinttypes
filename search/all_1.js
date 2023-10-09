@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['binary_5fstring_2',['binary_string',['../d1/d6a/group__numeric.html#ga869e8dc86ec9456656f2c627288216b3',1,'numeric.c']]],
-  ['binary_5fstring_5f64_3',['binary_string_64',['../d1/d6a/group__numeric.html#gab8e94d2b6cae7b46a29f308542958db0',1,'numeric.c']]],
-  ['byte_4',['Byte',['../dd/d8f/structByte.html',1,'Byte'],['../db/d38/group__byte__ctor.html#ga7a118373b78eb49ad2d8f5249968949e',1,'byte():&#160;Byte.h']]],
-  ['byte_5',['Byte',['../df/dc8/group__byte__class.html',1,'']]]
+  ['append_5fstring_1',['append_string',['../d4/d61/group__text.html#gab7df5ef6620ab7e2f8726f9fb359718f',1,'append_string(char *dest, const char *src, size_t lim):&#160;text.c'],['../d4/d61/group__text.html#gab7df5ef6620ab7e2f8726f9fb359718f',1,'append_string(char *dest, const char *src, size_t lim):&#160;text.c']]],
+  ['as_5fbinary_2',['as_binary',['../d2/d46/group__int__fn__wrappers.html#gaffd476860fdd8b444c67642a5409b346',1,'Integral.h']]]
 ];

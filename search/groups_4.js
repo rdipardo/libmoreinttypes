@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sbyte_109',['Sbyte',['../dd/dfc/group__sbyte__class.html',1,'']]],
-  ['string_20lib_110',['String Lib',['../d4/d61/group__text.html',1,'']]]
+  ['math_20lib_92',['Math Lib',['../d1/d6a/group__numeric.html',1,'']]]
 ];

@@ -19,14 +19,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v1
+      uses: jwlawson/actions-setup-cmake@v2
       with:
         cmake-version: '3.13.x'
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
-        languages: 'cpp'
+        languages: 'c-cpp'
 
     - name: Build
       run: |
@@ -34,4 +34,6 @@ jobs:
         cmake --build _build -- moreinttypes
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:c-cpp"

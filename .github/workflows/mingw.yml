@@ -13,7 +13,9 @@ jobs:
   build:
     strategy:
       matrix:
-        msystem: [mingw32, mingw64]
+        include:
+          - { msystem: mingw64, arch: x86_64 }
+          - { msystem: mingw32, arch: i686 }
     runs-on: windows-latest
     defaults:
       run:
@@ -25,13 +27,11 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: ${{matrix.msystem}}
-        update: true
+        update: false
         install: |
           git
-          make
-        pacboy: |
-          toolchain:p
-          cmake:p
+          mingw-w64-${{matrix.arch}}-toolchain
+          mingw-w64-${{matrix.arch}}-cmake
     - name: Build and Test (${{matrix.msystem}})
       run: |
         cmake -H. -B_build ${{env.CMAKE_CONFIG}} ${{env.CMAKE_GENERATOR}}

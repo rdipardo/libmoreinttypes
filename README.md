@@ -109,8 +109,6 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
 
 **Linux** devs can use [gcc][] (version 4.9 and up) or [clang][] (version 3.8 and up).
 
-> This project hasn't been tested on **macOS**, but feel free to open a pull request with build instructions if you get it working!
-
 The build steps are the same for all environments, with one exception:
 
 - if you're using the **Visual C++ compiler**, start the [Developer Command Prompt][]; all other users can simply log in to their usual shell

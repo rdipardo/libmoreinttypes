@@ -37,7 +37,7 @@ pre.fragment {
 }
 
 div.fragment, div.line {
-  font-family: 'Source Code Pro', 'Roboto sans', monospace;
+  font-family: 'Source Code Pro', 'Roboto mono', monospace;
 }
 
 table.params td.paramname {

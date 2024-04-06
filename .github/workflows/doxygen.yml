@@ -3,13 +3,18 @@ on:
   push:
     paths:
       - '**/moreinttypes.pc'
+  workflow_dispatch:
 jobs:
   doxygen:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: write
+      contents: read
       pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Build docs
@@ -19,12 +24,12 @@ jobs:
          export DOXYGEN_PROJECT_NUMBER=$(awk '/^.*[0-9]\./{print $2}' ../pkgconfig/moreinttypes.pc)
          doxygen -u Doxyfile >/dev/null 2>&1
          doxygen Doxyfile html
-      - name: Publish
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          enable_jekyll: false
-          publish_dir: './docs/html'
-          user_name: 'actions-gh-pages[bot]'
-          user_email: 'actions-gh-pages@users.noreply.github.com'
-          commit_message: '${{ github.event.head_commit.message }}'
+          path: './docs/html'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

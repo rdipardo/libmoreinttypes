@@ -35,11 +35,13 @@ Features
   </tr>
 </table>
 
-- compiles on Windows and Linux platforms (so far)
+- compiles on Windows, macOS and Linux
 - compatible with code targeting ANSI C ([a GNU compiler][iso-c] supporting `-ansi` is required)
 
  **Note**
  A compiler supporting the C99 standard is required for building.
+
+- (since version 1.7) compatible with [CPM.cmake]. See [below](#cpm-integration) for a sample configuration.
 
 Examples
 --------
@@ -96,6 +98,37 @@ printf("6! = %.0Lf\n", f);
 // "6! = 720"
 ```
 
+[CPM][CPM.cmake] integration <a id="cpm-integration" aria-label="CPM Integration"></a>
+-----------------
+Add the following to your project's `CMakeLists.txt`:
+
+```cmake
+cmake_minimum_required (VERSION 3.14)
+
+# Download the 'get_cpm.cmake' module from https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.39.0/get_cpm.cmake
+include (get_cpm.cmake)
+
+project (try-libmoreinttypes)
+
+CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.7.0")
+
+add_executable (main "main.c")
+
+add_library (libmoreinttypes INTERFACE IMPORTED)
+
+target_link_libraries (main PUBLIC moreinttypes)
+
+target_include_directories (main
+    PUBLIC
+    "${libmoreinttypes_SOURCE_DIR}/include"
+)
+
+set_target_properties (main moreinttypes
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
+)
+```
+
 Building
 --------
 - **All environments require [cmake](https://cmake.org)**
@@ -109,6 +142,71 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
 
 **Linux** devs can use [gcc][] (version 4.9 and up) or [clang][] (version 3.8 and up).
 
+### Build options
+<table border="0">
+  <tr>
+    <th/>
+    <th/>
+    <th align="left">Default</th>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_BUILD_TESTS=OFF|ON</code></td>
+    <td>build and run unit tests</td>
+    <td><code>ON</code></td>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_BUILD_EXAMPLES=OFF|ON</code></td>
+    <td>build sample programs</td>
+    <td><code>OFF</code></td>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_BUILD_STATIC=OFF|ON</code></td>
+    <td>build a static library</td>
+    <td><code>OFF</code></td>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_ENABLE_UBSAN=OFF|ON</code></td>
+    <td>enable the <a href="https://developers.redhat.com/blog/2014/10/16/gcc-undefined-behavior-sanitizer-ubsan" target="_blank">
+      Undefined Behavior Sanitizer</a> (GCC,Clang only)</td>
+    <td><code>OFF</code></td>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_RUN_DEMO</code></td>
+    <td>run a sample program immediately after the build (requires <code>MOREINTTYPES_BUILD_EXAMPLES</code>)</td>
+    <td><code>OFF</code></td>
+  </tr>
+  <tr>
+    <td><code>-DMOREINTTYPES_CHECK_WITH_VALGRIND=OFF|ON</code></td>
+    <td>run a memory leak check with <a href="https://valgrind.org" target="_blank">
+      valgrind</a>, if installed </td>
+    <td><code>OFF</code></td>
+  </tr>
+</table>
+
+### Deprecated options (since [1.7.0])
+<table border="0">
+  <tr>
+    <th/>
+    <th align="left">Replaced by...</th>
+  </tr>
+  <tr>
+    <td><code>-DBUILD_STATIC=OFF|ON</code></td>
+    <td><code>-DMOREINTTYPES_BUILD_STATIC</code></td>
+  </tr>
+  <tr>
+    <td><code>-DENABLE_UBSAN=OFF|ON</code></td>
+    <td><code>-DMOREINTTYPES_ENABLE_UBSAN</code></td>
+  </tr>
+  <tr>
+    <td><code>-DRUN_DEMO=OFF|ON</code></td>
+    <td><code>-DMOREINTTYPES_RUN_DEMO</code></td>
+  </tr>
+  <tr>
+    <td><code>-DWITH_VALGRIND=OFF|ON</code></td>
+    <td><code>-DMOREINTTYPES_CHECK_WITH_VALGRIND</code></td>
+  </tr>
+</table>
+
 The build steps are the same for all environments, with one exception:
 
 - if you're using the **Visual C++ compiler**, start the [Developer Command Prompt][]; all other users can simply log in to their usual shell
@@ -119,10 +217,6 @@ The build steps are the same for all environments, with one exception:
 **Note**
 It's better to run `cmake .. -G"NMake Makefiles"` when using the Visual C++ compiler.
 This will prevent `cmake` from choosing a [Visual Studio Generator][] by default.
-
-Adding `-DMOREINTTYPES_CHECK_WITH_VALGRIND=ON` to the command line will run a memory leak check with [valgrind], if installed.
-Add `-DMOREINTTYPES_BUILD_EXAMPLES=ON` to build some sample programs.
-To run a sample program immediately, pass `-DMOREINTTYPES_RUN_DEMO=ON`.
 
 - run:
 <div></div>
@@ -199,6 +293,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+[CPM.cmake]: https://github.com/cpm-cmake/CPM.cmake/#readme
 [Visual C++ compiler]: https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation
 [Developer Command Prompt]: https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs
 [MSYS2]: https://cmake.org/cmake/help/latest/generator/MSYS%20Makefiles.html#generator:MSYS%20Makefiles
@@ -213,4 +308,5 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
 [the documentation]: https://rdipardo.github.io/libmoreinttypes
 [polymorphic function macros]: https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html
+[1.7.0]: https://github.com/rdipardo/libmoreinttypes/commit/74e48d0
 [iso-c]: https://github.com/rdipardo/libmoreinttypes/blob/5355b132ebaeb939843587191859e10d26cd1080/include/moreinttypes/_compat.h

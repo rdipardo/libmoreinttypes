@@ -64,9 +64,13 @@ table.doxtable code {
 }
 
 #projectname {
-  font-size: 250%;
   margin: 0px;
   padding: 2px 8px;
+}
+
+#projectbrief {
+  font-size: 80%;
+  padding: 0 0 0 8px;
 }
 
 #nav-tree .item {

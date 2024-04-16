@@ -215,7 +215,7 @@ uint64_t parse_uint_64(const char* str, int base)
     parse_func = (base == 16) ? isxdigit : isdigit;
     errno = 0;
 
-    if (strlen(str) >= 2 && str[0] == '-' && parse_func(str[1]))
+    if (str && strlen(str) >= 2 && str[0] == '-' && parse_func(str[1]))
     {
         write_argument_error("Expected unsigned value but got '%s'", str);
     }

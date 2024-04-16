@@ -30,7 +30,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake -H. -B_build -DCMAKE_BUILD_TYPE=Debug -Wno-dev
+        cmake -H. -B_build -DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_ENABLE_UBSAN=ON
         cmake --build _build -- moreinttypes
 
     - name: Perform CodeQL Analysis

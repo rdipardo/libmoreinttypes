@@ -50,33 +50,37 @@ Examples
 #include <stdio.h>
 #include <moreinttypes/core.h> //< Make sure this comes last!
 
-Int32 i = integer(122333333);
+int main(void) {
+  Int32 i = integer(122333333);
 
-// access the underlying value . . .
-printf("%d\n", i.value);
-// "122333333"
+  // access the underlying value . . .
+  printf("%d\n", i.value);
+  // "122333333"
 
-// . . . but no direct assignment allowed!
-// i.value = 0;
-//
-// error: assignment of read-only member ‘value’
-//   i.value = 0;
-//           ^
+  // . . . but no direct assignment allowed!
+  // i.value = 0;
+  //
+  // error: assignment of read-only member ‘value’
+  //   i.value = 0;
+  //           ^
 
-// let's set it to the value of a binary string
-from_string(i, "10101010", 2);
-printf("New value: %d\n", i.value);
-// "New value: 170"
+  // let's set it to the value of a binary string
+  from_string(i, "10101010", 2);
+  printf("New value: %d\n", i.value);
+  // "New value: 170"
 
-// what's that in base-2?
-const char* bin_str = as_binary(i);
-printf("%s\n", bin_str);
-// "1010 1010"
+  // what's that in base-2?
+  const char *bin_str = as_binary(i);
+  printf("%s\n", bin_str);
+  // "1010 1010"
 
-from_string(i, "6", 10);
-long double f = factorial(i);
-printf("%d! = %.0Lf\n", i.value, f);
-// "6! = 720"
+  from_string(i, "6", 10);
+  long double f = factorial(i);
+  printf("%d! = %.0Lf\n", i.value, f);
+  // "6! = 720"
+
+  return 0;
+}
 ```
 
 **Using free functions**
@@ -84,18 +88,22 @@ printf("%d! = %.0Lf\n", i.value, f);
 #include <stdio.h>
 #include <moreinttypes/utils.h>
 
-int value = parse_int("10101010", 2);
-printf("%d\n", value);
-// "170"
+int main(void) {
+  int value = parse_int("10101010", 2);
+  printf("%d\n", value);
+  // "170"
 
-char buf[16]  = { 0 };
-const char* bin_str = binary_string(buf, 170);
-printf("%s\n", bin_str);
-// "1010 1010"
+  char buf[16] = {0};
+  const char *bin_str = binary_string(buf, 170);
+  printf("%s\n", bin_str);
+  // "1010 1010"
 
-long double f = factorial_of(6);
-printf("6! = %.0Lf\n", f);
-// "6! = 720"
+  long double f = factorial_of(6);
+  printf("6! = %.0Lf\n", f);
+  // "6! = 720"
+
+  return 0;
+}
 ```
 
 [CPM][CPM.cmake] integration <a id="cpm-integration" aria-label="CPM Integration"></a>
@@ -110,7 +118,7 @@ include (get_cpm.cmake)
 
 project (try-libmoreinttypes)
 
-CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.7.0")
+CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.8.0")
 
 add_executable (main "main.c")
 
@@ -171,7 +179,7 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
     <td><code>OFF</code></td>
   </tr>
   <tr>
-    <td><code>-DMOREINTTYPES_RUN_DEMO</code></td>
+    <td><code>-DMOREINTTYPES_RUN_DEMO=OFF|ON</code></td>
     <td>run a sample program immediately after the build (requires <code>MOREINTTYPES_BUILD_EXAMPLES</code>)</td>
     <td><code>OFF</code></td>
   </tr>

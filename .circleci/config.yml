@@ -1,0 +1,76 @@
+#
+# SPDX-FileCopyrightText: Copyright (c) 2024 Robert Di Pardo
+# SPDX-License-Identifier: BSD-2-Clause
+#
+version: 2.1
+
+orbs:
+  win: circleci/windows@5
+
+references:
+  executor: &executor
+    executor:
+      name: win/default
+  development: &development
+    filters:
+      tags:
+        only: /v.*/
+  production: &production
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /v.*/
+
+jobs:
+  build:
+    <<: *executor
+    parameters:
+      target-platform:
+        type: string
+      build-type:
+        type: string
+      build-static:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Install CMake
+          command: |
+            choco install python -y
+            refreshenv
+            python -m pip install cmake~=3.30.0
+            cmake --version
+      - run:
+         name: Configure
+         command: |
+           cmake -H'.' -B_build -A << parameters.target-platform >> `
+              -DCMAKE_BUILD_TYPE=<< parameters.build-type >> `
+              -DMOREINTTYPES_BUILD_STATIC=<< parameters.build-static >> `
+              -DMOREINTTYPES_BUILD_EXAMPLES=ON `
+              -DMOREINTTYPES_BUILD_TESTS=OFF
+      - when:
+          condition:
+            and:
+              - not:
+                  equal: [ 'ARM64', << parameters.target-platform >> ]
+              - not:
+                  equal: [ 'Debug', << parameters.build-type >> ]
+          steps:
+            - run:
+               name: Enable tests
+               command: cmake -H'.' -B_build -DMOREINTTYPES_BUILD_TESTS=ON
+      - run:
+          name: Build
+          command: cmake --build _build --config << parameters.build-type >>
+
+workflows:
+  cmake:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              target-platform: ['ARM64', 'Win32', 'x64']
+              build-type: ['Debug', 'MinSizeRel']
+              build-static: ['OFF', 'ON']
+          <<: *development

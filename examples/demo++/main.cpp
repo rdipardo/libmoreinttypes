@@ -26,5 +26,7 @@ int main()
     cout << value << endl;
 
     cout << "====================== FINISHED ======================" << endl;
+    cout << endl << "Press RETURN to continue . . . ";
+    cin.get();
     return 0;
 }

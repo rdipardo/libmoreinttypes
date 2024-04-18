@@ -14,6 +14,8 @@ externalproject_add (
     INSTALL_COMMAND ""
 )
 externalproject_get_property(libcheck BINARY_DIR)
+set(LIBCHECK_PREFIX "${BINARY_DIR}/src")
+set(LIBCOMPAT_PREFIX "${BINARY_DIR}/lib")
 
 # link statically on all platforms but Linux:
 # https://github.com/libcheck/check/issues/156#issuecomment-402209866
@@ -30,8 +32,13 @@ if (MSVC)
     set(LIBCOMPAT "compat.lib")
 endif()
 
-file (TO_CMAKE_PATH "${BINARY_DIR}/src/${LIBCHECK}" LIBCHECK_PATH)
-file (TO_CMAKE_PATH "${BINARY_DIR}/lib/${LIBCOMPAT}" LIBCOMPAT_PATH)
+if ("${CMAKE_GENERATOR}" MATCHES "(Visual Studio)")
+    set (LIBCHECK_PREFIX "${LIBCHECK_PREFIX}/$<CONFIG>")
+    set (LIBCOMPAT_PREFIX "${LIBCOMPAT_PREFIX}/$<CONFIG>")
+endif()
+
+file (TO_CMAKE_PATH "${LIBCHECK_PREFIX}/${LIBCHECK}" LIBCHECK_PATH)
+file (TO_CMAKE_PATH "${LIBCOMPAT_PREFIX}/${LIBCOMPAT}" LIBCOMPAT_PATH)
 
 if(CMAKE_HOST_WIN32)
     string(REGEX REPLACE "/" "\\\\" LIBCHECK "${LIBCHECK_PATH}")
@@ -50,7 +57,11 @@ target_link_libraries(utests PRIVATE ${UTEST_DEPS})
 target_compile_definitions(utests PRIVATE -DUSE_64_BITS)
 
 if (MSVC)
+  if ("${CMAKE_BUILD_TYPE}" MATCHES "[dD]eb(ug)?")
     target_compile_options(utests PRIVATE /Od /MDd /DDEBUG)
+  else()
+    target_compile_options(utests PRIVATE /MD)
+  endif()
 else()
     target_compile_options(utests PRIVATE
       -Wno-overlength-strings

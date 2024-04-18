@@ -11,7 +11,7 @@ body, table, table.directory, div, p, dl, div.contents,
   font-family: Nunito, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, #projectname, #projectnumber, .title {
+h1, h2, h3, h4, h5, h6, #projectname, #projectbrief, #projectnumber, .title {
   font-family: Raleway, Verdana, sans-serif;
 }
 
@@ -64,12 +64,13 @@ table.doxtable code {
 }
 
 #projectname {
+  font-size: 200%;
   margin: 0px;
   padding: 2px 8px;
 }
 
 #projectbrief {
-  font-size: 80%;
+  font-size: 90%;
   padding: 0 0 0 8px;
 }
 

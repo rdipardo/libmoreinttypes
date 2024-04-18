@@ -110,7 +110,7 @@ include (get_cpm.cmake)
 
 project (try-libmoreinttypes)
 
-CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.7.0")
+CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.8.0")
 
 add_executable (main "main.c")
 
@@ -171,7 +171,7 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
     <td><code>OFF</code></td>
   </tr>
   <tr>
-    <td><code>-DMOREINTTYPES_RUN_DEMO</code></td>
+    <td><code>-DMOREINTTYPES_RUN_DEMO=OFF|ON</code></td>
     <td>run a sample program immediately after the build (requires <code>MOREINTTYPES_BUILD_EXAMPLES</code>)</td>
     <td><code>OFF</code></td>
   </tr>

@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - '**/moreinttypes.pc'
-  workflow_dispatch:
 jobs:
   doxygen:
     environment:

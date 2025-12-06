@@ -113,12 +113,12 @@ Add the following to your project's `CMakeLists.txt`:
 ```cmake
 cmake_minimum_required (VERSION 3.14)
 
-# Download the 'get_cpm.cmake' module from https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.39.0/get_cpm.cmake
-include (get_cpm.cmake)
+# Download the latest 'CPM.cmake' module from https://github.com/cpm-cmake/CPM.cmake/releases
+include (CPM.cmake)
 
 project (try-libmoreinttypes)
 
-CPMAddPackage ("gh:rdipardo/libmoreinttypes#1.8.0")
+CPMAddPackage ("https://rdipardo.bitbucket.io/src/moreinttypes/libmoreinttypes-1.8.0.zip")
 
 add_executable (main "main.c")
 
@@ -191,7 +191,7 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
   </tr>
 </table>
 
-### Deprecated options (since [1.7.0])
+### Deprecated options (since 1.7.0)
 <table border="0">
   <tr>
     <th/>
@@ -218,7 +218,8 @@ Compiling with the [MinGW][] toolchain or inside the [MSYS2][] environment will 
 The build steps are the same for all environments, with one exception:
 
 - if you're using the **Visual C++ compiler**, start the [Developer Command Prompt][]; all other users can simply log in to their usual shell
-- clone the main branch and enter the root directory at the command line: `cd libmoreinttypes`
+- [download](/src/moreinttypes/) the source code and validate the [SHA256 checksum](/src/moreinttypes/checksums.sha256.txt)
+- unzip the archive and enter the root source directory, e.g., `cd libmoreinttypes-1.8.0`
 - make and enter the build directory: `mkdir cmake-build && cd cmake-build`
 - run: `cmake .. `, or (to use a certain [makefile generator][]) `cmake .. -G"<name_of_generator>"`
 
@@ -314,7 +315,6 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 [doxygen]: https://www.doxygen.nl/index.html
 [makefile generator]: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#makefile-generators
 [Visual Studio Generator]: https://cmake.org/cmake/help/latest/generator/Visual%20Studio%2014%202015.html
-[the documentation]: https://rdipardo.github.io/libmoreinttypes
-[polymorphic function macros]: https://rdipardo.github.io/libmoreinttypes/d2/d46/group__int__fn__wrappers.html
-[1.7.0]: https://github.com/rdipardo/libmoreinttypes/commit/74e48d0
-[iso-c]: https://github.com/rdipardo/libmoreinttypes/blob/5355b132ebaeb939843587191859e10d26cd1080/include/moreinttypes/_compat.h
+[the documentation]: /projects/moreinttypes/
+[polymorphic function macros]:/projects/moreinttypes/d2/d46/group__int__fn__wrappers.html
+[iso-c]: https://github.com/raagulns/libmoreinttypes/blob/5355b132ebaeb939843587191859e10d26cd1080/include/moreinttypes/_compat.h

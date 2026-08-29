@@ -10,11 +10,11 @@
 #include <stdio.h>
 #include <moreinttypes/core.h>
 
-void test_data_types();
-void test_string_lib();
-void test_math_lib();
+void test_data_types(void);
+void test_string_lib(void);
+void test_math_lib(void);
 
-int main()
+int main(void)
 {
     test_data_types();
     test_string_lib();
@@ -26,7 +26,7 @@ int main()
     return 0;
 }
 
-void test_data_types()
+void test_data_types(void)
 {
     Int32 an_int = integer(122333333);
     Int64 an_int_64 = integer64(0x77F9FE);
@@ -104,7 +104,7 @@ void test_data_types()
            factorial(an_int_64));
 }
 
-void test_math_lib()
+void test_math_lib(void)
 {
     printf("\n------------------ Templates -----------------\n");
 #ifdef USE_64_BITS
@@ -123,7 +123,7 @@ void test_math_lib()
     printf("1754! = %.0Lf\n", MATCH_ARCH(factorial_of)(1754));
 }
 
-void test_string_lib()
+void test_string_lib(void)
 {
     char nl[] = "Raw input\n\n";
     char blank[] = "";

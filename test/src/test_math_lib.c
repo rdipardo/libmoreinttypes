@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "suites.h"
+#include "TestHelpers.h"
 #include "moreinttypes/utils.h"
 
 /* https://stackoverflow.com/a/7120740 */
-#if !(defined(_MSC_VER) || defined(VALGRIND))
+#if !(defined(_MSC_VER) || defined(__ARM_ARCH) || defined(VALGRIND))
 #define HAVE_LONG_DOUBLE
 #endif
 
@@ -93,21 +94,18 @@ START_TEST(FactorialOf64ChecksBoundsGivenNegativeInput)
 #ifdef HAVE_LONG_DOUBLE
 START_TEST(FactorialOf170)
 {
-    const char* value =
+    static const char* value =
         "7257415615307998964955965095451627218788030796485756987610814761435430"
         "4032203000092562759553945544909364896218342898119758357683152362864404"
         "7752419726689407394349778788471523324527373471412274801370200536059197"
         "3100433273922458354834163910515297271113307287253169560774338881425893"
         "093276062890708813790314496";
-    const long double result = MATCH_ARCH(factorial_of)(170);
-    char szResult[512] = { 0 };
-    snprintf(szResult, 512, "%.0Lf", result);
-    ck_assert_str_eq(value, szResult);
+    ck_assert(factorial_equals(170, value));
 }
 
 START_TEST(FactorialOf1754)
 {
-    const char* value =
+    static const char* value =
         "1979261890105010055285037090156832449109147659845547453334913812144794"
         "4050325455850220281751827991384731053649988146087506707500713316118450"
         "2974635426269671776773173832120581379828244911141712726753259253850912"
@@ -179,10 +177,7 @@ START_TEST(FactorialOf1754)
         "4386009180986933568188934783047318504875179817989069467811255178135892"
         "8289582491754088122265189877759716054142230730539765341914208711733424"
         "0920115573918239455805735698432";
-    const long double result = MATCH_ARCH(factorial_of)(1754);
-    char szResult[5120] = { 0 };
-    snprintf(szResult, 5120, "%.0Lf", result);
-    ck_assert_str_eq(value, szResult);
+    ck_assert(factorial_equals(1754, value));
 }
 #endif /* HAVE_LONG_DOUBLE */
 

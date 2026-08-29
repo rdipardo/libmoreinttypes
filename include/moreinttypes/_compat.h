@@ -11,6 +11,11 @@
 
 #define STRICT_ANSI (__STDC_VERSION__ < 199901L)
 
+/* https://gcc.gnu.org/gcc-13/porting_to.html */
+#if defined(__cplusplus) && __GNUC__ >= 13
+#include <cstdint>
+#endif
+
 #if (__cplusplus || STRICT_ANSI) && !defined(_MSC_VER)
 #define restrict __restrict__
 #define inline __inline
@@ -43,8 +48,8 @@ typedef unsigned int uint32_t;
 typedef unsigned long uint64_t;
 #endif /* !<stdint.h> && !long long */
 
-#ifndef __cplusplus
-/* polyfill for <stdbool.h> */
+#if !defined(__cplusplus) && (__STDC_VERSION__ < 202311L)
+/* polyfill for <stdbool.h> and C23's native boolean type */
 
 typedef uint8_t bool;
 /* clang-format off */

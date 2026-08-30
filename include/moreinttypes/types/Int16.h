@@ -14,6 +14,14 @@ extern "C" {
 typedef struct Int16 {
     /** The underlying value of this Int16 */
     const int16_t value;
+    /** Adds the given amount to the value of this Int16. */
+    void (*add)(struct Int16* const restrict, int16_t);
+    /** Subtracts the given amount from the value of this Int16. */
+    void (*sub)(struct Int16* const restrict, int16_t);
+    /** Multiplies the value of this Int16 by the given amount. */
+    void (*mul)(struct Int16* const restrict, int16_t);
+    /** Divides the value of this Int16 by the given amount. */
+    void (*div)(struct Int16* const restrict, int16_t);
     /** Attempts to set the value of this Int16 by parsing a numeric string. */
     void (*parse)(struct Int16* const restrict, const char*, int);
     /** Returns the factorial of this Int16's value. */

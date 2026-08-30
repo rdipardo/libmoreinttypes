@@ -14,6 +14,14 @@ extern "C" {
 typedef struct Int32 {
     /** The underlying value of this Int32 */
     const int32_t value;
+    /** Adds the given amount to the value of this Int32. */
+    void (*add)(struct Int32* const restrict, int32_t);
+    /** Subtracts the given amount from the value of this Int32. */
+    void (*sub)(struct Int32* const restrict, int32_t);
+    /** Multiplies the value of this Int32 by the given amount. */
+    void (*mul)(struct Int32* const restrict, int32_t);
+    /** Divides the value of this Int32 by the given amount. */
+    void (*div)(struct Int32* const restrict, int32_t);
     /** Attempts to set the value of this Int32 by parsing a numeric string. */
     void (*parse)(struct Int32* const restrict, const char*, int);
     /** Returns the factorial of this Int32's value. */

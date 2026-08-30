@@ -14,6 +14,14 @@ extern "C" {
 typedef struct Byte {
     /** The underlying value of this Byte */
     const uint8_t value;
+    /** Adds the given amount to the value of this Byte. */
+    void (*add)(struct Byte* const restrict, uint8_t);
+    /** Subtracts the given amount from the value of this Byte. */
+    void (*sub)(struct Byte* const restrict, uint8_t);
+    /** Multiplies the value of this Byte by the given amount. */
+    void (*mul)(struct Byte* const restrict, uint8_t);
+    /** Divides the value of this Byte by the given amount. */
+    void (*div)(struct Byte* const restrict, uint8_t);
     /** Attempts to set the value of this Byte by parsing a numeric string. */
     void (*parse)(struct Byte* const restrict, const char*, int);
     /** Returns the factorial of this Byte's value. */

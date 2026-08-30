@@ -14,6 +14,14 @@ extern "C" {
 typedef struct Sbyte {
     /** The underlying value of this Sbyte */
     const int8_t value;
+    /** Adds the given amount to the value of this Sbyte. */
+    void (*add)(struct Sbyte* const restrict, int8_t);
+    /** Subtracts the given amount from the value of this Sbyte. */
+    void (*sub)(struct Sbyte* const restrict, int8_t);
+    /** Multiplies the value of this Sbyte by the given amount. */
+    void (*mul)(struct Sbyte* const restrict, int8_t);
+    /** Divides the value of this Sbyte by the given amount. */
+    void (*div)(struct Sbyte* const restrict, int8_t);
     /** Attempts to set the value of this Sbyte by parsing a numeric string. */
     void (*parse)(struct Sbyte* const restrict, const char*, int);
     /** Returns the factorial of this Sbyte's value. */

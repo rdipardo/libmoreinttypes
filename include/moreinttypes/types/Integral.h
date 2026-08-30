@@ -16,6 +16,21 @@
  *  @{
  */
 
+/** Adds 1 to the value of the given integer type.
+ *  @param i An integer type.
+ */
+#define increment(i) (i.add(&i, 1))
+
+/** Subtracts 1 from the value of the given integer type.
+ *  @param i An integer type.
+ */
+#define decrement(i) (i.sub(&i, 1))
+
+/** Negates the value of the given integer type.
+ *  @param i An integer type.
+ */
+#define negate(i) (i.mul(&i, -1))
+
 /** Returns the factorial of the given integer type.
  *  @param i An integer type.
  *  @returns The factorial of `i`, if computable, otherwise `0`.

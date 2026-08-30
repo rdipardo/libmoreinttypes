@@ -3,13 +3,19 @@
  */
 #include <moreinttypes/types/Int32.h>
 #include <string.h>
+#include "debug.h"
 
 /**
  *  @private
  *  @{
  */
+/** The arithmetic operations supported by an Int32 */
+enum Int32Op { ADD, SUB, MUL, DIV };
 /** Persistent storage for the return value of ::to_binary_string() */
 static char bin_str_buffer[128] = { 0 };
+/** Dispatches the arithmetic operation indicated by @param op */
+static void perform_int32_op(struct Int32* const restrict self, int32_t i,
+                             enum Int32Op op);
 /** @} */
 
 /**
@@ -19,6 +25,18 @@ static char bin_str_buffer[128] = { 0 };
  *  pointers belonging to every Int32 `struct`.
  *  @{
  */
+
+/** Called by Int32::add() */
+static void add_int32(struct Int32* const restrict self, int32_t i);
+
+/** Called by Int32::sub() */
+static void sub_int32(struct Int32* const restrict self, int32_t i);
+
+/** Called by Int32::mul() */
+static void mul_int32(struct Int32* const restrict self, int32_t i);
+
+/** Called by Int32::div() */
+static void div_int32(struct Int32* const restrict self, int32_t i);
 
 /** Called by Int32::parse(), a.k.a #from_string() */
 static void from_numeric_string(Int32* const restrict self, const char* str,
@@ -35,11 +53,17 @@ Int32 ConstructInteger(const int32_t value)
 {
 #if __STDC_VERSION__ >= 199901L
     Int32 self = { .value = value,
+                   .add = add_int32,
+                   .sub = sub_int32,
+                   .mul = mul_int32,
+                   .div = div_int32,
                    .parse = from_numeric_string,
                    .n_bang = to_factorial,
                    .to_bin = to_binary_string };
 #else /* !c99 initalizers */
-    Int32 self = { value, from_numeric_string, to_factorial, to_binary_string };
+    Int32 self = { value,        add_int32,       sub_int32,
+                   mul_int32,    div_int32,       from_numeric_string,
+                   to_factorial, to_binary_string };
 #endif
 
     return self;
@@ -67,4 +91,57 @@ static const char* to_binary_string(Int32* const restrict self)
 {
     memset(bin_str_buffer, 0, sizeof bin_str_buffer);
     return binary_string(bin_str_buffer, self->value);
+}
+
+static void add_int32(struct Int32* const restrict self, int32_t i)
+{
+    perform_int32_op(self, i, ADD);
+}
+
+static void sub_int32(struct Int32* const restrict self, int32_t i)
+{
+    perform_int32_op(self, i, SUB);
+}
+
+static void mul_int32(struct Int32* const restrict self, int32_t i)
+{
+    perform_int32_op(self, i, MUL);
+}
+
+static void div_int32(struct Int32* const restrict self, int32_t i)
+{
+    perform_int32_op(self, i, DIV);
+}
+
+static void perform_int32_op(struct Int32* const restrict self, int32_t b,
+                             enum Int32Op op)
+{
+    int32_t* value_accessor = 0;
+    *(const int32_t**)&value_accessor = &(self->value);
+    int64_t new_value = *value_accessor;
+    switch (op)
+    {
+        case ADD:
+            new_value += b;
+            break;
+        case SUB:
+            new_value -= b;
+            break;
+        case MUL:
+            new_value *= b;
+            break;
+        case DIV:
+            if (b > 0)
+                new_value /= b;
+            else
+                write_argument_error("Division by 0 attempted");
+            break;
+        default:
+            break;
+    }
+    if (new_value <= INT32_MAX)
+        *value_accessor = (int32_t)new_value;
+    else
+        write_value_error(INT64_PTR_FMT " is greater than %d", new_value,
+                          INT32_MAX);
 }

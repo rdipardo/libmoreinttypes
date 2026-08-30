@@ -14,6 +14,14 @@ extern "C" {
 typedef struct UInt32 {
     /** The underlying value of this UInt32 */
     const uint32_t value;
+    /** Adds the given amount to the value of this UInt32. */
+    void (*add)(struct UInt32* const restrict, uint32_t);
+    /** Subtracts the given amount from the value of this UInt32. */
+    void (*sub)(struct UInt32* const restrict, uint32_t);
+    /** Multiplies the value of this UInt32 by the given amount. */
+    void (*mul)(struct UInt32* const restrict, uint32_t);
+    /** Divides the value of this UInt32 by the given amount. */
+    void (*div)(struct UInt32* const restrict, uint32_t);
     /** Attempts to set the value of this UInt32 by parsing a numeric string. */
     void (*parse)(struct UInt32* const restrict, const char*, int);
     /** Returns the factorial of this UInt32's value. */

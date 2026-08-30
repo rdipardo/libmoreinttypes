@@ -14,6 +14,14 @@ extern "C" {
 typedef struct Int64 {
     /** The underlying value of this Int64 */
     const int64_t value;
+    /** Adds the given amount to the value of this Int64. */
+    void (*add)(struct Int64* const restrict, int64_t);
+    /** Subtracts the given amount from the value of this Int64. */
+    void (*sub)(struct Int64* const restrict, int64_t);
+    /** Multiplies the value of this Int64 by the given amount. */
+    void (*mul)(struct Int64* const restrict, int64_t);
+    /** Divides the value of this Int64 by the given amount. */
+    void (*div)(struct Int64* const restrict, int64_t);
     /** Attempts to set the value of this Int64 by parsing a numeric string. */
     void (*parse)(struct Int64* const restrict, const char*, int);
     /** Returns the factorial of this Int64's value. */

@@ -14,6 +14,14 @@ extern "C" {
 typedef struct UInt16 {
     /** The underlying value of this UInt16 */
     const uint16_t value;
+    /** Adds the given amount to the value of this UInt16. */
+    void (*add)(struct UInt16* const restrict, uint16_t);
+    /** Subtracts the given amount from the value of this UInt16. */
+    void (*sub)(struct UInt16* const restrict, uint16_t);
+    /** Multiplies the value of this UInt16 by the given amount. */
+    void (*mul)(struct UInt16* const restrict, uint16_t);
+    /** Divides the value of this UInt16 by the given amount. */
+    void (*div)(struct UInt16* const restrict, uint16_t);
     /** Attempts to set the value of this UInt16 by parsing a numeric string. */
     void (*parse)(struct UInt16* const restrict, const char*, int);
     /** Returns the factorial of this UInt16's value. */

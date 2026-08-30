@@ -6,9 +6,17 @@ on:
       - '**'
     tags-ignore:
       - '**'
+permissions:
+  contents: read
 env:
-  CMAKE_CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_STATIC=ON'
-  CMAKE_GENERATOR: '-G"MinGW Makefiles"'
+  # FIXME:
+  # ~/libmoreinttypes/test/check/lib/clock_gettime.c:35:5: error: redefinition of 'clock_gettime'
+  #  35 | int clock_gettime(clockid_t clk_id CK_ATTRIBUTE_UNUSED, struct timespec *ts)
+  #     |     ^
+  # /usr/lib/mingw-w64/winpthreads/include/pthread_time.h:112:35: note: previous definition is here
+  # 112 | WINPTHREAD_CLOCK_DECL int __cdecl clock_gettime(clockid_t clock_id, struct timespec *tp)
+  #     |                                   ^
+  CMAKE_CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_TESTS=OFF -DMOREINTTYPES_BUILD_STATIC=ON'
 jobs:
   build:
     strategy:
@@ -21,10 +29,13 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
+      with:
+        persist-credentials: false
     # https://github.com/msys2/setup-msys2/blob/main/examples/cmake.yml
     - name: Set up MinGW toolchain
-      uses: msys2/setup-msys2@v2
+      uses: msys2/setup-msys2@66cd2cce69caa17b53920067426061ca1de3a884 # 2.32.0
       with:
         msystem: ${{matrix.msystem}}
         update: false
@@ -34,5 +45,5 @@ jobs:
           mingw-w64-${{matrix.arch}}-cmake
     - name: Build and Test (${{matrix.msystem}})
       run: |
-        cmake -H. -B_build ${{env.CMAKE_CONFIG}} ${{env.CMAKE_GENERATOR}}
+        cmake -H. -B_build -G"MinGW Makefiles" $CMAKE_CONFIG
         cmake --build _build

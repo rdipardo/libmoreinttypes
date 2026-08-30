@@ -6,23 +6,25 @@ on:
       - '**'
     tags-ignore:
       - '**'
+permissions:
+  contents: read
 env:
-  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_STATIC=ON'
+  CONFIG: '-DCMAKE_BUILD_TYPE=Debug -DMOREINTTYPES_BUILD_STATIC=ON -DMOREINTTYPES_BUILD_EXAMPLES=ON'
 jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        cmake: ['3.13', 'latest']
+        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-26-intel, macos-26]
         ubsan: ['ON', '']
     runs-on: ${{matrix.os}}
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v2
+    - name: Checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
       with:
-        cmake-version: ${{ matrix.cmake }}
+        persist-credentials: false
     - name: Configure CMake
-      run: cmake -H. -B_build ${{env.CONFIG}} -DMOREINTTYPES_ENABLE_UBSAN=${{matrix.ubsan}}
+      run: cmake -H. -B_build $CONFIG -DMOREINTTYPES_ENABLE_UBSAN=$WITH_UBSAN
+      env:
+        WITH_UBSAN: ${{matrix.ubsan}}
     - name: Build and Test (${{matrix.os}})
       run: cmake --build _build

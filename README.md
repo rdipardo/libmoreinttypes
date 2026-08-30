@@ -118,7 +118,7 @@ include (CPM.cmake)
 
 project (try-libmoreinttypes)
 
-CPMAddPackage ("https://rdipardo.bitbucket.io/src/moreinttypes/libmoreinttypes-1.8.0.zip")
+CPMAddPackage ("https://rdipardo.bitbucket.io/src/moreinttypes/libmoreinttypes-1.9.0.zip")
 
 add_executable (main "main.c")
 
